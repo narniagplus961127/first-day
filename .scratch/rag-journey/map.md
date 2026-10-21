@@ -7,7 +7,7 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 | Ticket | Blocked by | Progress |
 | --- | --- | --- |
 | [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | Resolved |
-| [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | Not started |
+| [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | In progress |
 | [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | Not started |
 | [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Not started |
 | [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | Not started |
