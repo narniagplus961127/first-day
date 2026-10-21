@@ -1,12 +1,12 @@
 # FirstDay RAG journey tickets
 
-The user approved eight implementation tickets on October 21, 2026. Tickets are published, not implemented.
+The user approved eight implementation tickets on October 21, 2026. Implementation is underway on integration branch integrate/firstday-rag.
 
 Canonical specification: [First complete onboarding RAG journey](../onboarding/spec.md).
 
 | Ticket | Blocked by | Progress |
 | --- | --- | --- |
-| [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | Not started |
+| [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | Resolved |
 | [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | Not started |
 | [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | Not started |
 | [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Not started |
@@ -17,7 +17,7 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 
 ## Frontier
 
-Ticket 01 can start once implementation is authorized. Every ticket has ready-for-agent triage status; blocked tickets become executable only after their listed blockers complete. Tickets 05, 06, and 07 may proceed independently after 04.
+Ticket 01 is resolved and merged. Ticket 02 is the current dependency frontier. Every ticket has ready-for-agent triage status; blocked tickets become executable only after their listed blockers complete. Tickets 05, 06, and 07 may proceed independently after 04.
 
 ## Working rules
 
@@ -30,4 +30,12 @@ Ticket 01 can start once implementation is authorized. Every ticket has ready-fo
 
 ## Next
 
-Implementation has not started. When authorized, begin at ticket 01 and update this map as work starts, completes, or encounters a concrete blocker.
+Ticket 01 is resolved and merged, with desktop/mobile browser/API tests and a live Supabase authentication smoke check passed. Begin ticket 02 in its own branch/worktree. The dedicated FirstDay services and credentials are configured and passed access checks.
+
+## Service verification baseline
+
+- Dedicated FirstDay Supabase project ohvojrdwxlsbzwdrhpzr, free organization, Singapore; unrelated projects are untouched.
+- Live checks returned HTTP 200 for Supabase public Auth and administrator API, Groq openai/gpt-oss-20b, and Google gemini-embedding-2 with 768 output dimensions.
+- These are access/shape smoke checks, not yet evidence that the complete application journey works.
+- Secrets are stored only in the ignored root .env.local. All text files must use CRLF.
+- An isolated local Supabase fixture runs at loopback API port 55421 and database port 55422, separate from the existing HR test stack.

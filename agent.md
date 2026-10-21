@@ -16,3 +16,7 @@ See docs/agents/triage-labels.md.
 ### Domain docs
 Use a single-context glossary and ADR layout.
 See docs/agents/domain.md.
+
+## Line endings
+
+Use CRLF line endings for all text files. Preserve binary formats.
