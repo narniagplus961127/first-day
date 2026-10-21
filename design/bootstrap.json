@@ -1,0 +1,4 @@
+[
+  {"command":"file.new","params":{"name":"FirstDay - Onboarding assistant"}},
+  {"command":"frame.create","params":{"name":"00 Design system","x":0,"y":0,"width":1440,"height":1000,"props":{"fill":"#FFFCF8"}}}
+]

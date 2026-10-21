@@ -1,0 +1,370 @@
+[
+  {
+    "command": "file.new",
+    "ok": true,
+    "result": {
+      "index": 1
+    },
+    "step": 0
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 2
+    },
+    "step": 1
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 3
+    },
+    "step": 2
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 4
+    },
+    "step": 3
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 5
+    },
+    "step": 4
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 6
+    },
+    "step": 5
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 7
+    },
+    "step": 6
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 8
+    },
+    "step": 7
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 9
+    },
+    "step": 8
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 10
+    },
+    "step": 9
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 11
+    },
+    "step": 10
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 12
+    },
+    "step": 11
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 13
+    },
+    "step": 12
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 14
+    },
+    "step": 13
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 15
+    },
+    "step": 14
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 16
+    },
+    "step": 15
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 17
+    },
+    "step": 16
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 18
+    },
+    "step": 17
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 19
+    },
+    "step": 18
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 20
+    },
+    "step": 19
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 21
+    },
+    "step": 20
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 22
+    },
+    "step": 21
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 23
+    },
+    "step": 22
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 24
+    },
+    "step": 23
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 25
+    },
+    "step": 24
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 26
+    },
+    "step": 25
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 27
+    },
+    "step": 26
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 28
+    },
+    "step": 27
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 29
+    },
+    "step": 28
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 30
+    },
+    "step": 29
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 31
+    },
+    "step": 30
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 32
+    },
+    "step": 31
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 33
+    },
+    "step": 32
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 34
+    },
+    "step": 33
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 35
+    },
+    "step": 34
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 36
+    },
+    "step": 35
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 37
+    },
+    "step": 36
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 38
+    },
+    "step": 37
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 39
+    },
+    "step": 38
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 40
+    },
+    "step": 39
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 41
+    },
+    "step": 40
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 42
+    },
+    "step": 41
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 43
+    },
+    "step": 42
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 44
+    },
+    "step": 43
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 45
+    },
+    "step": 44
+  },
+  {
+    "command": "frame.create",
+    "ok": true,
+    "result": {
+      "id": 46
+    },
+    "step": 45
+  }
+]

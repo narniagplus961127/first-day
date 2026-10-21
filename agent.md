@@ -1,0 +1,18 @@
+# FirstDay
+
+An onboarding RAG application built with TypeScript.
+Create and review the Figcraft design file before development.
+
+## Agent skills
+
+### Issue tracker
+Track specifications, issues, and progress in local Markdown.
+See docs/agents/issue-tracker.md.
+
+### Triage labels
+Use the five default triage labels.
+See docs/agents/triage-labels.md.
+
+### Domain docs
+Use a single-context glossary and ADR layout.
+See docs/agents/domain.md.
