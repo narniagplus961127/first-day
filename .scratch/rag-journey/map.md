@@ -1,12 +1,12 @@
 # FirstDay RAG journey tickets
 
-The user approved eight implementation tickets on October 21, 2026. Tickets are published, not implemented.
+The user approved eight implementation tickets on October 21, 2026. Implementation is underway on integration branch integrate/firstday-rag.
 
 Canonical specification: [First complete onboarding RAG journey](../onboarding/spec.md).
 
 | Ticket | Blocked by | Progress |
 | --- | --- | --- |
-| [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | Not started |
+| [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | In progress |
 | [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | Not started |
 | [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | Not started |
 | [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Not started |
@@ -30,4 +30,4 @@ Ticket 01 can start once implementation is authorized. Every ticket has ready-fo
 
 ## Next
 
-Implementation has not started. When authorized, begin at ticket 01 and update this map as work starts, completes, or encounters a concrete blocker.
+Ticket 01 is in progress in its own worktree using the confirmed browser/API TDD seam. The dedicated FirstDay Supabase project is healthy; live provider secrets remain to be configured.
