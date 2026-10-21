@@ -31,3 +31,11 @@ Ticket 01 can start once implementation is authorized. Every ticket has ready-fo
 ## Next
 
 Ticket 01 is in progress in its own worktree using the confirmed browser/API TDD seam. The dedicated FirstDay Supabase project is healthy; live provider secrets remain to be configured.
+
+## Service verification baseline
+
+- Dedicated FirstDay Supabase project ohvojrdwxlsbzwdrhpzr, free organization, Singapore; unrelated projects are untouched.
+- Live checks returned HTTP 200 for Supabase public Auth and administrator API, Groq openai/gpt-oss-20b, and Google gemini-embedding-2 with 768 output dimensions.
+- These are access/shape smoke checks, not yet evidence that the complete application journey works.
+- Secrets are stored only in the ignored root .env.local. All text files must use CRLF.
+- An isolated local Supabase fixture runs at loopback API port 55421 and database port 55422, separate from the existing HR test stack.
