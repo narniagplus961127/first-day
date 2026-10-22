@@ -8,7 +8,7 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 | --- | --- | --- |
 | [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | Resolved |
 | [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | Resolved |
-| [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | Not started |
+| [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | In progress |
 | [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Not started |
 | [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | Not started |
 | [06: Replace a guide without interrupting answers](issues/06-safe-document-replacement.md) | 04 | Not started |
@@ -43,4 +43,4 @@ Ticket 02 is resolved and merged, with 10 real-Supabase desktop/mobile knowledge
 
 - Vercel connector access is restored: an explicit team-scoped project request succeeded. No FirstDay deployment exists yet.
 - Cloud migration knowledge_documents, version 20261022033938, is applied; both knowledge tables have RLS enabled.
-- The user reported disabling public signup, but the latest Auth settings API checks still returned publicSignupDisabled: false. Verification remains pending; this does not block local indexing work.
+- Public signup is now disabled, verified through the live Auth settings API after the user saved the change. Existing demo/admin identities remain provisioned.
