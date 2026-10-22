@@ -1,3 +1,10 @@
+import type { JobRole } from '@/lib/knowledge/types';
+export type ConversationScope = JobRole | 'All roles';
+export type HistoryExchange = {
+  scope: ConversationScope;
+  question: string;
+  answer: string;
+};
 export type Citation = {
   id: string;
   versionId: string;
