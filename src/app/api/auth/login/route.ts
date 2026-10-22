@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { assertSameOrigin, AuthError, authErrorResponse } from '@/lib/auth';
+import { assertSameOrigin } from '@/lib/auth';
+import { HttpError, httpErrorResponse } from '@/lib/http-error';
 export async function POST(request: Request) {
   try {
     assertSameOrigin(request);
@@ -14,14 +15,14 @@ export async function POST(request: Request) {
       !body.email.includes('@') ||
       !body.password
     )
-      throw new AuthError(400, 'Enter a valid email address and password.');
+      throw new HttpError(400, 'Enter a valid email address and password.');
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.signInWithPassword({
       email: body.email.trim(),
       password: body.password,
     });
     if (error)
-      throw new AuthError(
+      throw new HttpError(
         401,
         'Email or password is incorrect. Please try again.',
       );
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
     } = await supabase.auth.getUser();
     if (verificationError || !user) {
       await supabase.auth.signOut({ scope: 'local' });
-      throw new AuthError(
+      throw new HttpError(
         401,
         'Your session could not be verified. Please sign in again.',
       );
@@ -43,6 +44,6 @@ export async function POST(request: Request) {
       { headers: { 'Cache-Control': 'no-store' } },
     );
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }

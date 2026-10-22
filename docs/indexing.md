@@ -29,3 +29,5 @@ A separate real-provider smoke on 2026-10-22 created fictional cloud guide `08ef
 Cloud migrations: `20261022040150_knowledge_indexing` and `20261022040529_knowledge_read_policies`. CLI-generated filenames were renamed to the versions assigned by the cloud migration API. Security advisors report only the existing leaked-password-protection setting; performance advisors report only unused-index information on this small dataset. Keep foreign-key indexes despite their initial unused status.
 
 Replacement publication and retention now follow [safe replacement](replacement.md): successful candidates switch the active pointer atomically, older workers cannot publish after a newer candidate exists, and three published versions plus at most three unpublished drafts are retained per document.
+
+Decision context: [persisted bounded indexing](adr/0001-resumable-indexing.md). Initial and replacement files share the documented [language-admission policy](uploads.md).

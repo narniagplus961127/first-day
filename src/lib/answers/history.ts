@@ -1,5 +1,5 @@
 import 'server-only';
-import { AuthError } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 import type { ConversationScope, HistoryExchange } from './types';
 
 export function parseHistory(
@@ -8,13 +8,13 @@ export function parseHistory(
 ): HistoryExchange[] {
   if (value === undefined) return [];
   if (!Array.isArray(value) || value.length > 3)
-    throw new AuthError(
+    throw new HttpError(
       400,
       'Send at most three completed exchanges from the selected scope.',
     );
   return value.map((item: unknown) => {
     if (!item || typeof item !== 'object')
-      throw new AuthError(400, 'Send valid completed conversation exchanges.');
+      throw new HttpError(400, 'Send valid completed conversation exchanges.');
     const entry = item as Record<string, unknown>;
     if (
       entry.scope !== scope ||
@@ -25,7 +25,7 @@ export function parseHistory(
       !entry.answer.trim() ||
       entry.answer.length > 2000
     )
-      throw new AuthError(
+      throw new HttpError(
         400,
         'History must match the selected scope, with questions up to 1000 and answers up to 2000 characters.',
       );

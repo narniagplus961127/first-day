@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { assertSameOrigin, authErrorResponse } from '@/lib/auth';
+import { assertSameOrigin } from '@/lib/auth';
+import { httpErrorResponse } from '@/lib/http-error';
 export async function POST(request: Request) {
   try {
     assertSameOrigin(request);
@@ -12,6 +13,6 @@ export async function POST(request: Request) {
       { headers: { 'Cache-Control': 'no-store' } },
     );
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }

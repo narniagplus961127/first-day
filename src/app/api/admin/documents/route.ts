@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server';
-import {
-  assertSameOrigin,
-  AuthError,
-  authErrorResponse,
-  requireAdministrator,
-} from '@/lib/auth';
+import { assertSameOrigin, requireAdministrator } from '@/lib/auth';
+import { HttpError, httpErrorResponse } from '@/lib/http-error';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 import { boundedFormData, readMarkdownFile } from '@/lib/knowledge/upload';
 import { listDocuments, saveDocument } from '@/lib/knowledge/repository';
@@ -22,7 +18,7 @@ export async function POST(request: Request) {
       !title.trim() ||
       title.trim().length > 160
     ) {
-      throw new AuthError(
+      throw new HttpError(
         400,
         'Enter a document title between 1 and 160 characters.',
       );
@@ -31,7 +27,7 @@ export async function POST(request: Request) {
       typeof jobRole !== 'string' ||
       !JOB_ROLES.some((role) => role === jobRole)
     ) {
-      throw new AuthError(400, 'Choose one of the five supported job roles.');
+      throw new HttpError(400, 'Choose one of the five supported job roles.');
     }
     const result = await saveDocument({
       title: title.trim(),
@@ -44,7 +40,7 @@ export async function POST(request: Request) {
       headers: { 'Cache-Control': 'no-store' },
     });
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }
 
@@ -56,6 +52,6 @@ export async function GET() {
       { headers: { 'Cache-Control': 'no-store' } },
     );
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }

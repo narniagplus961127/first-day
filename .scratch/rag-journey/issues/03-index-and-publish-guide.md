@@ -4,7 +4,9 @@
 
 **Blocked by:** 02: Upload and inspect a knowledge document.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Introduce Google gemini-embedding-2 with server-side configuration. Verify actual account/model access using a small separate live check when credentials are available.
 - [x] Chunk Markdown while preserving meaningful headings, code instructions, version identity, and supporting passage locations; retain original text for reading.

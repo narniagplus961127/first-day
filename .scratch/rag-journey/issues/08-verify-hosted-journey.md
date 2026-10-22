@@ -4,7 +4,9 @@
 
 **Blocked by:** 05: Continue and reset a private demo conversation; 06: Replace a guide without interrupting answers; 07: Enforce demo limits and handle provider failures.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Recheck repository state, hosting eligibility/quotas, execution constraints, and required configuration. Do not imply free plans permit commercial use or guarantee availability.
 - [x] Use small separate live checks for actual Groq/Google access and compatible embeddings; missing credentials/access remain explicit prerequisites, not mock success.

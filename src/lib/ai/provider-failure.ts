@@ -1,6 +1,6 @@
 import 'server-only';
 import { APICallError } from 'ai';
-import { AuthError } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 
 function retryDelay(error: unknown) {
   if (!APICallError.isInstance(error)) return undefined;
@@ -51,7 +51,7 @@ export function providerFailure(
 ) {
   const quota = APICallError.isInstance(error) && error.statusCode === 429;
   const retryAfterSeconds = retryDelay(error) ?? (quota ? 60 : undefined);
-  return new AuthError(
+  return new HttpError(
     503,
     quota
       ? provider + ' ' + operation + ' quota reached. Wait before retrying.'

@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
-import {
-  assertSameOrigin,
-  authErrorResponse,
-  requireAdministrator,
-} from '@/lib/auth';
+import { assertSameOrigin, requireAdministrator } from '@/lib/auth';
+import { httpErrorResponse } from '@/lib/http-error';
 import { boundedFormData, readMarkdownFile } from '@/lib/knowledge/upload';
 import { replaceDocument } from '@/lib/knowledge/repository';
 export async function POST(
@@ -20,6 +17,6 @@ export async function POST(
       headers: { 'Cache-Control': 'no-store' },
     });
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }

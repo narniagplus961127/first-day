@@ -2,7 +2,7 @@ import 'server-only';
 import { createHmac } from 'node:crypto';
 import { isIP } from 'node:net';
 import { createClient } from '@supabase/supabase-js';
-import { AuthError } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 
 async function requestContext(request: Request) {
   const fixture = process.env.FIRSTDAY_REQUEST_CONTEXT_URL;
@@ -15,7 +15,7 @@ async function requestContext(request: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_URL !== 'http://127.0.0.1:55421' ||
       !process.env.FIRSTDAY_REQUEST_CONTEXT_SECRET
     )
-      throw new AuthError(
+      throw new HttpError(
         503,
         'Request identity configuration is unavailable.',
       );
@@ -38,7 +38,7 @@ async function requestContext(request: Request) {
       typeof result.now !== 'string' ||
       !Number.isFinite(Date.parse(result.now))
     )
-      throw new AuthError(503, 'Request identity is temporarily unavailable.');
+      throw new HttpError(503, 'Request identity is temporarily unavailable.');
     return { identity: result.identity, now: result.now };
   }
   // Only Vercel's boundary overwrites these headers. Self-hosted requests share
@@ -80,7 +80,7 @@ export async function admitQuestion(request: Request) {
     if (error || !data || typeof data.allowed !== 'boolean')
       throw new Error('Admission unavailable');
     if (!data.allowed)
-      throw new AuthError(
+      throw new HttpError(
         429,
         data.code === 'app_daily'
           ? 'The shared demo has reached 100 questions today. It resets at midnight UTC.'
@@ -92,8 +92,8 @@ export async function admitQuestion(request: Request) {
         },
       );
   } catch (error) {
-    if (error instanceof AuthError) throw error;
-    throw new AuthError(
+    if (error instanceof HttpError) throw error;
+    throw new HttpError(
       503,
       'Demo usage storage is temporarily unavailable. Please try again.',
     );

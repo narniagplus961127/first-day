@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { requireAdministrator, authErrorResponse } from '@/lib/auth';
+import { requireAdministrator } from '@/lib/auth';
+import { httpErrorResponse } from '@/lib/http-error';
 export async function GET() {
   try {
     return NextResponse.json(
@@ -7,6 +8,6 @@ export async function GET() {
       { headers: { 'Cache-Control': 'no-store' } },
     );
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }

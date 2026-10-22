@@ -35,3 +35,5 @@ A separate production-build check on October 22, 2026 uploaded a fictional Citru
 Run the production app on a loopback port with configured environment, then run node --env-file=.env.local scripts/smoke-answer.mjs with FIRSTDAY_BASE_URL pointing at that app (default http://127.0.0.1:3204). This script creates a fictional cloud guide and uses two answer calls; it requires private administrator and public learner identities. It logs only verification booleans, never credentials. Deterministic suites remain npm run test:knowledge and npm run test:e2e.
 
 Source retention is now implemented by [safe replacement](replacement.md): three published versions per document, exact historical links while retained, and explicit unavailable-source feedback after expiration. Source storage failures show retry guidance separately.
+
+Decision context: [validate a complete nonstreaming answer](adr/0002-validated-nonstreaming-answers.md).

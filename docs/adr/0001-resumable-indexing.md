@@ -1,0 +1,3 @@
+# Persist resumable indexing batches before publication
+
+A free serverless request can end before an entire Markdown guide is embedded, and embedding-provider quotas can interrupt progress. We chose persisted batches of at most four passages with a 60-second database lease and atomic publication, rather than detached background work or a new queue service: this preserves completed vectors, lets a later request resume, and keeps the current active version readable. The trade-off is additional claim/retry state and multiple administrator requests; an expired worker must not publish stale work, so revision checks and publication remain transactional.

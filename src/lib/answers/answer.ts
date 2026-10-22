@@ -3,7 +3,7 @@ import { embed, generateText, Output, APICallError } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
-import { AuthError } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 import { providerFailure } from '@/lib/ai/provider-failure';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { EMBEDDING_CONFIG } from '@/lib/knowledge/indexing';
@@ -74,7 +74,7 @@ export async function answerQuestion(
     })
     .abortSignal(AbortSignal.timeout(5000));
   if (error)
-    throw new AuthError(
+    throw new HttpError(
       503,
       'Knowledge search is temporarily unavailable. Please retry.',
     );
@@ -156,7 +156,7 @@ export async function answerQuestion(
         ['AbortError', 'TimeoutError'].includes(error.name))
     )
       throw providerFailure('Groq', 'answer generation', error);
-    throw new AuthError(
+    throw new HttpError(
       503,
       'FirstDay could not complete a verified answer. Please try again.',
       { code: 'answer_incomplete' },

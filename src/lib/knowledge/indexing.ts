@@ -1,7 +1,7 @@
 import 'server-only';
 import { APICallError, embedMany } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
-import { AuthError } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 import { providerFailure } from '@/lib/ai/provider-failure';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { inspectDocument } from './repository';
@@ -52,10 +52,10 @@ export function chunkMarkdown(content: string) {
 
 export async function indexDocument(id: string, versionId?: string | null) {
   const result = await inspectDocument(id);
-  if (!result) throw new AuthError(404, 'Guide not found.');
+  if (!result) throw new HttpError(404, 'Guide not found.');
   const { document, version } = result;
   if (versionId && versionId !== version.id)
-    throw new AuthError(
+    throw new HttpError(
       409,
       'A newer candidate exists. Reload this guide before indexing.',
     );
@@ -67,7 +67,7 @@ export async function indexDocument(id: string, versionId?: string | null) {
     };
   const chunks = chunkMarkdown(version.content);
   if (chunks.some((c) => c.content.length > 12000))
-    throw new AuthError(
+    throw new HttpError(
       400,
       'A source passage is too large to index. Split long paragraphs or code blocks and upload the guide again.',
     );
@@ -77,14 +77,14 @@ export async function indexDocument(id: string, versionId?: string | null) {
     { p_version: version.id, p_config: EMBEDDING_CONFIG },
   );
   if (claimError?.code === '40001')
-    throw new AuthError(
+    throw new HttpError(
       409,
       'A newer candidate exists. Reload this guide before indexing.',
     );
   if (claimError)
-    throw new AuthError(503, 'Indexing storage is unavailable. Please retry.');
+    throw new HttpError(503, 'Indexing storage is unavailable. Please retry.');
   if (!token)
-    throw new AuthError(
+    throw new HttpError(
       409,
       'This guide is being indexed. Wait a minute and retry.',
     );
@@ -137,7 +137,7 @@ export async function indexDocument(id: string, versionId?: string | null) {
           throw new Error('Invalid embedding response');
       } catch (error) {
         if (APICallError.isInstance(error) && error.statusCode === 400)
-          throw new AuthError(
+          throw new HttpError(
             503,
             'Google could not embed this content. Check passage size and model configuration before retrying.',
             { code: 'google_unavailable' },
@@ -157,7 +157,7 @@ export async function indexDocument(id: string, versionId?: string | null) {
       p_token: token,
     });
     if (published.error?.code === '40001' || published.error?.code === 'P0002')
-      throw new AuthError(
+      throw new HttpError(
         409,
         'A newer candidate exists. Reload this guide before indexing.',
       );
@@ -183,9 +183,9 @@ export async function indexDocument(id: string, versionId?: string | null) {
     };
   } catch (error) {
     const failure =
-      error instanceof AuthError
+      error instanceof HttpError
         ? error
-        : new AuthError(
+        : new HttpError(
             503,
             'Indexing storage is temporarily unavailable. Retry to resume saved progress.',
             { code: 'storage_unavailable' },

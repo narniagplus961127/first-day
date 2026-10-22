@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
-import {
-  assertSameOrigin,
-  authErrorResponse,
-  requireAdministrator,
-} from '@/lib/auth';
+import { assertSameOrigin, requireAdministrator } from '@/lib/auth';
+import { httpErrorResponse } from '@/lib/http-error';
 import { indexDocument } from '@/lib/knowledge/indexing';
 export async function POST(
   request: Request,
@@ -22,6 +19,6 @@ export async function POST(
       },
     );
   } catch (error) {
-    return authErrorResponse(error);
+    return httpErrorResponse(error);
   }
 }

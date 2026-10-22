@@ -4,7 +4,9 @@
 
 **Blocked by:** 04: Ask a question and inspect its evidence.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] An explicit administrator replacement action targets an existing document and reuses upload validation, indexing progress, and retry behavior.
 - [x] Candidate versions remain separate during pending, partial, and failed indexing.

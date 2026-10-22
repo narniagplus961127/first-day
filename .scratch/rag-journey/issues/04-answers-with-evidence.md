@@ -4,7 +4,9 @@
 
 **Blocked by:** 03: Index and publish a readable guide.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Authenticate and validate questions/search scope before embedding, retrieval, or generation. Job-role scope controls relevance, not document authorization.
 - [x] Embed live questions with the indexed Google model/configuration/dimensions and retrieve only fully indexed active versions.
