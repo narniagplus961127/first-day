@@ -23,6 +23,9 @@ export type DocumentVersion = {
   filename: string;
   content: string;
   status: 'pending' | 'processing' | 'ready' | 'failed';
+  chunk_count: number;
+  index_error: string | null;
+  published_at: string | null;
   created_at: string;
 };
 

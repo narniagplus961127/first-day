@@ -16,6 +16,7 @@ export function WorkspaceShell({
         {admin ? 'Documents' : 'Overview'}
       </Link>
       {admin && <Link href="/workspace">Learner workspace</Link>}
+      <Link href="/knowledge">Knowledge library</Link>
     </>
   );
   return (

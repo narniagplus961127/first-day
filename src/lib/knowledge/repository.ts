@@ -38,7 +38,9 @@ export async function inspectDocument(id: string): Promise<{
   if (!document) return null;
   const { data: version, error: versionError } = await client
     .from('knowledge_versions')
-    .select('id,document_id,filename,content,status,created_at')
+    .select(
+      'id,document_id,filename,content,status,created_at,chunk_count,index_error,published_at',
+    )
     .eq('document_id', id)
     .order('created_at', { ascending: false })
     .limit(1)
@@ -62,4 +64,38 @@ export async function saveDocument(input: {
   });
   if (error) throw storageError();
   return data;
+}
+
+export async function publishedDocument(id: string) {
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return null;
+  const client = await createSupabaseServerClient();
+  const { data: document, error } = await client
+    .from('knowledge_documents')
+    .select('id,title,job_role,active_version_id,created_at')
+    .eq('id', id)
+    .not('active_version_id', 'is', null)
+    .maybeSingle();
+  if (error) throw storageError();
+  if (!document) return null;
+  const { data: version, error: versionError } = await client
+    .from('knowledge_versions')
+    .select(
+      'id,document_id,filename,content,status,created_at,chunk_count,index_error,published_at',
+    )
+    .eq('id', document.active_version_id)
+    .eq('status', 'ready')
+    .not('published_at', 'is', null)
+    .maybeSingle();
+  if (versionError) throw storageError();
+  return version ? { document, version } : null;
+}
+export async function indexProgress(versionId: string) {
+  const client = await createSupabaseServerClient();
+  const { count, error } = await client
+    .from('knowledge_chunks')
+    .select('id', { count: 'exact', head: true })
+    .eq('version_id', versionId)
+    .not('embedding', 'is', null);
+  if (error) throw storageError();
+  return count || 0;
 }
