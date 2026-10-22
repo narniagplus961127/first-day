@@ -25,14 +25,18 @@ Text files use CRLF, enforced through Git attributes and the Prettier configurat
 
 ## Current slice
 
-Ticket 01 provides real login, demo popup, verified learner/admin routing, session validation, and sign-out. Knowledge management and RAG answers arrive in subsequent slices and are not presented as already functional.
+Tickets 01–04 provide verified login, administrator upload/indexing, a published learner library, and grounded answers with exact-version source inspection. Browser-local follow-ups/reset, safe replacement, and durable shared limits arrive in the next slices. Do not expose the demo publicly before those limits are complete.
 
 ## Knowledge upload and inspection
 
-Administrators can upload one English UTF-8 `.md` file (up to 100 KiB), assign one of the five job roles, and reopen the persisted candidate. Uploaded candidates are marked **Not indexed** and remain invisible to learners. Indexing/publication arrives in ticket 03. The application uses the authenticated Supabase client and administrator RLS; it does not use a service key to bypass document policies. Markdown preview skips raw HTML and images, and keeps headings and code blocks.
+Administrators can upload one English UTF-8 `.md` file (up to 100 KiB), assign one of the five job roles, and reopen the persisted candidate. Uploaded candidates are marked **Not indexed** and remain invisible to learners. Administrators can now index and publish completed guides. The application uses the authenticated Supabase client and administrator RLS; it does not use a service key to bypass document policies. Markdown preview skips raw HTML and images, and keeps headings and code blocks.
 
 Apply the committed Supabase migration to the dedicated FirstDay project before using upload in a cloud-configured application. The upload RPC creates the document and candidate version atomically. An identically named file does not overwrite an existing guide.
 
 `npm run test:knowledge` exercises public browser/API journeys against a real isolated local Supabase stack on ports 55421/55422. It uses real Auth, PostgREST, PostgreSQL, and RLS, not an in-memory database substitute. Start a separate Supabase CLI stack named `firstday-supabase-fixture` and save `supabase status --output json` to `firstday-supabase-fixture/status.json` in the OS temporary directory, or point `FIRSTDAY_TEST_SUPABASE_STATUS_FILE` to that private status JSON. The database container must be named `supabase_db_firstday-supabase-fixture`. Do not point this test fixture at production. Test setup checks loopback access, seeds only local test identities, and applies previously unapplied migrations to that isolated container. The existing authentication fixture suite remains `npm run test:e2e`.
 
 The local status file contains local service keys and must remain outside version control. No test setup command alters the dedicated cloud project or another local project's containers.
+
+## Ask FirstDay
+
+Open /chat after signing in to ask a question in a selected role or All roles. Configure server-only GROQ_API_KEY and GOOGLE_GENERATIVE_AI_API_KEY; GROQ_MODEL defaults to openai/gpt-oss-20b. Answers use Google query embeddings, active-version Supabase vector retrieval, and direct Groq generation. Open each source link to inspect its exact version and passage. See [answer contract](docs/answers.md) and [indexing contract](docs/indexing.md) for bounds, configuration, and verification.

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { WorkspaceNav } from './workspace-nav';
 import { Brand } from './brand';
 import { SignOutButton } from './sign-out-button';
 import type { Viewer } from '@/lib/auth';
@@ -10,15 +10,7 @@ export function WorkspaceShell({
   children: React.ReactNode;
 }) {
   const admin = user.role === 'admin';
-  const navigation = (
-    <>
-      <Link href={admin ? '/admin' : '/workspace'} className="active">
-        {admin ? 'Documents' : 'Overview'}
-      </Link>
-      {admin && <Link href="/workspace">Learner workspace</Link>}
-      <Link href="/knowledge">Knowledge library</Link>
-    </>
-  );
+  const navigation = <WorkspaceNav admin={admin} />;
   return (
     <div className="app-layout">
       <aside className="sidebar">
