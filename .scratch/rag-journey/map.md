@@ -3,9 +3,9 @@
 ## Current state — October 23, 2026
 
 - GitHub main: c386c3bd98df1f015df383e337b864b901ded51d (PR #3 merged).
-- Production: https://qw-firstday.vercel.app, READY dpl_9zY2yXUBv69XbfJMjSdk3sr9anaK, source git, commit matches main. Branch preview and main production auto-deploy were observed, not only configured.
-- Retrospective items 2–6 are in progress on chore/retro-environment; CI/pre-commit wiring (item 1) is excluded. Saved Codex project path is correct; this old chat retains stale writable-root context.
-- Navigation baseline: knowledge library 1.4–2.1 seconds, chat/overview about 0.6–0.9 seconds. Singapore region experiment follows.
+- Production: https://qw-firstday.vercel.app, READY dpl_Gv8UkXSwby2UG8wneFngGxqRKW8w, source cli, app 000a48c459db4ef48192fafd72c737220833af0e in Singapore sin1. This performance fix is ahead of GitHub main; no branch push or merge was performed for this follow-up. Earlier branch/main auto-deployment was verified after PR #3.
+- Retrospective follow-up is complete on chore/retro-environment (item 2 needs a fresh chat to refresh active permissions); CI/pre-commit wiring (item 1) is excluded. Saved Codex project path is correct; this old chat retains stale writable-root context.
+- Navigation fixed: knowledge library dropped from 1.4–2.1 seconds to 380–486 ms after the region-only change. Project default region also verified as sin1 for future Git deployments. See docs/navigation-performance.md for the red/green benchmark.
 
 The sections below retain historical implementation and deployment evidence.
 
@@ -123,3 +123,7 @@ Review fixes verified/released: app 9a8886e, READY dpl_AS3DxkkkeSHA5FYPczu24j5Ad
 - Verified review-fix tip 3664fd1 merged without conflicts at 4fb3d19. Final review is complete: four Standards findings and one Spec finding are fixed.
 - Current deployed application is 9a8886e293694f37731d5f88a2835fcd24dabb10, READY deployment dpl_AS3DxkkkeSHA5FYPczu24j5Adgfp at https://qw-firstday.vercel.app. Focused implementer and hosted evidence is retained in docs/reviews/final-review.md and docs/hosted-verification.md.
 - Root postmerge typecheck, changed-text CRLF and baseline diff checks passed. Dependencies, native design, ignored runtime environment and devIndicators: false are preserved. No duplicate provider calls/full test runs, push, main merge or deployment occurred during integration.
+
+## Retrospective follow-up verification — October 23, 2026
+
+Items 3–6 are implemented: dedicated fixture bootstrap with committed nonsecret configuration; manual CRLF/ticket-field checks and three rule regression tests; short AGENTS.md navigation plus current release state; bounded, secret-safe read-only release and navigation commands. Existing and fresh temporary config paths both bootstrapped successfully, and desktop/mobile persisted-upload smoke passed (two cases). Typecheck, production build, CRLF and diff checks passed. CI/pre-commit wiring was explicitly excluded. Saved project registration already uses the correct path; this existing chat’s stale writable roots require a fresh chat under that project, not a repository permission change. No GitHub push or merge occurred for this follow-up.
