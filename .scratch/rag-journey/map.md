@@ -1,6 +1,6 @@
 # FirstDay RAG journey tickets
 
-The user approved eight implementation tickets on October 21, 2026. All eight tickets are resolved on integration branch integrate/firstday-rag; final integration review is running.
+The user approved eight implementation tickets on October 21, 2026. All eight tickets are resolved on integration branch integrate/firstday-rag; final integration review is complete.
 
 Canonical specification: [First complete onboarding RAG journey](../onboarding/spec.md).
 
@@ -17,7 +17,7 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 
 ## Frontier
 
-Tickets 01 through 08 are resolved. The hosted journey passed on the actual production alias; final integration review follows.
+Tickets 01 through 08 are resolved. The hosted journey passed on the actual production alias. Final Standards and Spec reviews are complete; all four Standards findings and one Spec finding are fixed and verified.
 
 ## Working rules
 
@@ -30,7 +30,7 @@ Tickets 01 through 08 are resolved. The hosted journey passed on the actual prod
 
 ## Next
 
-Ticket 08 is resolved with actual hosted verification. The final two-axis review is running against the complete implementation from baseline 7f596f6; resolve resulting findings on the integration branch. No GitHub push or pull request is authorized.
+Ticket 08 is resolved with actual hosted verification. The final two-axis review from baseline 7f596f6 is complete, with all five findings resolved and integrated. No GitHub push or pull request is authorized.
 
 ## Service verification baseline
 
@@ -99,7 +99,7 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 
 ## Ticket 08 integration evidence
 
-- Verified ticket tip e03819d merged with a no-fast-forward merge at 041cf723. All eight tickets are resolved; final Standards and Spec review from baseline 7f596f6 is running.
+- Verified ticket tip e03819d merged with a no-fast-forward merge at 041cf723. All eight tickets are resolved; final Standards and Spec review from baseline 7f596f6 is complete (see final review fixes below).
 - Root typecheck passed after merge. Dependencies and approved native design are unchanged; ignored .env.local and devIndicators: false are preserved.
 - Changed-text CRLF and diff checks passed after integration. Existing hosted/provider/build and real REST-outage evidence is retained without duplicate live calls or full test runs.
 
@@ -108,3 +108,9 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 All four Standards findings and the Spec P3 language-admission finding are addressed in a single implementer branch. Eight tickets preserve valid triage Status plus separate resolved Progress; two consequential decisions now have ADRs. Upload/chat share a bounded body reader and general public HTTP failures use HttpError. A documented provider-free prose heuristic rejects clearly unsupported language while retaining short technical/Unicode/code guides. Complete original reports, resolutions and focused 42 desktop/mobile public-boundary results are in docs/reviews/final-review.md. Final release identity follows in docs/hosted-verification.md.
 
 Review fixes verified/released: app 9a8886e, READY dpl_AS3DxkkkeSHA5FYPczu24j5Adgfp at https://qw-firstday.vercel.app. All 42 focused desktop/mobile cases, typecheck/build/CRLF passed; actual production favicon/login/active reader/historical source and new language policy persistence passed with zero provider calls. Full reports and resolutions retained in docs/reviews/final-review.md. No Git push/main merge was performed by the implementer.
+
+## Final review integration evidence
+
+- Verified review-fix tip 3664fd1 merged without conflicts at 4fb3d19. Final review is complete: four Standards findings and one Spec finding are fixed.
+- Current deployed application is 9a8886e293694f37731d5f88a2835fcd24dabb10, READY deployment dpl_AS3DxkkkeSHA5FYPczu24j5Adgfp at https://qw-firstday.vercel.app. Focused implementer and hosted evidence is retained in docs/reviews/final-review.md and docs/hosted-verification.md.
+- Root postmerge typecheck, changed-text CRLF and baseline diff checks passed. Dependencies, native design, ignored runtime environment and devIndicators: false are preserved. No duplicate provider calls/full test runs, push, main merge or deployment occurred during integration.
