@@ -32,20 +32,20 @@ createServer(async (req, res) => {
     return;
   }
   const source =
-    input.sources.find((s) => s.content.includes('npm run dev:firstday')) ||
+    input.sources.find((s) => s.content.includes('Run npm run ')) ||
     input.sources[0];
+  const instruction = source?.content.match(/Run npm run [^\n]+/)?.[0] || '';
   const output = /salary/i.test(input.question)
     ? { supported: false, claims: [] }
     : {
         supported: true,
         claims: [
           {
-            text: 'Run npm run dev:firstday. Copy .env.example to .env.local before starting.',
+            text: instruction,
             sources: [
               {
                 id: source.id,
-                quote:
-                  'Run npm run dev:firstday. Copy .env.example to .env.local before starting.',
+                quote: instruction,
               },
             ],
           },

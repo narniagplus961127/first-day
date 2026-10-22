@@ -169,8 +169,9 @@ test('indexing quota and independent provider outages recover without publishing
   await page.goto('/admin/documents/' + document.id);
   const pending = page.waitForResponse(
     (r) =>
-      r.url().endsWith('/documents/' + document.id + '/index') &&
-      r.request().method() === 'POST',
+      new URL(r.url()).pathname.endsWith(
+        '/documents/' + document.id + '/index',
+      ) && r.request().method() === 'POST',
   );
   await page
     .getByRole('button', { name: 'Index and publish', exact: true })

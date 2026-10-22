@@ -27,3 +27,5 @@ Publication is a database transaction: lock the claimed version, verify every ex
 A separate real-provider smoke on 2026-10-22 created fictional cloud guide `08efd694-3fd7-46a1-9eb2-168e27810999`; two passages were embedded and published with Google. Cloud SQL confirmed two actual 768d vectors and an active ready version. Real cloud learner reading returned 200 and indexing returned 403. No credentials are recorded here.
 
 Cloud migrations: `20261022040150_knowledge_indexing` and `20261022040529_knowledge_read_policies`. CLI-generated filenames were renamed to the versions assigned by the cloud migration API. Security advisors report only the existing leaked-password-protection setting; performance advisors report only unused-index information on this small dataset. Keep foreign-key indexes despite their initial unused status.
+
+Replacement publication and retention now follow [safe replacement](replacement.md): successful candidates switch the active pointer atomically, older workers cannot publish after a newer candidate exists, and three published versions plus at most three unpublished drafts are retained per document.

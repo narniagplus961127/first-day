@@ -4,12 +4,14 @@ import { useRouter } from 'next/navigation';
 import { requestErrorMessage } from '@/lib/request-error-message';
 export function IndexGuide({
   id,
+  versionId,
   status,
   completed,
   total,
   failure,
 }: {
   id: string;
+  versionId: string;
   status: string;
   completed: number;
   total: number;
@@ -25,9 +27,12 @@ export function IndexGuide({
     try {
       let state;
       do {
-        const response = await fetch(`/api/admin/documents/${id}/index`, {
-          method: 'POST',
-        });
+        const response = await fetch(
+          `/api/admin/documents/${id}/index?version=${versionId}`,
+          {
+            method: 'POST',
+          },
+        );
         const data = await response.json();
         if (!response.ok)
           throw new Error(

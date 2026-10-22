@@ -42,7 +42,7 @@ export async function inspectDocument(id: string): Promise<{
       'id,document_id,filename,content,status,created_at,chunk_count,index_error,published_at',
     )
     .eq('document_id', id)
-    .order('created_at', { ascending: false })
+    .order('revision', { ascending: false })
     .limit(1)
     .maybeSingle();
   if (versionError) throw storageError();
@@ -98,4 +98,26 @@ export async function indexProgress(versionId: string) {
     .not('embedding', 'is', null);
   if (error) throw storageError();
   return count || 0;
+}
+
+export async function replaceDocument(
+  id: string,
+  input: { filename: string; content: string },
+) {
+  if (!/^[0-9a-f-]{36}$/i.test(id))
+    throw new AuthError(404, 'Guide not found.');
+  const client = await createSupabaseServerClient();
+  const { data, error } = await client.rpc('replace_knowledge_document', {
+    p_document: id,
+    p_filename: input.filename,
+    p_content: input.content,
+  });
+  if (error?.code === '40001')
+    throw new AuthError(
+      409,
+      'Three indexing attempts are still in progress. Wait and retry.',
+    );
+  if (error?.code === 'P0002') throw new AuthError(404, 'Guide not found.');
+  if (error) throw storageError();
+  return data;
 }

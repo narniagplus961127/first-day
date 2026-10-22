@@ -12,9 +12,15 @@ export async function POST(
   try {
     assertSameOrigin(request);
     await requireAdministrator();
-    return NextResponse.json(await indexDocument((await params).id), {
-      headers: { 'Cache-Control': 'no-store' },
-    });
+    return NextResponse.json(
+      await indexDocument(
+        (await params).id,
+        new URL(request.url).searchParams.get('version'),
+      ),
+      {
+        headers: { 'Cache-Control': 'no-store' },
+      },
+    );
   } catch (error) {
     return authErrorResponse(error);
   }
