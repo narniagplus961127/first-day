@@ -4,19 +4,23 @@
 
 **Blocked by:** 02: Upload and inspect a knowledge document.
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Introduce Google gemini-embedding-2 with server-side configuration. Verify actual account/model access using a small separate live check when credentials are available.
-- [ ] Chunk Markdown while preserving meaningful headings, code instructions, version identity, and supporting passage locations; retain original text for reading.
-- [ ] Persist compatible vectors in Supabase and record embedding model/configuration/dimension identity for subsequent question embeddings.
-- [ ] Use bounded processing or resumable batches based on verified hosting/provider limits; persist progress and retry state rather than relying on unbounded detached serverless work.
-- [ ] Show pending/processing, ready, and failed outcomes, progress where available, and meaningful retry feedback without paid fallback.
-- [ ] Failed or partial indexing remains unavailable to learners. Successful initial publication exposes one complete active version.
-- [ ] Interrupted/failed retries neither duplicate active chunks nor activate partial work. Only administrators can index or retry.
-- [ ] Learners browse and open the published guide with title, job role, and original text on desktop/mobile.
-- [ ] Browser/API tests with real test persistence and controlled provider responses cover publication, embedding failure, partial/interrupted work, safe retry, and authorization.
-- [ ] Record tunable chunking/batch/embedding choices and prevent silent mixing of incompatible embedding configurations.
+- [x] Introduce Google gemini-embedding-2 with server-side configuration. Verify actual account/model access using a small separate live check when credentials are available.
+- [x] Chunk Markdown while preserving meaningful headings, code instructions, version identity, and supporting passage locations; retain original text for reading.
+- [x] Persist compatible vectors in Supabase and record embedding model/configuration/dimension identity for subsequent question embeddings.
+- [x] Use bounded processing or resumable batches based on verified hosting/provider limits; persist progress and retry state rather than relying on unbounded detached serverless work.
+- [x] Show pending/processing, ready, and failed outcomes, progress where available, and meaningful retry feedback without paid fallback.
+- [x] Failed or partial indexing remains unavailable to learners. Successful initial publication exposes one complete active version.
+- [x] Interrupted/failed retries neither duplicate active chunks nor activate partial work. Only administrators can index or retry.
+- [x] Learners browse and open the published guide with title, job role, and original text on desktop/mobile.
+- [x] Browser/API tests with real test persistence and controlled provider responses cover publication, embedding failure, partial/interrupted work, safe retry, and authorization.
+- [x] Record tunable chunking/batch/embedding choices and prevent silent mixing of incompatible embedding configurations.
 
 ## Comments
 
 This slice publishes a first version. Replacement/concurrent-version behavior belongs to ticket 06. Distinguish provider quota failure from invalid content.
+
+## Implementation evidence
+
+See [indexing contract](../../../docs/indexing.md) for configuration, batch/lease limits, source identity, live provider verification and cloud migrations. Public API/browser tests use real local Supabase persistence and controlled Google responses. Typecheck, production build and 14 knowledge tests passed on desktop/mobile; auth regression also checked before integration. No answer generation or replacement UI is included.

@@ -23,16 +23,25 @@ export default defineConfig({
       use: { ...devices['iPhone 13'], defaultBrowserType: 'chromium' },
     },
   ],
-  webServer: {
-    command: 'npm run dev -- --hostname 127.0.0.1 --port 3200',
-    url: 'http://127.0.0.1:3200/login',
-    reuseExistingServer: false,
-    env: {
-      NEXT_PUBLIC_SUPABASE_URL: status.API_URL,
-      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: status.PUBLISHABLE_KEY,
-      SUPABASE_SECRET_KEY: status.SECRET_KEY,
-      DEMO_EMAIL: 'demo@firstday.example',
-      DEMO_PASSWORD: 'FirstDayDemo!2026',
+  webServer: [
+    {
+      command: 'node tests/knowledge/google-fixture.mjs',
+      url: 'http://127.0.0.1:19030',
+      reuseExistingServer: false,
     },
-  },
+    {
+      command: 'npm run dev -- --hostname 127.0.0.1 --port 3200',
+      url: 'http://127.0.0.1:3200/login',
+      reuseExistingServer: false,
+      env: {
+        NEXT_PUBLIC_SUPABASE_URL: status.API_URL,
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: status.PUBLISHABLE_KEY,
+        SUPABASE_SECRET_KEY: status.SECRET_KEY,
+        GOOGLE_GENERATIVE_AI_API_KEY: 'controlled-external-provider',
+        GOOGLE_EMBEDDING_BASE_URL: 'http://127.0.0.1:19030',
+        DEMO_EMAIL: 'demo@firstday.example',
+        DEMO_PASSWORD: 'FirstDayDemo!2026',
+      },
+    },
+  ],
 });
