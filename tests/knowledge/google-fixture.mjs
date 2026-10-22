@@ -8,6 +8,7 @@ function embedding(text) {
   for (const char of marker) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
   // Use a full normalized vector so unrelated marker strings cannot collide
   // merely because the persistent fixture has more than 767 guides.
+  hash ||= 1;
   const values = Array.from({ length: 768 }, () => {
     hash ^= hash << 13;
     hash ^= hash >>> 17;
