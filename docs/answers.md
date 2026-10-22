@@ -1,12 +1,12 @@
 # Grounded answer contract
 
-Ticket 04 adds answering and source inspection. Ticket 05 extends it with browser-local conversations and bounded follow-up context; replacement and shared request limits remain owned by tickets 06 and 07.
+Answering includes source inspection, browser-local bounded follow-ups, safe replacement, and durable shared admission. See the conversation, replacement, and demo-limits contracts for their observable behavior.
 
 ## Public interface
 
 Authenticated POST /api/chat accepts JSON containing question and scope. Scope is one of the five job roles or the literal All roles. Default UI scope is Frontend Developer. Scope controls relevance; learners may read published guides from every role. Same-origin validation and verified Supabase getUser authentication run before any model request. Questions must contain non-whitespace text and have at most 1000 characters. The streamed request body is capped at 32768 bytes. Optional history contains at most three completed same-scope exchanges, with questions up to 1000 and prior answers up to 2000 characters. See [conversation contract](conversations.md) for validation and browser-local persistence.
 
-Success is an AnswerResult from src/lib/answers/types.ts: status answered or no_evidence, a plain-text answer, and claims. Each answered claim has text and server-resolved citations. Missing evidence returns the explicit missing-information answer with no claims/citations. Errors use the existing JSON error contract and HTTP 400/401/403/413/503 as applicable. Cache-Control is no-store. Atomic admission and provider retry metadata are documented in docs/demo-limits.md.
+Success is an AnswerResult from src/lib/answers/types.ts: status answered or no_evidence, a plain-text answer, and claims. Each answered claim has text and server-resolved citations. Missing evidence returns the explicit missing-information answer with no claims/citations. Errors use the existing JSON error contract and HTTP 400/401/403/413/429/503 as applicable. Cache-Control is no-store. Atomic admission and provider retry metadata are documented in docs/demo-limits.md.
 
 ## Retrieval and model bounds
 

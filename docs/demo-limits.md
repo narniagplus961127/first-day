@@ -25,3 +25,5 @@ Tests verify six questions across new sessions/spoofed forwarded values, atomic 
 Cloud migration 20261022143627_chat_admission is applied to the dedicated FirstDay project.
 
 Cloud checks verified RLS on both tables, no learner SELECT/INSERT grants, security-invoker RPC with pinned search_path, no anonymous/authenticated execute and service-role execute only. The security advisor reports two informational [RLS enabled without policies](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy) notices for these intentionally private counters; no learner policies should be added. The existing leaked-password-protection warning is unchanged.
+
+Final combined verification after merging Ticket06: 62 desktop/mobile real-Supabase knowledge journeys passed, including all fourteen limits cases, plus 14 authentication journeys, typecheck, production build, and CRLF/diff checks.

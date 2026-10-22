@@ -25,7 +25,7 @@ Text files use CRLF, enforced through Git attributes and the Prettier configurat
 
 ## Current slice
 
-Tickets 01–05 provide verified login, administrator upload/indexing, a published learner library, grounded answers with exact-version source inspection, and browser-local conversations with follow-ups and confirmed reset. Safe replacement and durable shared limits arrive in the next slices. Do not expose the demo publicly before those limits are complete.
+Tickets 01–07 provide verified login, administrator upload/indexing and safe replacement, a published learner library, grounded answers with exact-version source inspection, browser-local follow-ups/reset, and durable demo limits. Ticket 08 verifies the complete hosted journey.
 
 ## Knowledge upload and inspection
 
@@ -44,3 +44,7 @@ Open /chat after signing in to ask a question in a selected role or All roles. C
 ## Private demo conversations
 
 Completed chats are saved only in this browser, separately for each role/search scope. Up to three recent completed exchanges are sent with a follow-up; failures remain outside history. Reset demo asks for confirmation before clearing this browser’s demo activity across scopes. It preserves shared guides and other visitors’ chats. See the [conversation contract](docs/conversations.md) for validation, storage bounds, and privacy details.
+
+## Demo limits and provider failures
+
+Questions share a durable five-per-rolling-minute per-IP allowance and 100 per UTC day across the demo. Accepted attempts include provider failures; invalid requests and application denials do not count. Google/Groq quotas remain independent. Configure server-only SUPABASE_SECRET_KEY for admission, and see the [demo limits contract](docs/demo-limits.md) for trusted hosting identity, reset/retry timing, workload bounds, and deterministic tests.
