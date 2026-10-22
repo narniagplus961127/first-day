@@ -278,7 +278,11 @@ test('learners cannot inspect or mutate candidates through the app or Supabase D
   });
   for (const table of ['knowledge_documents', 'knowledge_versions']) {
     const result = await page.request.get(
-      local.API_URL + '/rest/v1/' + table + '?select=id',
+      local.API_URL +
+        '/rest/v1/' +
+        table +
+        '?select=id&id=eq.' +
+        (table === 'knowledge_documents' ? document.id : version.id),
       { headers },
     );
     expect(result.status()).toBe(200);

@@ -1,0 +1,227 @@
+'use client';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import Link from 'next/link';
+import type { AnswerResult, ConversationScope } from '@/lib/answers/types';
+import {
+  CONVERSATION_SCOPES,
+  loadConversations,
+  saveConversations,
+  resetDemoActivity,
+  type Conversations,
+  type DemoConversations,
+} from '@/lib/demo/conversations';
+
+import { requestErrorMessage } from '@/lib/request-error-message';
+export function Chat() {
+  const resetDialog = useRef<HTMLDialogElement>(null);
+  const [question, setQuestion] = useState('');
+  const [scope, setScope] = useState<ConversationScope>('Frontend Developer');
+  const [conversations, setConversations] = useState<Conversations>({});
+  const [ready, setReady] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [storageNotice, setStorageNotice] = useState('');
+  useEffect(() => {
+    try {
+      const stored = loadConversations();
+      setScope(stored.scope);
+      setConversations(stored.conversations);
+    } catch {
+      setStorageNotice(
+        'Saved history could not be loaded. This tab starts a fresh conversation.',
+      );
+    }
+    setReady(true);
+  }, []);
+  function persist(state: DemoConversations) {
+    try {
+      saveConversations(state);
+    } catch {
+      setStorageNotice(
+        'History cannot be saved in this browser. You can still ask questions in this tab.',
+      );
+    }
+  }
+  function reset() {
+    setConversations({});
+    setScope('Frontend Developer');
+    setQuestion('');
+    setError('');
+    try {
+      resetDemoActivity();
+      setStorageNotice(
+        'Demo activity reset in this browser. Shared guides and other visitors are unchanged.',
+      );
+    } catch {
+      setStorageNotice(
+        'This tab was cleared, but browser storage could not be cleared.',
+      );
+    }
+    resetDialog.current?.close();
+  }
+  const exchanges = conversations[scope] || [];
+  async function ask(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!ready || busy) return;
+    setBusy(true);
+    setError('');
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question,
+          scope,
+          history: exchanges.slice(-3).map((exchange) => ({
+            scope,
+            question: exchange.question,
+            answer: exchange.result.answer.slice(0, 2000),
+          })),
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(
+          requestErrorMessage(data, 'The answer is unavailable. Please retry.'),
+        );
+      const result: AnswerResult = data;
+      const next = {
+        ...conversations,
+        [scope]: [
+          ...exchanges,
+          { id: crypto.randomUUID(), question: question.trim(), result },
+        ].slice(-20),
+      };
+      setConversations(next);
+      persist({ scope, conversations: next });
+      setQuestion('');
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : 'Connection interrupted. Please try again.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <section className="card chat-card">
+      <form onSubmit={ask}>
+        <label htmlFor="chat-scope">Search scope</label>
+        <select
+          id="chat-scope"
+          value={scope}
+          disabled={!ready || busy}
+          onChange={(event) => {
+            const next = event.target.value as ConversationScope;
+            setScope(next);
+            setQuestion('');
+            setError('');
+            persist({ scope: next, conversations });
+          }}
+        >
+          {CONVERSATION_SCOPES.map((role) => (
+            <option key={role}>{role}</option>
+          ))}
+        </select>
+        <p className="muted">
+          Current conversation: <strong>{scope}</strong>
+        </p>
+        <label htmlFor="question">Your question</label>
+        <textarea
+          id="question"
+          value={question}
+          onChange={(event) => setQuestion(event.target.value)}
+          maxLength={1000}
+          required
+          rows={3}
+          placeholder="How do I run the frontend project?"
+          disabled={!ready || busy}
+        />
+        <button
+          type="submit"
+          className="button primary"
+          disabled={!ready || busy}
+        >
+          {busy ? 'Finding guidance…' : 'Ask FirstDay'}
+        </button>
+      </form>
+      {busy ? (
+        <p role="status">
+          Searching your guides and checking the supporting evidence…
+        </p>
+      ) : null}
+      {error ? <p role="alert">{error}</p> : null}
+      {storageNotice ? <p role="status">{storageNotice}</p> : null}
+      {exchanges.map((exchange) => (
+        <section className="conversation-exchange" key={exchange.id}>
+          <p className="question-text">
+            <strong>You:</strong> {exchange.question}
+          </p>
+          <article aria-label="FirstDay answer" className="answer">
+            <span className="section-label">
+              FIRSTDAY · {scope.toUpperCase()}
+            </span>
+            {exchange.result.status === 'no_evidence' ? (
+              <p>{exchange.result.answer}</p>
+            ) : (
+              exchange.result.claims.map((claim, index) => (
+                <section key={index}>
+                  <p className="answer-text">{claim.text}</p>
+                  <div className="source-links">
+                    {claim.citations.map((source) => (
+                      <Link key={source.id} href={source.href}>
+                        View source: {source.title}
+                        {source.heading ? ' · ' + source.heading : ''}
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ))
+            )}
+          </article>
+        </section>
+      ))}
+      <p className="muted chat-footnote">
+        Demo conversations stay in this browser, separately for each search
+        scope. Up to three recent completed exchanges are sent to the server and
+        AI providers to interpret follow-ups. Answers still need published
+        source evidence.
+      </p>
+      <button
+        type="button"
+        className="button secondary"
+        disabled={!ready || busy}
+        onClick={() => resetDialog.current?.showModal()}
+      >
+        Reset demo
+      </button>
+      <dialog
+        ref={resetDialog}
+        aria-labelledby="reset-demo-title"
+        aria-describedby="reset-demo-description"
+      >
+        <span className="section-label">A FRESH START</span>
+        <h2 id="reset-demo-title">Reset this browser’s demo activity?</h2>
+        <p id="reset-demo-description">
+          This clears this browser’s conversations across all roles and search
+          scopes. Shared guides and other visitors’ activity stay unchanged.
+        </p>
+        <div className="dialog-actions">
+          <button
+            type="button"
+            className="button secondary"
+            autoFocus
+            onClick={() => resetDialog.current?.close()}
+          >
+            Keep my history
+          </button>
+          <button type="button" className="button primary" onClick={reset}>
+            Reset this browser
+          </button>
+        </div>
+      </dialog>
+    </section>
+  );
+}

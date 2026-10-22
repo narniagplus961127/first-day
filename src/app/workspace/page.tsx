@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { requirePageUser } from '@/lib/auth';
 import { WorkspaceShell } from '@/components/workspace-shell';
 export const dynamic = 'force-dynamic';
@@ -19,17 +20,17 @@ export default async function Workspace() {
           <span className="section-label">YOUR KNOWLEDGE</span>
           <h3>Team guides</h3>
           <p>
-            Your administrator will publish the guides that help you get
-            started.
+            Explore published guides across every role to help you get started.
           </p>
+          <Link href="/knowledge">Browse knowledge →</Link>
         </section>
         <section className="card">
           <span className="section-label">YOUR COMPANION</span>
           <h3>A little guidance</h3>
           <p>
-            Grounded answers and source citations are coming in the next
-            milestone.
+            Ask onboarding questions and inspect the sources behind each answer.
           </p>
+          <Link href="/chat">Ask FirstDay →</Link>
         </section>
         <section className="card">
           <span className="section-label">YOUR PACE</span>

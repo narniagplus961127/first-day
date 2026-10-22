@@ -23,16 +23,39 @@ export default defineConfig({
       use: { ...devices['iPhone 13'], defaultBrowserType: 'chromium' },
     },
   ],
-  webServer: {
-    command: 'npm run dev -- --hostname 127.0.0.1 --port 3200',
-    url: 'http://127.0.0.1:3200/login',
-    reuseExistingServer: false,
-    env: {
-      NEXT_PUBLIC_SUPABASE_URL: status.API_URL,
-      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: status.PUBLISHABLE_KEY,
-      SUPABASE_SECRET_KEY: status.SECRET_KEY,
-      DEMO_EMAIL: 'demo@firstday.example',
-      DEMO_PASSWORD: 'FirstDayDemo!2026',
+  webServer: [
+    {
+      command: 'node tests/knowledge/context-fixture.mjs',
+      url: 'http://127.0.0.1:19032',
+      reuseExistingServer: false,
     },
-  },
+    {
+      command: 'node tests/knowledge/groq-fixture.mjs',
+      url: 'http://127.0.0.1:19031',
+      reuseExistingServer: false,
+    },
+    {
+      command: 'node tests/knowledge/google-fixture.mjs',
+      url: 'http://127.0.0.1:19030',
+      reuseExistingServer: false,
+    },
+    {
+      command: 'npm run dev -- --hostname 127.0.0.1 --port 3200',
+      url: 'http://127.0.0.1:3200/login',
+      reuseExistingServer: false,
+      env: {
+        NEXT_PUBLIC_SUPABASE_URL: status.API_URL,
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: status.PUBLISHABLE_KEY,
+        SUPABASE_SECRET_KEY: status.SECRET_KEY,
+        FIRSTDAY_REQUEST_CONTEXT_URL: 'http://127.0.0.1:19032',
+        FIRSTDAY_REQUEST_CONTEXT_SECRET: 'controlled-request-context',
+        GOOGLE_GENERATIVE_AI_API_KEY: 'controlled-external-provider',
+        GOOGLE_EMBEDDING_BASE_URL: 'http://127.0.0.1:19030',
+        GROQ_API_KEY: 'controlled-external-provider',
+        GROQ_BASE_URL: 'http://127.0.0.1:19031',
+        DEMO_EMAIL: 'demo@firstday.example',
+        DEMO_PASSWORD: 'FirstDayDemo!2026',
+      },
+    },
+  ],
 });

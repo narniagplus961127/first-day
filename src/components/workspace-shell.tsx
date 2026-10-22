@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { WorkspaceNav } from './workspace-nav';
 import { Brand } from './brand';
 import { SignOutButton } from './sign-out-button';
 import type { Viewer } from '@/lib/auth';
@@ -10,20 +10,13 @@ export function WorkspaceShell({
   children: React.ReactNode;
 }) {
   const admin = user.role === 'admin';
-  const navigation = (
-    <>
-      <Link href={admin ? '/admin' : '/workspace'} className="active">
-        {admin ? 'Documents' : 'Overview'}
-      </Link>
-      {admin && <Link href="/workspace">Learner workspace</Link>}
-    </>
-  );
+  const navigation = <WorkspaceNav admin={admin} />;
   return (
     <div className="app-layout">
       <aside className="sidebar">
         <Brand />
         <div className="role-label">
-          <strong>{admin ? 'Administrator' : 'Frontend Developer'}</strong>
+          <strong>{admin ? 'Administrator' : 'Onboarding workspace'}</strong>
           <span>{admin ? 'PRIVATE MANAGEMENT' : 'YOUR STARTING POINT'}</span>
         </div>
         <nav className="nav" aria-label="Workspace">
@@ -47,7 +40,7 @@ export function WorkspaceShell({
           </nav>
         </details>
         <header className="workspace-header">
-          <span>WORKSPACE / {admin ? 'ADMINISTRATION' : 'FRONTEND'}</span>
+          <span>WORKSPACE / {admin ? 'ADMINISTRATION' : 'ONBOARDING'}</span>
           <span className="badge">
             {admin ? 'Private admin' : 'Demo workspace'}
           </span>
