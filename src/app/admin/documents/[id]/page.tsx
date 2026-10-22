@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { requirePageUser } from '@/lib/auth';
 import { WorkspaceShell } from '@/components/workspace-shell';
 import { inspectDocument } from '@/lib/knowledge/repository';
+import { ReplaceGuide } from '@/components/replace-guide';
 import { IndexGuide } from '@/components/index-guide';
 import { indexProgress } from '@/lib/knowledge/repository';
 import { indexingLabel } from '@/lib/knowledge/types';
@@ -30,7 +31,10 @@ export default async function DocumentInspection({
       <p className="muted">
         {document.job_role} · {version.filename}
       </p>
+      <ReplaceGuide id={document.id} />
       <IndexGuide
+        key={version.id}
+        versionId={version.id}
         id={document.id}
         status={version.status}
         completed={await indexProgress(version.id)}

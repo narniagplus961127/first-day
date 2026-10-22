@@ -1,5 +1,7 @@
 import { createServer } from 'node:http';
 const failures = new Set();
+const pending = new Map();
+const released = new Set();
 const vector = Array.from({ length: 768 }, (_, i) => (i === 0 ? 1 : 0));
 function embedding(text) {
   const marker = text.match(/Evidence[0-9]+/)?.[0];
@@ -11,6 +13,20 @@ function embedding(text) {
   );
 }
 createServer(async (req, res) => {
+  const url = new URL(req.url, 'http://127.0.0.1:19030');
+  const key = url.searchParams.get('key');
+  if (url.pathname === '/pending') {
+    res.setHeader('content-type', 'application/json');
+    res.end(JSON.stringify({ pending: pending.has(key) }));
+    return;
+  }
+  if (url.pathname === '/release') {
+    released.add(key);
+    pending.get(key)?.();
+    pending.delete(key);
+    res.end('released');
+    return;
+  }
   let raw = '';
   for await (const chunk of req) raw += chunk;
   if (req.method === 'GET') {
@@ -36,6 +52,13 @@ createServer(async (req, res) => {
     );
     return;
   }
+  const gate = requests
+    .map(
+      (r) => r.content.parts[0].text.match(/WAIT_EMBEDDING_[A-Za-z0-9]+/)?.[0],
+    )
+    .find(Boolean);
+  if (gate && !released.has(gate))
+    await new Promise((resolve) => pending.set(gate, resolve));
   const failing = requests.find((r) =>
     r.content.parts[0].text.includes('FAIL_EMBEDDING'),
   )?.content.parts[0].text;

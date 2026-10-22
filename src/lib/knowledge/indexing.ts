@@ -49,10 +49,15 @@ export function chunkMarkdown(content: string) {
   return chunks;
 }
 
-export async function indexDocument(id: string) {
+export async function indexDocument(id: string, versionId?: string | null) {
   const result = await inspectDocument(id);
   if (!result) throw new AuthError(404, 'Guide not found.');
   const { document, version } = result;
+  if (versionId && versionId !== version.id)
+    throw new AuthError(
+      409,
+      'A newer candidate exists. Reload this guide before indexing.',
+    );
   if (version.status === 'ready')
     return {
       status: 'ready',
@@ -70,6 +75,11 @@ export async function indexDocument(id: string) {
     'claim_knowledge_index',
     { p_version: version.id, p_config: EMBEDDING_CONFIG },
   );
+  if (claimError?.code === '40001')
+    throw new AuthError(
+      409,
+      'A newer candidate exists. Reload this guide before indexing.',
+    );
   if (claimError)
     throw new AuthError(503, 'Indexing storage is unavailable. Please retry.');
   if (!token)
@@ -134,6 +144,11 @@ export async function indexDocument(id: string) {
       p_version: version.id,
       p_token: token,
     });
+    if (published.error?.code === '40001' || published.error?.code === 'P0002')
+      throw new AuthError(
+        409,
+        'A newer candidate exists. Reload this guide before indexing.',
+      );
     if (published.error) throw published.error;
     const { count, error } = await client
       .from('knowledge_chunks')
@@ -155,6 +170,19 @@ export async function indexDocument(id: string) {
       total: chunks.length,
     };
   } catch (error) {
+    if (error instanceof AuthError) {
+      await client
+        .from('knowledge_versions')
+        .update({
+          status: 'failed',
+          index_error: error.message,
+          index_token: null,
+          index_lease_until: null,
+        })
+        .eq('id', version.id)
+        .eq('index_token', token);
+      throw error;
+    }
     const message =
       APICallError.isInstance(error) && error.statusCode === 429
         ? 'Google embedding quota reached. Wait and retry to resume saved progress.'

@@ -21,27 +21,31 @@ export default async function Source({
   )
     notFound();
   const client = await createSupabaseServerClient();
-  const { data: v } = await client
+  const { data: v, error: versionError } = await client
     .from('knowledge_versions')
     .select('id,document_id,filename,content')
     .eq('id', version)
     .eq('status', 'ready')
     .not('published_at', 'is', null)
     .maybeSingle();
+  if (versionError) throw new Error('Source storage is unavailable.');
   if (!v) notFound();
-  const [{ data: p }, { data: d }] = await Promise.all([
-    client
-      .from('knowledge_chunks')
-      .select('id,heading,content,start_line,end_line')
-      .eq('id', passage)
-      .eq('version_id', version)
-      .maybeSingle(),
-    client
-      .from('knowledge_documents')
-      .select('id,title,job_role')
-      .eq('id', v.document_id)
-      .maybeSingle(),
-  ]);
+  const [{ data: p, error: passageError }, { data: d, error: documentError }] =
+    await Promise.all([
+      client
+        .from('knowledge_chunks')
+        .select('id,heading,content,start_line,end_line')
+        .eq('id', passage)
+        .eq('version_id', version)
+        .maybeSingle(),
+      client
+        .from('knowledge_documents')
+        .select('id,title,job_role')
+        .eq('id', v.document_id)
+        .maybeSingle(),
+    ]);
+  if (passageError || documentError)
+    throw new Error('Source storage is unavailable.');
   if (!p || !d) notFound();
   return (
     <WorkspaceShell user={user}>
