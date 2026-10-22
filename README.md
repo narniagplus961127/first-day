@@ -25,7 +25,7 @@ Text files use CRLF, enforced through Git attributes and the Prettier configurat
 
 ## Current slice
 
-Tickets 01–04 provide verified login, administrator upload/indexing, a published learner library, and grounded answers with exact-version source inspection. Browser-local follow-ups/reset, safe replacement, and durable shared limits arrive in the next slices. Do not expose the demo publicly before those limits are complete.
+Tickets 01–05 provide verified login, administrator upload/indexing, a published learner library, grounded answers with exact-version source inspection, and browser-local conversations with follow-ups and confirmed reset. Safe replacement and durable shared limits arrive in the next slices. Do not expose the demo publicly before those limits are complete.
 
 ## Knowledge upload and inspection
 
@@ -40,3 +40,7 @@ The local status file contains local service keys and must remain outside versio
 ## Ask FirstDay
 
 Open /chat after signing in to ask a question in a selected role or All roles. Configure server-only GROQ_API_KEY and GOOGLE_GENERATIVE_AI_API_KEY; GROQ_MODEL defaults to openai/gpt-oss-20b. Answers use Google query embeddings, active-version Supabase vector retrieval, and direct Groq generation. Open each source link to inspect its exact version and passage. See [answer contract](docs/answers.md) and [indexing contract](docs/indexing.md) for bounds, configuration, and verification.
+
+## Private demo conversations
+
+Completed chats are saved only in this browser, separately for each role/search scope. Up to three recent completed exchanges are sent with a follow-up; failures remain outside history. Reset demo asks for confirmation before clearing this browser’s demo activity across scopes. It preserves shared guides and other visitors’ chats. See the [conversation contract](docs/conversations.md) for validation, storage bounds, and privacy details.

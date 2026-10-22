@@ -16,7 +16,7 @@ export function WorkspaceShell({
       <aside className="sidebar">
         <Brand />
         <div className="role-label">
-          <strong>{admin ? 'Administrator' : 'Frontend Developer'}</strong>
+          <strong>{admin ? 'Administrator' : 'Onboarding workspace'}</strong>
           <span>{admin ? 'PRIVATE MANAGEMENT' : 'YOUR STARTING POINT'}</span>
         </div>
         <nav className="nav" aria-label="Workspace">
@@ -40,7 +40,7 @@ export function WorkspaceShell({
           </nav>
         </details>
         <header className="workspace-header">
-          <span>WORKSPACE / {admin ? 'ADMINISTRATION' : 'FRONTEND'}</span>
+          <span>WORKSPACE / {admin ? 'ADMINISTRATION' : 'ONBOARDING'}</span>
           <span className="badge">
             {admin ? 'Private admin' : 'Demo workspace'}
           </span>

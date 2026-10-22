@@ -10,14 +10,14 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 | [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | Resolved |
 | [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | Resolved |
 | [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Resolved |
-| [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | In progress |
+| [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | Resolved |
 | [06: Replace a guide without interrupting answers](issues/06-safe-document-replacement.md) | 04 | In progress |
 | [07: Enforce demo limits and handle provider failures](issues/07-demo-limits-and-provider-failures.md) | 04 | In progress |
 | [08: Verify the complete hosted journey](issues/08-verify-hosted-journey.md) | 05, 06, 07 | Not started |
 
 ## Frontier
 
-Tickets 01 through 04 are resolved and merged. Tickets 05, 06, and 07 are the current parallel dependency frontier. Every remaining ticket has ready-for-agent triage status; ticket 08 becomes executable after all three frontier tickets complete.
+Tickets 01 through 05 are resolved and merged. Tickets 06 and 07 remain the parallel dependency frontier. Every remaining ticket has ready-for-agent triage status; ticket 08 stays blocked until both remaining frontier tickets complete.
 
 ## Working rules
 
@@ -30,7 +30,7 @@ Tickets 01 through 04 are resolved and merged. Tickets 05, 06, and 07 are the cu
 
 ## Next
 
-Ticket 04 is resolved and merged, with 24 real-Supabase desktop/mobile knowledge tests, 14 authentication regression tests, typecheck, production build, and a real Google/Groq cited-answer and missing-fact smoke check passed. Implement tickets 05, 06, and 07 in parallel branches/worktrees. The dedicated services and credentials are configured and passed access checks.
+Ticket 05 is resolved and merged, with 36 real-Supabase desktop/mobile knowledge tests, 14 authentication regression tests, typecheck, and production build passed. Continue tickets 06 and 07 in parallel branches/worktrees, then verify ticket 08 after both complete. The dedicated services and credentials are configured and passed access checks.
 
 ## Service verification baseline
 
@@ -58,3 +58,10 @@ Ticket 04 is resolved and merged, with 24 real-Supabase desktop/mobile knowledge
 - Cloud migration 20261022042120_knowledge_retrieval is applied and its local filename matches cloud history.
 - A separate production-build smoke used real Google/Groq to preserve the fictional setup command and environment-file instruction, opened the supporting source, and returned no_evidence for an absent vacation-policy fact.
 - Implementer checks passed: typecheck/build, 24 knowledge tests, and 14 auth tests. Root dependency installation and typecheck are checked after merge.
+
+## Ticket 05 integration evidence
+
+- Browser-local scope-specific conversations, bounded contextual follow-ups, and confirmed local reset merged from implement/ticket05.
+- No central conversation store or schema change was introduced; source identities remain version-specific.
+- Implementer checks passed: 36 real-Supabase knowledge tests, 14 auth tests, typecheck, production build, CRLF and diff checks.
+- Dependencies are unchanged from the verified ticket 04 baseline; root typecheck and merge checks are recorded after integration.
