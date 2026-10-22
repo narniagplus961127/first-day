@@ -8,9 +8,17 @@ function embedding(text) {
   if (!marker) return vector;
   let hash = 0;
   for (const char of marker) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
-  return Array.from({ length: 768 }, (_, i) =>
-    i === 1 + (hash % 767) ? 1 : 0,
-  );
+  // Use a full normalized vector so unrelated marker strings cannot collide
+  // merely because the persistent fixture has more than 767 guides.
+  hash ||= 1;
+  const values = Array.from({ length: 768 }, () => {
+    hash ^= hash << 13;
+    hash ^= hash >>> 17;
+    hash ^= hash << 5;
+    return (hash >>> 0) / 2147483648 - 1;
+  });
+  const length = Math.hypot(...values);
+  return values.map((value) => value / length);
 }
 createServer(async (req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1:19030');
@@ -35,6 +43,57 @@ createServer(async (req, res) => {
   }
   const body = JSON.parse(raw);
   const requests = body.requests || [body];
+  if (requests.some((r) => r.content.parts[0].text.includes('GOOGLE_QUOTA'))) {
+    res.writeHead(429, { 'content-type': 'application/json' });
+    res.end(
+      JSON.stringify({
+        error: {
+          code: 429,
+          message: 'Fixture quota',
+          details: [
+            {
+              '@type': 'type.googleapis.com/google.rpc.RetryInfo',
+              retryDelay: '17s',
+            },
+          ],
+        },
+      }),
+    );
+    return;
+  }
+  const indexQuota = requests.find((r) =>
+    r.content.parts[0].text.includes('INDEX_QUOTA'),
+  )?.content.parts[0].text;
+  if (indexQuota && !failures.has(indexQuota)) {
+    failures.add(indexQuota);
+    res.writeHead(429, {
+      'content-type': 'application/json',
+      'retry-after': '9',
+    });
+    res.end(
+      JSON.stringify({
+        error: {
+          code: 429,
+          message: 'Fixture indexing quota',
+          details: [
+            {
+              '@type': 'type.googleapis.com/google.rpc.RetryInfo',
+              retryDelay: '17s',
+            },
+          ],
+        },
+      }),
+    );
+    return;
+  }
+  const network = requests.find((r) =>
+    r.content.parts[0].text.includes('GOOGLE_NETWORK'),
+  )?.content.parts[0].text;
+  if (network && !failures.has(network)) {
+    failures.add(network);
+    res.destroy();
+    return;
+  }
   const invalid = requests.some(
     (r) =>
       r.taskType ||

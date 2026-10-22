@@ -11,6 +11,11 @@ export class AuthError extends Error {
   constructor(
     public status: number,
     message: string,
+    public details?: {
+      code: string;
+      retryAfterSeconds?: number;
+      retryAt?: string;
+    },
   ) {
     super(message);
   }
@@ -65,8 +70,16 @@ export function authErrorResponse(error: unknown) {
       ? error.message
       : 'The workspace is temporarily unavailable. Please try again.';
   return NextResponse.json(
-    { error: message },
-    { status, headers: { 'Cache-Control': 'no-store' } },
+    { error: message, ...(error instanceof AuthError ? error.details : {}) },
+    {
+      status,
+      headers: {
+        'Cache-Control': 'no-store',
+        ...(error instanceof AuthError && error.details?.retryAfterSeconds
+          ? { 'Retry-After': String(error.details.retryAfterSeconds) }
+          : {}),
+      },
+    },
   );
 }
 export function assertSameOrigin(request: Request) {

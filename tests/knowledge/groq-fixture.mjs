@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+const failures = new Set();
 createServer(async (req, res) => {
   if (req.method === 'GET') {
     res.end('ready');
@@ -10,6 +11,26 @@ createServer(async (req, res) => {
   const input = JSON.parse(
     body.messages.findLast((m) => m.role === 'user').content,
   );
+  if (input.question.includes('GROQ_QUOTA')) {
+    res.writeHead(429, {
+      'content-type': 'application/json',
+      'retry-after': '31',
+    });
+    res.end(
+      JSON.stringify({
+        error: { message: 'Fixture Groq quota', type: 'rate_limit_error' },
+      }),
+    );
+    return;
+  }
+  if (
+    input.question.includes('GROQ_NETWORK') &&
+    !failures.has(input.question)
+  ) {
+    failures.add(input.question);
+    res.destroy();
+    return;
+  }
   const source =
     input.sources.find((s) => s.content.includes('Run npm run ')) ||
     input.sources[0];
