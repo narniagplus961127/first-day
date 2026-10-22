@@ -704,3 +704,18 @@ input[type='file']::file-selector-button {
 .full-source {
   margin-top: 28px;
 }
+
+.conversation-exchange {
+  margin-top: 26px;
+}
+.question-text {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--pale);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.conversation-exchange .answer {
+  margin-top: 12px;
+  padding-top: 16px;
+}

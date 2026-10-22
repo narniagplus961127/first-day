@@ -7,6 +7,7 @@ import {
 } from '@/lib/auth';
 import { JOB_ROLES, type JobRole } from '@/lib/knowledge/types';
 import { answerQuestion } from '@/lib/answers/answer';
+import { parseHistory } from '@/lib/answers/history';
 export const maxDuration = 60;
 export async function POST(request: Request) {
   try {
@@ -20,7 +21,7 @@ export async function POST(request: Request) {
       const { value, done } = await reader.read();
       if (done) break;
       size += value.byteLength;
-      if (size > 16000) {
+      if (size > 32768) {
         await reader.cancel();
         throw new AuthError(413, 'The question request is too large.');
       }
@@ -41,10 +42,12 @@ export async function POST(request: Request) {
       throw new AuthError(400, 'Enter a question of up to 1000 characters.');
     if (input.scope !== 'All roles' && !JOB_ROLES.includes(input.scope))
       throw new AuthError(400, 'Choose a supported job role or All roles.');
+    const history = parseHistory(input.history, input.scope);
     return NextResponse.json(
       await answerQuestion(
         input.question.trim(),
         input.scope as JobRole | 'All roles',
+        history,
       ),
       { headers: { 'Cache-Control': 'no-store' } },
     );

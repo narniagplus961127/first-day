@@ -1,10 +1,10 @@
 # Grounded answer contract
 
-Ticket 04 adds one-question answering and source inspection. Browser-local conversations, replacement, and shared request limits are owned by tickets 05, 06, and 07.
+Ticket 04 adds answering and source inspection. Ticket 05 extends it with browser-local conversations and bounded follow-up context; replacement and shared request limits remain owned by tickets 06 and 07.
 
 ## Public interface
 
-Authenticated POST /api/chat accepts JSON containing question and scope. Scope is one of the five job roles or the literal All roles. Default UI scope is Frontend Developer. Scope controls relevance; learners may read published guides from every role. Same-origin validation and verified Supabase getUser authentication run before any model request. Questions must contain non-whitespace text and have at most 1000 characters. The streamed request body is capped at 16000 bytes, leaving space for the later bounded recent-history feature.
+Authenticated POST /api/chat accepts JSON containing question and scope. Scope is one of the five job roles or the literal All roles. Default UI scope is Frontend Developer. Scope controls relevance; learners may read published guides from every role. Same-origin validation and verified Supabase getUser authentication run before any model request. Questions must contain non-whitespace text and have at most 1000 characters. The streamed request body is capped at 32768 bytes. Optional history contains at most three completed same-scope exchanges, with questions up to 1000 and prior answers up to 2000 characters. See [conversation contract](conversations.md) for validation and browser-local persistence.
 
 Success is an AnswerResult from src/lib/answers/types.ts: status answered or no_evidence, a plain-text answer, and claims. Each answered claim has text and server-resolved citations. Missing evidence returns the explicit missing-information answer with no claims/citations. Errors use the existing JSON error contract and HTTP 400/401/403/413/503 as applicable. Cache-Control is no-store. Ticket 07 will add atomic admission and provider retry metadata at this boundary.
 
