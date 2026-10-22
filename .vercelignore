@@ -1,0 +1,11 @@
+# Explicit app-source allowlist: no credentials, Git metadata, tests, notes or design files.
+*
+!src
+!src/**
+!public
+!public/**
+!package.json
+!package-lock.json
+!tsconfig.json
+!next.config.ts
+!next-env.d.ts
