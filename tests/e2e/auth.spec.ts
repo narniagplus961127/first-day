@@ -93,7 +93,7 @@ test('expired sessions return a clear sign-in explanation', async ({
     headers: { origin: 'http://127.0.0.1:3100' },
     data: { email: 'demo@firstday.example', password: 'FirstDayDemo!2026' },
   });
-  await page.request.post('http://127.0.0.1:54329/_control/revoke');
+  await page.request.post('http://127.0.0.1:19029/_control/revoke');
   expect((await page.request.get('/api/auth/session')).status()).toBe(401);
   await page.goto('/workspace');
   await expect(page).toHaveURL('/login?reason=session');

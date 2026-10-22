@@ -533,3 +533,119 @@ dialog h2 {
     font-size: 23px;
   }
 }
+.upload-card {
+  margin-top: 30px;
+}
+.upload-card h2 {
+  font-size: 24px;
+  letter-spacing: -0.6px;
+}
+.upload-form {
+  margin-top: 22px;
+  max-width: 680px;
+}
+.upload-form .button {
+  min-width: 200px;
+}
+input[type='file'] {
+  padding: 16px;
+  background: var(--pale);
+  border-style: dashed;
+}
+input[type='file']::file-selector-button {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  color: var(--action);
+  margin-right: 12px;
+  cursor: pointer;
+}
+.knowledge-list {
+  margin-top: 38px;
+}
+.knowledge-list > h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.document-card {
+  display: block;
+  transition: border-color 0.15s;
+}
+.document-card:hover {
+  border-color: var(--action);
+}
+.document-card h3 {
+  overflow-wrap: anywhere;
+}
+.document-link {
+  color: var(--action);
+  font-size: 13px;
+  font-weight: 650;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: var(--action);
+  font-size: 14px;
+}
+.document-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.markdown-content {
+  margin-top: 28px;
+  max-width: 920px;
+  overflow-wrap: anywhere;
+}
+.markdown-content h1 {
+  font-size: 28px;
+  margin: 10px 0 24px;
+}
+.markdown-content h2 {
+  font-size: 23px;
+  margin-top: 28px;
+}
+.markdown-content p,
+.markdown-content li {
+  font-size: 16px;
+  color: var(--ink);
+}
+.markdown-content pre {
+  overflow-x: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f4f0ea;
+  font-size: 14px;
+}
+.markdown-content code {
+  background: #f4f0ea;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+.markdown-content pre code {
+  padding: 0;
+}
+.markdown-content a {
+  color: var(--action);
+  text-decoration: underline;
+}
+@media (max-width: 650px) {
+  .document-grid {
+    grid-template-columns: 1fr;
+  }
+  .upload-card {
+    padding: 20px;
+  }
+  .markdown-content {
+    padding: 20px;
+  }
+}
