@@ -33,6 +33,8 @@ Durable application limits admit five questions per rolling 60 seconds per IP an
 
 ## Verification
 
+Retrospective tools: `npm run check:repo` validates CRLF and ticket fields; `npm run test:tooling` checks the validator; `npm run fixture:up` prepares the dedicated local Supabase stack before knowledge tests. `npm run check:release` inspects the Git/main production deployment without mutations or model calls; `npm run measure:navigation` benchmarks learner page transitions. Details and workspace recovery are in [development environment](docs/agents/development.md). CI and pre-commit wiring remain unchanged.
+
 - `npm run typecheck` and `npm run build` check the deployable application.
 - `npm run test:e2e` runs desktop/mobile auth/browser journeys with a controlled upstream Auth HTTP service on ports 3100/19029.
 - `npm run test:knowledge` runs real isolated Supabase Auth, PostgREST, PostgreSQL and RLS journeys, with controlled external Google/Groq HTTP responses. It checks upload/indexing, evidence, contextual history, replacement, durable limits and failure/recovery. Ports 3200 and 19030–19032 must be free.

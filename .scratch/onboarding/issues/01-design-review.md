@@ -1,6 +1,8 @@
 # Review FirstDay's FigCraft prototype
 
-Status: resolved
+Status: ready-for-agent
+
+Progress: resolved
 
 ## Deliverable
 

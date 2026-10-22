@@ -1,6 +1,15 @@
 # FirstDay RAG journey tickets
 
-The user approved eight implementation tickets on October 21, 2026. All eight tickets are resolved on integration branch integrate/firstday-rag; final integration review is complete.
+## Current state — October 23, 2026
+
+- GitHub main: c386c3bd98df1f015df383e337b864b901ded51d (PR #3 merged).
+- Production: https://qw-firstday.vercel.app, READY dpl_9zY2yXUBv69XbfJMjSdk3sr9anaK, source git, commit matches main. Branch preview and main production auto-deploy were observed, not only configured.
+- Retrospective items 2–6 are in progress on chore/retro-environment; CI/pre-commit wiring (item 1) is excluded. Saved Codex project path is correct; this old chat retains stale writable-root context.
+- Navigation baseline: knowledge library 1.4–2.1 seconds, chat/overview about 0.6–0.9 seconds. Singapore region experiment follows.
+
+The sections below retain historical implementation and deployment evidence.
+
+The user approved eight implementation tickets on October 21, 2026. All eight tickets and their review fixes were merged to main through PR #3; final integration review is complete.
 
 Canonical specification: [First complete onboarding RAG journey](../onboarding/spec.md).
 
