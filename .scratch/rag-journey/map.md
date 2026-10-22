@@ -8,8 +8,8 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 | --- | --- | --- |
 | [01: Demo login and protected administrator access](issues/01-demo-login-and-admin-access.md) | None | Resolved |
 | [02: Upload and inspect a knowledge document](issues/02-upload-and-inspect-knowledge.md) | 01 | Resolved |
-| [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | In progress |
-| [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Not started |
+| [03: Index and publish a readable guide](issues/03-index-and-publish-guide.md) | 02 | Resolved |
+| [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | In progress |
 | [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | Not started |
 | [06: Replace a guide without interrupting answers](issues/06-safe-document-replacement.md) | 04 | Not started |
 | [07: Enforce demo limits and handle provider failures](issues/07-demo-limits-and-provider-failures.md) | 04 | Not started |
@@ -17,7 +17,7 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 
 ## Frontier
 
-Tickets 01 and 02 are resolved and merged. Ticket 03 is the current dependency frontier. Every ticket has ready-for-agent triage status; blocked tickets become executable only after their listed blockers complete. Tickets 05, 06, and 07 may proceed independently after 04.
+Tickets 01, 02, and 03 are resolved and merged. Ticket 04 is the current dependency frontier. Every ticket has ready-for-agent triage status; blocked tickets become executable only after their listed blockers complete. Tickets 05, 06, and 07 may proceed independently after 04.
 
 ## Working rules
 
@@ -30,7 +30,7 @@ Tickets 01 and 02 are resolved and merged. Ticket 03 is the current dependency f
 
 ## Next
 
-Ticket 02 is resolved and merged, with 10 real-Supabase desktop/mobile knowledge tests, 14 authentication regression tests, typecheck, production build, and a live cloud upload/inspection smoke check passed. Begin ticket 03 in its own branch/worktree. The dedicated services and credentials are configured and passed access checks.
+Ticket 03 is resolved and merged, with 14 real-Supabase desktop/mobile knowledge tests, 14 authentication regression tests, typecheck, production build, and a live Google embedding/publication smoke check passed. Ticket 04 is in progress in its own branch/worktree. The dedicated services and credentials are configured and passed access checks.
 
 ## Service verification baseline
 
@@ -44,3 +44,10 @@ Ticket 02 is resolved and merged, with 10 real-Supabase desktop/mobile knowledge
 - Vercel connector access is restored: an explicit team-scoped project request succeeded. No FirstDay deployment exists yet.
 - Cloud migration knowledge_documents, version 20261022033938, is applied; both knowledge tables have RLS enabled.
 - Public signup is now disabled, verified through the live Auth settings API after the user saved the change. Existing demo/admin identities remain provisioned.
+
+## Ticket 03 integration evidence
+
+- Initial indexing/publication and learner library/active reader merged from implement/ticket03.
+- Cloud migrations 20261022040150_knowledge_indexing and 20261022040529_knowledge_read_policies are applied and local filenames match cloud history.
+- Real Google smoke published a fictional guide with two 768-dimensional vectors; learner reading returned 200 and learner indexing returned 403.
+- Full postmerge typecheck/build, 14 knowledge tests, and 14 auth tests passed in the implementer worktree.
