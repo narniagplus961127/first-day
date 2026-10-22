@@ -12,12 +12,12 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 | [04: Ask a question and inspect its evidence](issues/04-answers-with-evidence.md) | 03 | Resolved |
 | [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | Resolved |
 | [06: Replace a guide without interrupting answers](issues/06-safe-document-replacement.md) | 04 | Resolved |
-| [07: Enforce demo limits and handle provider failures](issues/07-demo-limits-and-provider-failures.md) | 04 | In progress |
-| [08: Verify the complete hosted journey](issues/08-verify-hosted-journey.md) | 05, 06, 07 | Blocked by 07 |
+| [07: Enforce demo limits and handle provider failures](issues/07-demo-limits-and-provider-failures.md) | 04 | Resolved |
+| [08: Verify the complete hosted journey](issues/08-verify-hosted-journey.md) | 05, 06, 07 | In progress |
 
 ## Frontier
 
-Tickets 01 through 06 are resolved and merged. Ticket 07 is in progress and is the remaining dependency frontier. Ticket 08 stays blocked until ticket 07 completes.
+Tickets 01 through 07 are resolved and merged. Ticket 08 is in progress and is the current frontier for live-provider and hosted-journey verification.
 
 ## Working rules
 
@@ -30,7 +30,7 @@ Tickets 01 through 06 are resolved and merged. Ticket 07 is in progress and is t
 
 ## Next
 
-Ticket 06 is resolved and merged, with 48 real-Supabase desktop/mobile knowledge tests, 14 authentication journeys, typecheck, and production build passed in its worktree. Continue ticket 07, then verify ticket 08 after it completes. The dedicated services and credentials are configured and passed access checks.
+Ticket 07 is resolved and merged, with the combined 62 real-Supabase desktop/mobile knowledge tests, 14 authentication journeys, typecheck, production build, and CRLF/diff checks passed in its worktree. Continue ticket 08 for real-provider and hosted verification under the applicable deployment authorization. The dedicated services and credentials are configured and passed access checks.
 
 ## Service verification baseline
 
@@ -75,3 +75,10 @@ Ticket 06 is resolved and merged, with 48 real-Supabase desktop/mobile knowledge
 ## Authorization decision (October 22, 2026)
 
 The user explicitly preapproved routine schema/function migrations and bounded revision cleanup for the dedicated FirstDay Supabase project ohvojrdwxlsbzwdrhpzr. This is project-scoped standing authorization. Plugin permission settings remain unchanged because the available controls apply Supabase-wide.
+
+## Ticket 07 integration evidence
+
+- Durable per-IP and shared daily admission, bounded provider calls, actionable quota/network feedback, and explicit retry behavior merged from implement/ticket07 at ddba72a.
+- Cloud migration 20261022143627_chat_admission is applied; local migration filename and fixture ledger match cloud history. No cloud changes were made during integration.
+- Combined implementer verification passed: 62 real-Supabase desktop/mobile knowledge journeys, including fourteen limits cases, 14 authentication journeys, typecheck, production build, and CRLF/diff checks.
+- Dependencies are unchanged; root typecheck and changed-text CRLF/diff checks passed after integration. Approved native design, ignored .env.local, and devIndicators: false remain preserved.
