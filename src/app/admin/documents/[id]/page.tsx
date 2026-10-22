@@ -1,0 +1,41 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import { requirePageUser } from '@/lib/auth';
+import { WorkspaceShell } from '@/components/workspace-shell';
+import { inspectDocument } from '@/lib/knowledge/repository';
+import { indexingLabel } from '@/lib/knowledge/types';
+export const dynamic = 'force-dynamic';
+export default async function DocumentInspection({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const user = await requirePageUser(true);
+  const result = await inspectDocument((await params).id);
+  if (!result) notFound();
+  const { document, version } = result;
+  return (
+    <WorkspaceShell user={user}>
+      <Link className="back-link" href="/admin">
+        ← All documents
+      </Link>
+      <div className="document-heading">
+        <span className="section-label">ADMINISTRATOR PREVIEW</span>
+        <span className="badge">{indexingLabel(version.status)}</span>
+      </div>
+      <h1>{document.title}</h1>
+      <p className="muted">
+        {document.job_role} · {version.filename}
+      </p>
+      <p className="notice">
+        This candidate is not indexed and is not available to learners yet.
+      </p>
+      <article className="card markdown-content" aria-label="Document content">
+        <ReactMarkdown skipHtml disallowedElements={['img']}>
+          {version.content}
+        </ReactMarkdown>
+      </article>
+    </WorkspaceShell>
+  );
+}

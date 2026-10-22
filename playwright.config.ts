@@ -15,7 +15,7 @@ export default defineConfig({
   webServer: [
     {
       command: 'node tests/fixtures/auth-server.mjs',
-      url: 'http://127.0.0.1:54329/health',
+      url: 'http://127.0.0.1:19029/health',
       reuseExistingServer: false,
     },
     {
@@ -23,7 +23,7 @@ export default defineConfig({
       url: 'http://127.0.0.1:3100/login',
       reuseExistingServer: false,
       env: {
-        NEXT_PUBLIC_SUPABASE_URL: 'http://127.0.0.1:54329',
+        NEXT_PUBLIC_SUPABASE_URL: 'http://127.0.0.1:19029',
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'fixture-publishable-key',
         DEMO_EMAIL: 'demo@firstday.example',
         DEMO_PASSWORD: 'FirstDayDemo!2026',
