@@ -25,6 +25,11 @@ export default defineConfig({
   ],
   webServer: [
     {
+      command: 'node tests/knowledge/groq-fixture.mjs',
+      url: 'http://127.0.0.1:19031',
+      reuseExistingServer: false,
+    },
+    {
       command: 'node tests/knowledge/google-fixture.mjs',
       url: 'http://127.0.0.1:19030',
       reuseExistingServer: false,
@@ -39,6 +44,8 @@ export default defineConfig({
         SUPABASE_SECRET_KEY: status.SECRET_KEY,
         GOOGLE_GENERATIVE_AI_API_KEY: 'controlled-external-provider',
         GOOGLE_EMBEDDING_BASE_URL: 'http://127.0.0.1:19030',
+        GROQ_API_KEY: 'controlled-external-provider',
+        GROQ_BASE_URL: 'http://127.0.0.1:19031',
         DEMO_EMAIL: 'demo@firstday.example',
         DEMO_PASSWORD: 'FirstDayDemo!2026',
       },

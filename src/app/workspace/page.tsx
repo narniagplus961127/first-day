@@ -28,9 +28,9 @@ export default async function Workspace() {
           <span className="section-label">YOUR COMPANION</span>
           <h3>A little guidance</h3>
           <p>
-            Grounded answers and source citations are coming in the next
-            milestone.
+            Ask onboarding questions and inspect the sources behind each answer.
           </p>
+          <Link href="/chat">Ask FirstDay →</Link>
         </section>
         <section className="card">
           <span className="section-label">YOUR PACE</span>
