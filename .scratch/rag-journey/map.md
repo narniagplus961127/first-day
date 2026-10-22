@@ -1,6 +1,6 @@
 # FirstDay RAG journey tickets
 
-The user approved eight implementation tickets on October 21, 2026. Implementation is underway on integration branch integrate/firstday-rag.
+The user approved eight implementation tickets on October 21, 2026. All eight tickets are resolved on integration branch integrate/firstday-rag; final integration review is running.
 
 Canonical specification: [First complete onboarding RAG journey](../onboarding/spec.md).
 
@@ -30,7 +30,7 @@ Tickets 01 through 08 are resolved. The hosted journey passed on the actual prod
 
 ## Next
 
-Ticket 08 is resolved with actual hosted verification. Complete the required final two-axis review and any resulting fixes on the integration branch. No GitHub push or pull request is authorized.
+Ticket 08 is resolved with actual hosted verification. The final two-axis review is running against the complete implementation from baseline 7f596f6; resolve resulting findings on the integration branch. No GitHub push or pull request is authorized.
 
 ## Service verification baseline
 
@@ -96,3 +96,9 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 - Existing FirstDay project connected to narniagplus961127/first-day; production branch main, other branches enabled for protected previews, affected-project skip disabled and no ignored-build command. Fork/SSO protections preserved; Production+Preview runtime configuration verified. No Git push/main merge or webhook-trigger test occurred.
 - Brand vector favicon and explicit all-branch Git configuration committed as 3e06bc5; source-deployed READY as dpl_4w1NtoWJU2v3eSwEWYidbQVdKgeG. Current canonical URL is https://qw-firstday.vercel.app; old firstday-lilac alias now 404. Ticket08 did not change domains.
 - Favicon metadata, HTTP200/image/svg+xml, login, real demo auth, persisted new active guide and historical citation passed on the final deployment with no additional model calls. Exact final IDs/readback and remote-main distinction recorded in docs/hosted-verification.md.
+
+## Ticket 08 integration evidence
+
+- Verified ticket tip e03819d merged with a no-fast-forward merge at 041cf723. All eight tickets are resolved; final Standards and Spec review from baseline 7f596f6 is running.
+- Root typecheck passed after merge. Dependencies and approved native design are unchanged; ignored .env.local and devIndicators: false are preserved.
+- Changed-text CRLF and diff checks passed after integration. Existing hosted/provider/build and real REST-outage evidence is retained without duplicate live calls or full test runs.
