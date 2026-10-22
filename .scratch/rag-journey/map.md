@@ -95,7 +95,7 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 
 - Existing FirstDay project connected to narniagplus961127/first-day; production branch main, other branches enabled for protected previews, affected-project skip disabled and no ignored-build command. Fork/SSO protections preserved; Production+Preview runtime configuration verified. No Git push/main merge or webhook-trigger test occurred.
 - Brand vector favicon and explicit all-branch Git configuration committed as 3e06bc5; source-deployed READY as dpl_4w1NtoWJU2v3eSwEWYidbQVdKgeG. Current canonical URL is https://qw-firstday.vercel.app; old firstday-lilac alias now 404. Ticket08 did not change domains.
-- Favicon metadata, HTTP200/image/svg+xml, login, real demo auth, persisted new active guide and historical citation passed on the final deployment with no additional model calls. Exact final IDs/readback and remote-main distinction recorded in docs/hosted-verification.md.
+- Favicon metadata, HTTP 200/image/svg+xml, login, real demo auth, persisted new active guide and historical citation passed on the final deployment with no additional model calls. Exact final IDs/readback and remote-main distinction recorded in docs/hosted-verification.md.
 
 ## Ticket 08 integration evidence
 
@@ -106,3 +106,5 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 ## Final review fixes
 
 All four Standards findings and the Spec P3 language-admission finding are addressed in a single implementer branch. Eight tickets preserve valid triage Status plus separate resolved Progress; two consequential decisions now have ADRs. Upload/chat share a bounded body reader and general public HTTP failures use HttpError. A documented provider-free prose heuristic rejects clearly unsupported language while retaining short technical/Unicode/code guides. Complete original reports, resolutions and focused 42 desktop/mobile public-boundary results are in docs/reviews/final-review.md. Final release identity follows in docs/hosted-verification.md.
+
+Review fixes verified/released: app 9a8886e, READY dpl_AS3DxkkkeSHA5FYPczu24j5Adgfp at https://qw-firstday.vercel.app. All 42 focused desktop/mobile cases, typecheck/build/CRLF passed; actual production favicon/login/active reader/historical source and new language policy persistence passed with zero provider calls. Full reports and resolutions retained in docs/reviews/final-review.md. No Git push/main merge was performed by the implementer.
