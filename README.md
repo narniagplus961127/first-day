@@ -1,6 +1,6 @@
 # FirstDay
 
-FirstDay is a fictional onboarding demo built with Next.js, TypeScript and Supabase. Administrators publish English Markdown guides; learners browse them and ask questions with exact-version supporting passages. The initial dataset is Frontend Developer. The other four job roles remain available for scope filtering; their datasets and full checklists are follow-on work.
+FirstDay is a fictional onboarding demo built with Next.js, TypeScript and Supabase. Open the verified demo at [qw-firstday.vercel.app](https://qw-firstday.vercel.app). Administrators publish English Markdown guides; learners browse them and ask questions with exact-version supporting passages. The initial dataset is Frontend Developer. The other four job roles remain available for scope filtering; their datasets and full checklists are follow-on work.
 
 ## Local setup
 
@@ -44,8 +44,14 @@ Knowledge tests require a separate local Supabase stack named `firstday-supabase
 
 ## Hosting and restoration
 
-Deploy only to the intended free FirstDay Supabase project and eligible Vercel Hobby scope. Hobby is intended for personal noncommercial projects; free eligibility and quotas are not guaranteed. Configure the seven required runtime variables above in Vercel; `GROQ_MODEL` is optional. Omit administrator credentials, provider fixture base URLs and `FIRSTDAY_REQUEST_CONTEXT_*`. The explicit `.vercelignore` includes only app source, configuration and lockfiles; deployment need not connect Git or publish GitHub changes. Recheck owner/project/commit/environment before each release and wait for READY before testing the actual URL. Preserve deployment protection; use authenticated Vercel access for protected previews.
+Deploy only to the intended free FirstDay Supabase project and eligible Vercel Hobby scope. Hobby is intended for personal noncommercial projects; free eligibility and quotas are not guaranteed. Configure the seven required runtime variables above in Vercel; `GROQ_MODEL` is optional. Omit administrator credentials, provider fixture base URLs and `FIRSTDAY_REQUEST_CONTEXT_*`. The explicit `.vercelignore` includes only app source, configuration and lockfiles; the existing project is connected to `narniagplus961127/first-day` for future Git auto-deployment without publishing this local implementation. Recheck owner/project/commit/environment before each release and wait for READY before testing the actual URL. Preserve deployment protection; use authenticated Vercel access for protected previews.
 
 Supabase Free currently includes 500 MB database storage, 5 GB egress and 50000 monthly active users; inactivity may pause a project after seven days. Vercel Hobby execution and provider account quotas can change. The application bounds work instead of assuming an unlimited function lifetime. If Supabase pauses, restore the dedicated project in its dashboard, wait for healthy Auth/Data API, then retry. Knowledge pages display retry guidance during temporary storage outages; saved active guides persist centrally. For a failed deployment, inspect that deployment's build/runtime logs, correct configuration and redeploy the committed state; preserve the prior working deployment when available. Do not reset shared knowledge or counters to make smoke checks pass, enable paid resources, or create a keepalive automation.
 
 Measured hosted results and the exact deployment identity are recorded in [hosted verification](docs/hosted-verification.md). All text uses CRLF; approved native design changes are preserved without preview exports.
+
+## Git deployment connection
+
+The existing Vercel project is connected to [narniagplus961127/first-day](https://github.com/narniagplus961127/first-day). Future authorized pushes to main trigger production builds; other branch pushes trigger protected previews. The checked-in vercel.json explicitly enables all branches. Preview deployments are enabled, affected-project skipping is disabled, and there is no ignored-build command. Fork and deployment protection are preserved. The seven runtime variables are configured for Production and Preview; administrator credentials/test flags are absent.
+
+This connection was verified through settings readback, without a Git push or webhook-trigger test. Remote main still points to b967ea8 (Ticket02), while the full application plus brand favicon is source-deployed from commit 3e06bc5. Merge/push the reviewed implementation only when authorized; a future main push replaces the production application. The final deployed URL and exact evidence are in docs/hosted-verification.md. The initial smoke URL firstday-lilac.vercel.app now returns 404; use qw-firstday.vercel.app.

@@ -90,3 +90,9 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 - Real hosted fictional upload, 4/7 persisted indexing/resume, learner read, exact-command citation, contextual follow-up, absent-fact response, safe replacement/old source, isolated browser/scope history/reset, learner/anonymous denials and desktop/mobile keyboard paths passed. Four actual questions and fourteen document embeddings; no live quota load test.
 - Friendly storage fallback added after public browser RED from a reversible local REST outage. Both desktop/mobile GREEN; dedicated fixture restored. Typecheck/build, script syntax, all tracked text CRLF and diff checks passed. Earlier combined62 knowledge+14auth coverage remains applicable.
 - README and docs/hosted-verification.md record reproduction, exact evidence IDs, processing/default bounds, free availability/restore limits and secret-safe smoke. Cloud remained healthy with seven matching migrations. No paid service, unrelated project change, cloud outage or shared counter reset.
+
+## Final user-requested hosting additions
+
+- Existing FirstDay project connected to narniagplus961127/first-day; production branch main, other branches enabled for protected previews, affected-project skip disabled and no ignored-build command. Fork/SSO protections preserved; Production+Preview runtime configuration verified. No Git push/main merge or webhook-trigger test occurred.
+- Brand vector favicon and explicit all-branch Git configuration committed as 3e06bc5; source-deployed READY as dpl_4w1NtoWJU2v3eSwEWYidbQVdKgeG. Current canonical URL is https://qw-firstday.vercel.app; old firstday-lilac alias now 404. Ticket08 did not change domains.
+- Favicon metadata, HTTP200/image/svg+xml, login, real demo auth, persisted new active guide and historical citation passed on the final deployment with no additional model calls. Exact final IDs/readback and remote-main distinction recorded in docs/hosted-verification.md.
