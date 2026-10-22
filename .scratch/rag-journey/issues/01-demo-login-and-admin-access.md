@@ -4,7 +4,9 @@
 
 **Blocked by:** None (can start immediately).
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Implement the approved desktop/mobile login experience with TypeScript, Next.js, and Supabase authentication; there is no public registration.
 - [x] The popup displays learner credentials and supports copy/fill actions without exposing administrator credentials or secrets.

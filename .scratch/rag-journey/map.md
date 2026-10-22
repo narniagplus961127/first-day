@@ -102,3 +102,7 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 - Verified ticket tip e03819d merged with a no-fast-forward merge at 041cf723. All eight tickets are resolved; final Standards and Spec review from baseline 7f596f6 is running.
 - Root typecheck passed after merge. Dependencies and approved native design are unchanged; ignored .env.local and devIndicators: false are preserved.
 - Changed-text CRLF and diff checks passed after integration. Existing hosted/provider/build and real REST-outage evidence is retained without duplicate live calls or full test runs.
+
+## Final review fixes
+
+All four Standards findings and the Spec P3 language-admission finding are addressed in a single implementer branch. Eight tickets preserve valid triage Status plus separate resolved Progress; two consequential decisions now have ADRs. Upload/chat share a bounded body reader and general public HTTP failures use HttpError. A documented provider-free prose heuristic rejects clearly unsupported language while retaining short technical/Unicode/code guides. Complete original reports, resolutions and focused 42 desktop/mobile public-boundary results are in docs/reviews/final-review.md. Final release identity follows in docs/hosted-verification.md.

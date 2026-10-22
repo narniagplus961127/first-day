@@ -4,7 +4,9 @@
 
 **Blocked by:** 01: Demo login and protected administrator access.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Support one UTF-8 English Markdown file per upload, maximum 100 KB, with title and one of the five job roles. Use fictional Frontend Developer content initially.
 - [x] Validate size, format, metadata, and empty/unusable content at the server and show actionable errors.

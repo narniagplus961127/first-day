@@ -4,7 +4,9 @@
 
 **Blocked by:** 04: Ask a question and inspect its evidence.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Enforce 5 questions per minute per IP and 100 per day across the demo using durable shared atomic counters rather than instance-local memory.
 - [x] Use trusted hosting request metadata for IP identity rather than client-declared identity; new sessions cannot bypass the global allowance.

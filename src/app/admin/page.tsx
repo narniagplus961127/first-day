@@ -1,4 +1,5 @@
-import { AuthError, requirePageUser } from '@/lib/auth';
+import { requirePageUser } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 import { WorkspaceShell } from '@/components/workspace-shell';
 import Link from 'next/link';
 import { listDocuments } from '@/lib/knowledge/repository';
@@ -12,7 +13,7 @@ export default async function Admin() {
   try {
     documents = await listDocuments();
   } catch (error) {
-    if (!(error instanceof AuthError)) throw error;
+    if (!(error instanceof HttpError)) throw error;
     storageError = error.message;
   }
   return (

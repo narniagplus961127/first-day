@@ -1,10 +1,10 @@
 import 'server-only';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { AuthError } from '@/lib/auth';
+import { HttpError } from '@/lib/http-error';
 import type { DocumentVersion, KnowledgeDocument } from './types';
 
 function storageError() {
-  return new AuthError(
+  return new HttpError(
     503,
     'Knowledge storage is temporarily unavailable. Please try again.',
   );
@@ -105,7 +105,7 @@ export async function replaceDocument(
   input: { filename: string; content: string },
 ) {
   if (!/^[0-9a-f-]{36}$/i.test(id))
-    throw new AuthError(404, 'Guide not found.');
+    throw new HttpError(404, 'Guide not found.');
   const client = await createSupabaseServerClient();
   const { data, error } = await client.rpc('replace_knowledge_document', {
     p_document: id,
@@ -113,11 +113,11 @@ export async function replaceDocument(
     p_content: input.content,
   });
   if (error?.code === '40001')
-    throw new AuthError(
+    throw new HttpError(
       409,
       'Three indexing attempts are still in progress. Wait and retry.',
     );
-  if (error?.code === 'P0002') throw new AuthError(404, 'Guide not found.');
+  if (error?.code === 'P0002') throw new HttpError(404, 'Guide not found.');
   if (error) throw storageError();
   return data;
 }

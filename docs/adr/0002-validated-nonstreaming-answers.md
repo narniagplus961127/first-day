@@ -1,0 +1,3 @@
+# Validate a complete structured answer before displaying it
+
+The selected direct Groq GPT-OSS strict structured-output integration does not support streaming that structured response. We chose bounded nonstreaming generation with visible processing feedback so the server can validate every claimed source identifier and exact supporting quote before displaying a completed answer, rather than exposing a token stream whose citations might later fail validation. This trades incremental token display for a single verified result and requires explicit incomplete/provider failure feedback; streaming can be reconsidered if the provider supports compatible validated output, while prior assistant text remains context rather than source evidence.

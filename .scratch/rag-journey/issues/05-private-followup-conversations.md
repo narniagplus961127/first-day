@@ -4,7 +4,9 @@
 
 **Blocked by:** 04: Ask a question and inspect its evidence.
 
-**Status:** resolved
+**Status:** ready-for-agent
+
+**Progress:** resolved
 
 - [x] Store chat locally per browser and selected job role. Shared authentication does not create shared centrally stored chats.
 - [x] Submit at most the last three completed question-and-answer exchanges within the selected role; validate and bound submitted history server-side.
