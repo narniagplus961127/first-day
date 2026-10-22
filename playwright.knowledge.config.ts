@@ -25,6 +25,11 @@ export default defineConfig({
   ],
   webServer: [
     {
+      command: 'node tests/knowledge/context-fixture.mjs',
+      url: 'http://127.0.0.1:19032',
+      reuseExistingServer: false,
+    },
+    {
       command: 'node tests/knowledge/groq-fixture.mjs',
       url: 'http://127.0.0.1:19031',
       reuseExistingServer: false,
@@ -42,6 +47,8 @@ export default defineConfig({
         NEXT_PUBLIC_SUPABASE_URL: status.API_URL,
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: status.PUBLISHABLE_KEY,
         SUPABASE_SECRET_KEY: status.SECRET_KEY,
+        FIRSTDAY_REQUEST_CONTEXT_URL: 'http://127.0.0.1:19032',
+        FIRSTDAY_REQUEST_CONTEXT_SECRET: 'controlled-request-context',
         GOOGLE_GENERATIVE_AI_API_KEY: 'controlled-external-provider',
         GOOGLE_EMBEDDING_BASE_URL: 'http://127.0.0.1:19030',
         GROQ_API_KEY: 'controlled-external-provider',

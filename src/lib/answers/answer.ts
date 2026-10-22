@@ -4,6 +4,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
 import { AuthError } from '@/lib/auth';
+import { providerFailure } from '@/lib/ai/provider-failure';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { EMBEDDING_CONFIG } from '@/lib/knowledge/indexing';
 import type { JobRole } from '@/lib/knowledge/types';
@@ -61,18 +62,17 @@ export async function answerQuestion(
     }));
     if (embedding.length !== 768 || embedding.some((n) => !Number.isFinite(n)))
       throw new Error('Invalid vector');
-  } catch {
-    throw new AuthError(
-      503,
-      'Google question embedding is unavailable. Please try again later.',
-    );
+  } catch (error) {
+    throw providerFailure('Google', 'question embedding', error);
   }
   const client = await createSupabaseServerClient();
-  const { data, error } = await client.rpc('search_knowledge', {
-    p_embedding: JSON.stringify(embedding),
-    p_config: EMBEDDING_CONFIG,
-    p_role: scope === 'All roles' ? null : scope,
-  });
+  const { data, error } = await client
+    .rpc('search_knowledge', {
+      p_embedding: JSON.stringify(embedding),
+      p_config: EMBEDDING_CONFIG,
+      p_role: scope === 'All roles' ? null : scope,
+    })
+    .abortSignal(AbortSignal.timeout(5000));
   if (error)
     throw new AuthError(
       503,
@@ -150,14 +150,16 @@ export async function answerQuestion(
       claims,
     };
   } catch (error) {
-    if (APICallError.isInstance(error) && error.statusCode === 429)
-      throw new AuthError(
-        503,
-        'Groq answer quota reached. Please wait and try again.',
-      );
+    if (
+      APICallError.isInstance(error) ||
+      (error instanceof Error &&
+        ['AbortError', 'TimeoutError'].includes(error.name))
+    )
+      throw providerFailure('Groq', 'answer generation', error);
     throw new AuthError(
       503,
       'FirstDay could not complete a verified answer. Please try again.',
+      { code: 'answer_incomplete' },
     );
   }
 }

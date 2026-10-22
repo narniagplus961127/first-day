@@ -71,4 +71,6 @@ export default async function setup() {
         `\ninsert into firstday_test.migrations(name) values ('${name}');\ncommit;\nnotify pgrst, 'reload schema';`,
     );
   }
+  // Only the named, guarded local fixture is reset between suite runs.
+  sql('truncate table public.demo_chat_days, public.demo_chat_ips;');
 }

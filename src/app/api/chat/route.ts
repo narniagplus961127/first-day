@@ -8,7 +8,8 @@ import {
 import { JOB_ROLES, type JobRole } from '@/lib/knowledge/types';
 import { answerQuestion } from '@/lib/answers/answer';
 import { parseHistory } from '@/lib/answers/history';
-export const maxDuration = 60;
+import { admitQuestion } from '@/lib/demo/admission';
+export const maxDuration = 90;
 export async function POST(request: Request) {
   try {
     assertSameOrigin(request);
@@ -43,6 +44,7 @@ export async function POST(request: Request) {
     if (input.scope !== 'All roles' && !JOB_ROLES.includes(input.scope))
       throw new AuthError(400, 'Choose a supported job role or All roles.');
     const history = parseHistory(input.history, input.scope);
+    await admitQuestion(request);
     return NextResponse.json(
       await answerQuestion(
         input.question.trim(),

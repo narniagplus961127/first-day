@@ -11,6 +11,7 @@ import {
   type DemoConversations,
 } from '@/lib/demo/conversations';
 
+import { requestErrorMessage } from '@/lib/request-error-message';
 export function Chat() {
   const resetDialog = useRef<HTMLDialogElement>(null);
   const [question, setQuestion] = useState('');
@@ -81,7 +82,7 @@ export function Chat() {
       const data = await response.json();
       if (!response.ok)
         throw new Error(
-          data.error || 'The answer is unavailable. Please retry.',
+          requestErrorMessage(data, 'The answer is unavailable. Please retry.'),
         );
       const result: AnswerResult = data;
       const next = {

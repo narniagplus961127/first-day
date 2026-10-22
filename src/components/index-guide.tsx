@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { requestErrorMessage } from '@/lib/request-error-message';
 export function IndexGuide({
   id,
   status,
@@ -29,7 +30,9 @@ export function IndexGuide({
         });
         const data = await response.json();
         if (!response.ok)
-          throw new Error(data.error || 'Indexing interrupted. Please retry.');
+          throw new Error(
+            requestErrorMessage(data, 'Indexing interrupted. Please retry.'),
+          );
         state = data.status;
         setProgress(data);
       } while (state === 'processing');

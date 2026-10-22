@@ -2,6 +2,7 @@ import 'server-only';
 import { APICallError, embedMany } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { AuthError } from '@/lib/auth';
+import { providerFailure } from '@/lib/ai/provider-failure';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { inspectDocument } from './repository';
 
@@ -102,26 +103,37 @@ export async function indexDocument(id: string) {
       .limit(4);
     if (pending.error) throw pending.error;
     if (pending.data.length) {
-      const google = createGoogleGenerativeAI({
-        apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-        baseURL: process.env.GOOGLE_EMBEDDING_BASE_URL,
-      });
-      const { embeddings } = await embedMany({
-        model: google.embedding('gemini-embedding-2'),
-        dimensions: 768,
-        values: pending.data.map(
-          (c) => `title: ${document.title} | text: ${c.content}`,
-        ),
-        maxRetries: 0,
-        abortSignal: AbortSignal.timeout(25000),
-      });
-      if (
-        embeddings.length !== pending.data.length ||
-        embeddings.some(
-          (e) => e.length !== 768 || e.some((n) => !Number.isFinite(n)),
+      let embeddings: number[][];
+      try {
+        const google = createGoogleGenerativeAI({
+          apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+          baseURL: process.env.GOOGLE_EMBEDDING_BASE_URL,
+        });
+        ({ embeddings } = await embedMany({
+          model: google.embedding('gemini-embedding-2'),
+          dimensions: 768,
+          values: pending.data.map(
+            (c) => `title: ${document.title} | text: ${c.content}`,
+          ),
+          maxRetries: 0,
+          abortSignal: AbortSignal.timeout(25000),
+        }));
+        if (
+          embeddings.length !== pending.data.length ||
+          embeddings.some(
+            (e) => e.length !== 768 || e.some((n) => !Number.isFinite(n)),
+          )
         )
-      )
-        throw new Error('Invalid embedding response');
+          throw new Error('Invalid embedding response');
+      } catch (error) {
+        if (APICallError.isInstance(error) && error.statusCode === 400)
+          throw new AuthError(
+            503,
+            'Google could not embed this content. Check passage size and model configuration before retrying.',
+            { code: 'google_unavailable' },
+          );
+        throw providerFailure('Google', 'embedding', error);
+      }
       for (let i = 0; i < embeddings.length; i++) {
         const saved = await client
           .from('knowledge_chunks')
@@ -155,22 +167,25 @@ export async function indexDocument(id: string) {
       total: chunks.length,
     };
   } catch (error) {
-    const message =
-      APICallError.isInstance(error) && error.statusCode === 429
-        ? 'Google embedding quota reached. Wait and retry to resume saved progress.'
-        : APICallError.isInstance(error) && error.statusCode === 400
-          ? 'Google could not embed this content. Check passage size and model configuration before retrying.'
-          : 'Embedding service unavailable. Retry to resume saved progress.';
+    if (error instanceof AuthError && error.status === 409) throw error;
+    const failure =
+      error instanceof AuthError
+        ? error
+        : new AuthError(
+            503,
+            'Indexing storage is temporarily unavailable. Retry to resume saved progress.',
+            { code: 'storage_unavailable' },
+          );
     await client
       .from('knowledge_versions')
       .update({
         status: 'failed',
-        index_error: message,
+        index_error: failure.message,
         index_token: null,
         index_lease_until: null,
       })
       .eq('id', version.id)
       .eq('index_token', token);
-    throw new AuthError(503, message);
+    throw failure;
   }
 }
