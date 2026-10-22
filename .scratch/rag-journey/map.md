@@ -13,11 +13,11 @@ Canonical specification: [First complete onboarding RAG journey](../onboarding/s
 | [05: Continue and reset a private demo conversation](issues/05-private-followup-conversations.md) | 04 | Resolved |
 | [06: Replace a guide without interrupting answers](issues/06-safe-document-replacement.md) | 04 | Resolved |
 | [07: Enforce demo limits and handle provider failures](issues/07-demo-limits-and-provider-failures.md) | 04 | Resolved |
-| [08: Verify the complete hosted journey](issues/08-verify-hosted-journey.md) | 05, 06, 07 | In progress |
+| [08: Verify the complete hosted journey](issues/08-verify-hosted-journey.md) | 05, 06, 07 | Resolved |
 
 ## Frontier
 
-Tickets 01 through 07 are resolved and merged. Ticket 08 is in progress and is the current frontier for live-provider and hosted-journey verification.
+Tickets 01 through 08 are resolved. The hosted journey passed on the actual production alias; final integration review follows.
 
 ## Working rules
 
@@ -30,7 +30,7 @@ Tickets 01 through 07 are resolved and merged. Ticket 08 is in progress and is t
 
 ## Next
 
-Ticket 07 is resolved and merged, with the combined 62 real-Supabase desktop/mobile knowledge tests, 14 authentication journeys, typecheck, production build, and CRLF/diff checks passed in its worktree. Continue ticket 08 for real-provider and hosted verification under the applicable deployment authorization. The dedicated services and credentials are configured and passed access checks.
+Ticket 08 is resolved with actual hosted verification. Complete the required final two-axis review and any resulting fixes on the integration branch. No GitHub push or pull request is authorized.
 
 ## Service verification baseline
 
@@ -82,3 +82,17 @@ The user explicitly preapproved routine schema/function migrations and bounded r
 - Cloud migration 20261022143627_chat_admission is applied; local migration filename and fixture ledger match cloud history. No cloud changes were made during integration.
 - Combined implementer verification passed: 62 real-Supabase desktop/mobile knowledge journeys, including fourteen limits cases, 14 authentication journeys, typecheck, production build, and CRLF/diff checks.
 - Dependencies are unchanged; root typecheck and changed-text CRLF/diff checks passed after integration. Approved native design, ignored .env.local, and devIndicators: false remain preserved.
+
+## Ticket 08 hosted evidence
+
+- Production https://firstday-lilac.vercel.app; deployment dpl_2sB2zyF77ie7g4Q3PPw1Nwp5V5dv READY, app commit ab8a7b0.
+- Exact authorized Hobby target qw-e7b7/firstday, project prj_0yTgxpAv4IlJ53pVjTKWamIT6Dxg; default resources, no Git connection or protection changes.
+- Real hosted fictional upload, 4/7 persisted indexing/resume, learner read, exact-command citation, contextual follow-up, absent-fact response, safe replacement/old source, isolated browser/scope history/reset, learner/anonymous denials and desktop/mobile keyboard paths passed. Four actual questions and fourteen document embeddings; no live quota load test.
+- Friendly storage fallback added after public browser RED from a reversible local REST outage. Both desktop/mobile GREEN; dedicated fixture restored. Typecheck/build, script syntax, all tracked text CRLF and diff checks passed. Earlier combined62 knowledge+14auth coverage remains applicable.
+- README and docs/hosted-verification.md record reproduction, exact evidence IDs, processing/default bounds, free availability/restore limits and secret-safe smoke. Cloud remained healthy with seven matching migrations. No paid service, unrelated project change, cloud outage or shared counter reset.
+
+## Final user-requested hosting additions
+
+- Existing FirstDay project connected to narniagplus961127/first-day; production branch main, other branches enabled for protected previews, affected-project skip disabled and no ignored-build command. Fork/SSO protections preserved; Production+Preview runtime configuration verified. No Git push/main merge or webhook-trigger test occurred.
+- Brand vector favicon and explicit all-branch Git configuration committed as 3e06bc5; source-deployed READY as dpl_4w1NtoWJU2v3eSwEWYidbQVdKgeG. Current canonical URL is https://qw-firstday.vercel.app; old firstday-lilac alias now 404. Ticket08 did not change domains.
+- Favicon metadata, HTTP200/image/svg+xml, login, real demo auth, persisted new active guide and historical citation passed on the final deployment with no additional model calls. Exact final IDs/readback and remote-main distinction recorded in docs/hosted-verification.md.
