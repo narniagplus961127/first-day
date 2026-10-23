@@ -9,7 +9,7 @@ export const checklistTaskInput = z
     instructions: z.string().max(2000),
     position: z.number().int().nonnegative().optional(),
     guideId: z.uuid().nullable().optional(),
-    suggestedQuestion: z.null().optional(),
+    suggestedQuestion: z.string().max(1000).nullable().optional(),
   })
   .strict();
 export const checklistSaveInput = z

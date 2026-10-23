@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { beginTaskQuestion } from '@/lib/demo/task-question';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 import { STAGES, type Checklist } from '@/lib/checklists/types';
 import {
@@ -121,7 +122,7 @@ export function LearnerChecklist({
         </p>
       ) : null}
       {!ready ? (
-        <p role="status">Loading your progress…</p>
+        <p role="status">Loading your progressâ€¦</p>
       ) : initial.tasks.length ? (
         <section
           className="card checklist-progress"
@@ -146,7 +147,7 @@ export function LearnerChecklist({
         </section>
       ) : (
         <p className="notice">
-          Coming soon. This role’s checklist has not been prepared yet.
+          Coming soon. This roleâ€™s checklist has not been prepared yet.
         </p>
       )}
       {STAGES.map((stage) => {
@@ -183,6 +184,23 @@ export function LearnerChecklist({
                       Guide unavailable. You can still complete this task.
                     </p>
                   )
+                ) : null}
+                {task.suggestedQuestion ? (
+                  <Link
+                    href="/chat"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      let href = '/chat?taskIntent=unavailable';
+                      try {
+                        href = beginTaskQuestion(initial.job_role, task.id);
+                      } catch {
+                        /* Chat explains that the handoff is unavailable. */
+                      }
+                      router.push(href);
+                    }}
+                  >
+                    Ask about this task
+                  </Link>
                 ) : null}
                 <label className="checklist-completion">
                   <input

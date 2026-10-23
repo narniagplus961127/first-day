@@ -197,16 +197,16 @@ export function ChecklistView({
       <p role="status" aria-live="polite">
         {pending
           ? reloading
-            ? 'Loading saved checklist…'
-            : 'Saving checklist…'
+            ? 'Loading saved checklistâ€¦'
+            : 'Saving checklistâ€¦'
           : message ||
             (dirty ? 'Unsaved changes' : `Saved revision ${revision}`)}
       </p>
       {!tasks.length ? (
         <p className="notice">
           {admin
-            ? 'No tasks yet. Add a task to prepare this role’s checklist.'
-            : 'Coming soon. This role’s checklist has not been prepared yet.'}
+            ? 'No tasks yet. Add a task to prepare this roleâ€™s checklist.'
+            : 'Coming soon. This roleâ€™s checklist has not been prepared yet.'}
         </p>
       ) : null}
       {admin ? (
@@ -262,6 +262,23 @@ export function ChecklistView({
                     edit(index, { instructions: event.target.value })
                   }
                 />
+                <label htmlFor={`task-question-${index}`}>
+                  Suggested question
+                </label>
+                <textarea
+                  id={`task-question-${index}`}
+                  maxLength={1000}
+                  rows={3}
+                  value={task.suggestedQuestion || ''}
+                  onChange={(event) =>
+                    edit(index, {
+                      suggestedQuestion: event.target.value || null,
+                    })
+                  }
+                />
+                <p className="muted">
+                  Optional. Learners review and submit this question themselves.
+                </p>
                 <label htmlFor={`task-guide-${index}`}>Guide</label>
                 <select
                   id={`task-guide-${index}`}
@@ -274,7 +291,7 @@ export function ChecklistView({
                   {task.guideId &&
                   !guides.some((guide) => guide.id === task.guideId) ? (
                     <option value={task.guideId}>
-                      Guide unavailable — remove or choose another
+                      Guide unavailable â€” remove or choose another
                     </option>
                   ) : null}
                   {guides.map((guide) => (
