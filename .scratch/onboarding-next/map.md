@@ -145,3 +145,7 @@ Original recommendations 1–15 remain accepted. Recommendations 16–20 and rou
 
 CI/hooks, deferred checker fixes and optional expansion features remain excluded. Local Markdown remains the tracker; no GitHub issues were created and no previous issue was closed or changed.
 
+
+## Existing hosted baseline inspection
+
+Read-only check:release passed on October 23, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
