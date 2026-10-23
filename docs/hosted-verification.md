@@ -1,5 +1,7 @@
 # Hosted verification
 
+Historical verification log. For the current production identity and follow-up work, see the Current state section of [.scratch/rag-journey/map.md](../.scratch/rag-journey/map.md).
+
 Ticket 08 verifies the actual deployed journey separately from deterministic tests. The complete real-provider journey passed. Current production is [qw-firstday.vercel.app](https://qw-firstday.vercel.app), serving reviewed app commit 9a8886e with the FirstDay favicon; the original full journey evidence and subsequent asset/health verification are distinguished below.
 
 ## Deployment scope

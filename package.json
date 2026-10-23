@@ -8,7 +8,12 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "test:knowledge": "playwright test --config playwright.knowledge.config.ts"
+    "test:knowledge": "playwright test --config playwright.knowledge.config.ts",
+    "check:repo": "node scripts/check-repo.mjs",
+    "test:tooling": "node --test tests/tooling/*.test.mjs",
+    "fixture:up": "node scripts/fixture-bootstrap.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "measure:navigation": "node scripts/measure-navigation.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "4.0.102",
