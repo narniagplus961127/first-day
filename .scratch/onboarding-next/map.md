@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are in progress in isolated worktrees; other tickets retain their declared blockers. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Ticket 08 is resolved and integrated at de31686 (18 browser checks, typecheck/build/CRLF passed). Tickets 01 and 14 are in progress in isolated worktrees; other tickets retain their declared blockers. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,7 +19,6 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 - [01: Publish and read an administrator-defined role checklist](issues/01-publish-role-checklist.md) — recommended starting point for checklist implementation.
-- [08: Preserve an unfinished question in each chat scope](issues/08-preserve-question-drafts.md) — independent improvement to the already-working chat.
 - [14: Filter the knowledge library by job role](issues/14-filter-published-guides-by-role.md) — independent improvement to the already-working library.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
@@ -64,7 +63,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 8. **[08: Preserve an unfinished question in each chat scope](issues/08-preserve-question-drafts.md) — M6**
    - **Blocked by:** None; completed RAG foundation is available.
    - **What it delivers:** Existing chat remembers unfinished questions across page navigation and reload, separately for each job role and All roles, without losing completed conversations.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 9. **[09: Ask a task question without overwriting unfinished work](issues/09-ask-from-checklist-task.md) — M6**
    - **Blocked by:** 04, 08
