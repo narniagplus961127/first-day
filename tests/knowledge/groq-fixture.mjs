@@ -1,6 +1,13 @@
 import { createServer } from 'node:http';
+let calls = 0;
 const failures = new Set();
 createServer(async (req, res) => {
+  if (req.method === 'GET' && req.url === '/calls') {
+    res.setHeader('content-type', 'application/json');
+    res.end(JSON.stringify({ calls }));
+    return;
+  }
+  if (req.method === 'POST') calls++;
   if (req.method === 'GET') {
     res.end('ready');
     return;
