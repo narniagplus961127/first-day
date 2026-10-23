@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 is integrated through the complete Frontend gate 13 at b59abb3; M9 role-content tickets 16–18 are in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
+Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 is integrated through the complete Frontend gate 13 at b59abb3; M9 Backend 16 and Designer 17 are integrated (latest merge 8aeccce); Business Analyst 18 and HR 19 are in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,7 +19,7 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 
-Current active frontier: [16](issues/16-publish-backend-onboarding.md), [17](issues/17-publish-designer-onboarding.md) and [18](issues/18-publish-business-analyst-onboarding.md), in progress; [19](issues/19-publish-hr-onboarding.md) is ready. Ticket 13 passed 24 distinct desktop/mobile checks and an enhanced two-viewport journey recheck, plus typecheck/build/repository checks and local security advisors. Its shared safe preparation and role-journey pattern now supports the four independent role releases. Only one fixture suite runs at a time.
+Current active frontier: [18](issues/18-publish-business-analyst-onboarding.md) and [19](issues/19-publish-hr-onboarding.md), in progress. Backend 16 and Designer 17 passed their full desktop/mobile role journeys and are integrated. Business Analyst and HR follow with exclusive fixture leases. Ticket 13 provides the verified safe preparation and shared role-journey pattern. Only one fixture suite runs at a time.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -103,12 +103,12 @@ Choose one ready slice when resuming; readiness does not require implementing th
 16. **[16: Publish the Backend Developer onboarding journey](issues/16-publish-backend-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional Backend Developer starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 17. **[17: Publish the Designer onboarding journey](issues/17-publish-designer-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional Designer starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 18. **[18: Publish the Business Analyst onboarding journey](issues/18-publish-business-analyst-onboarding.md) — M9**
    - **Blocked by:** 13
@@ -118,7 +118,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 19. **[19: Publish the HR onboarding journey](issues/19-publish-hr-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional HR starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 20. **[20: Verify and release the complete five-role FirstDay product](issues/20-verify-five-role-product-release.md) — M10**
    - **Blocked by:** 15, 16, 17, 18, 19
@@ -148,4 +148,4 @@ CI/hooks, deferred checker fixes and optional expansion features remain excluded
 
 ## Existing hosted baseline inspection
 
-Read-only check:release passed on October 23, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
+Read-only check:release passed on October 23 and again on October 24, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
