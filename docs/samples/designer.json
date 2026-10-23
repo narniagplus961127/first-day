@@ -1,0 +1,67 @@
+{
+  "role": "Designer",
+  "key": "lumen.designer-onboarding.v1",
+  "title": "Lumen Designer onboarding",
+  "filename": "designer.md",
+  "supportedQuestion": "Which shared kit and spacing token should I use for the fictional Lumen welcome-flow exercise?",
+  "supportedFact": "Use Lumen Foundations v1 and the space.4 spacing token (16 px).",
+  "missingQuestion": "Which paid font license has Lumen purchased?",
+  "tasks": [
+    {
+      "title": "Read design guide",
+      "stage": "Before you start",
+      "instructions": "Read the fictional Lumen guide and identify which activities stay inside the written practice exercise.",
+      "position": 0,
+      "suggestedQuestion": "How should I begin the fictional Lumen Designer exercise without changing a real shared file?"
+    },
+    {
+      "title": "Locate shared design kit",
+      "stage": "Before you start",
+      "instructions": "Locate the imagined Lumen Foundations v1 kit and note its brand and spacing token references.",
+      "position": 1,
+      "suggestedQuestion": "Where is the fictional Lumen design kit and which token references should I note?"
+    },
+    {
+      "title": "Open sample workspace",
+      "stage": "Day 1",
+      "instructions": "Follow the fictional duplicate-frame process from Practice / Welcome flow into Sandbox / welcome-practice, leaving the source unchanged.",
+      "position": 2,
+      "suggestedQuestion": "Which frame should I duplicate and where should I place my fictional Lumen practice copy?"
+    },
+    {
+      "title": "Review components and tokens",
+      "stage": "Day 1",
+      "instructions": "Inspect the shared kit, Category/Name/State naming and the brand and spacing references before annotating the practice card.",
+      "position": 3,
+      "suggestedQuestion": "Which shared kit and spacing token should I use for the fictional Lumen welcome-flow exercise?"
+    },
+    {
+      "title": "Inspect sample welcome flow",
+      "stage": "Day 1",
+      "instructions": "Trace the invented display-label entry, Continue action, empty-field error and confirmation state in the written exercise.",
+      "position": 4,
+      "suggestedQuestion": "What actions and states make up the fictional Lumen welcome flow?"
+    },
+    {
+      "title": "Check accessibility",
+      "stage": "Week 1",
+      "instructions": "Review text contrast, visible keyboard focus, descriptive labels and text error feedback; record one observation for each.",
+      "position": 5,
+      "suggestedQuestion": "Which accessibility checks should I record for the fictional Lumen welcome card?"
+    },
+    {
+      "title": "Prepare small design change",
+      "stage": "Week 1",
+      "instructions": "Describe a space.4 spacing improvement in the fictional copy and record feedback using Observation / Impact / Proposal.",
+      "position": 6,
+      "suggestedQuestion": "How should I prepare and explain a small fictional Lumen design change?"
+    },
+    {
+      "title": "Write handoff note",
+      "stage": "Week 1",
+      "instructions": "Keep an unsent practice handoff with the frame path, token and component references, interaction states and remaining questions.",
+      "position": 7,
+      "suggestedQuestion": "What belongs in a fictional Lumen design handoff note?"
+    }
+  ]
+}
