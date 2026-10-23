@@ -1,3 +1,8 @@
+import {
+  activityKey,
+  activityGeneration,
+  generationIsCurrent,
+} from '@/lib/demo/activity';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 import type {
   AnswerClaim,
@@ -98,7 +103,7 @@ function result(value: unknown): AnswerResult | null {
   };
 }
 export function loadConversations(): DemoConversations {
-  const raw = localStorage.getItem(STORAGE_KEY);
+  const raw = localStorage.getItem(activityKey(STORAGE_KEY));
   if (!raw) return { scope: 'Frontend Developer', conversations: {} };
   if (raw.length > 2000000)
     throw new Error('Stored conversation is too large.');
@@ -138,10 +143,13 @@ export function loadConversations(): DemoConversations {
   }
   return { scope, conversations, drafts };
 }
-export function saveConversations(state: DemoConversations) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...state }));
-}
-export function resetDemoActivity() {
-  for (const key of Object.keys(localStorage))
-    if (key.startsWith('firstday.demo.')) localStorage.removeItem(key);
+export function saveConversations(
+  state: DemoConversations,
+  generation = activityGeneration(),
+) {
+  if (!generationIsCurrent(generation)) return;
+  localStorage.setItem(
+    activityKey(STORAGE_KEY, generation),
+    JSON.stringify({ version: 1, ...state }),
+  );
 }

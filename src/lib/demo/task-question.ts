@@ -1,7 +1,9 @@
+import { activityGeneration, LEGACY_GENERATION } from '@/lib/demo/activity';
 import { JOB_ROLES, type JobRole } from '@/lib/knowledge/types';
 const KEY = 'firstday.demo.task-handoff.v1';
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 type TaskIntent = {
+  generation?: string;
   nonce: string;
   role: JobRole;
   taskId: string;
@@ -9,7 +11,13 @@ type TaskIntent = {
 };
 export function beginTaskQuestion(role: JobRole, taskId: string): string {
   const nonce = crypto.randomUUID();
-  const intent: TaskIntent = { nonce, role, taskId, createdAt: Date.now() };
+  const intent: TaskIntent = {
+    nonce,
+    role,
+    taskId,
+    createdAt: Date.now(),
+    generation: activityGeneration(),
+  };
   sessionStorage.setItem(KEY, JSON.stringify(intent));
   return '/chat?taskIntent=' + nonce;
 }
@@ -22,6 +30,7 @@ export function consumeTaskQuestion(nonce: string): TaskIntent | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
   const intent = value as Partial<TaskIntent>;
   if (
+    (intent.generation ?? LEGACY_GENERATION) !== activityGeneration() ||
     intent.nonce !== nonce ||
     !JOB_ROLES.includes(intent.role as JobRole) ||
     typeof intent.taskId !== 'string' ||

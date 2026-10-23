@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import { ResetDemo } from '@/components/reset-demo';
+import { subscribeDemoReset } from '@/lib/demo/activity';
 import { useEffect, useState } from 'react';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 import { STAGES, type Checklist } from '@/lib/checklists/types';
@@ -71,6 +73,20 @@ export function LearnerOverview() {
     return () => controller.abort();
   }, [ready, activity.role, attempt]);
   const current = checklist?.job_role === activity.role ? checklist : null;
+  useEffect(
+    () =>
+      subscribeDemoReset(() => {
+        let fresh = emptyChecklistActivity();
+        try {
+          fresh = loadChecklistActivity();
+        } catch {
+          /* The reset still clears visible stale state. */
+        }
+        setActivity(fresh);
+        setNotice('');
+      }),
+    [],
+  );
   const completed = new Set(activity.completed[activity.role] || []);
   const ordered = STAGES.flatMap(
     (stage) => current?.tasks.filter((task) => task.stage === stage) || [],
@@ -114,6 +130,7 @@ export function LearnerOverview() {
           Continue onboarding →
         </Link>
       </section>
+      <ResetDemo disabled={!ready} />
       {notice ? (
         <p role="status" className="notice">
           {notice}
