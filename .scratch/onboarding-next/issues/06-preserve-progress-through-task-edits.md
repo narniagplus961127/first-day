@@ -8,7 +8,7 @@
 
 **Status:** ready-for-agent
 
-**Progress:** not-started
+**Progress:** in-progress
 
 - [ ] Rename, instructions edits, reorder and stage movement preserve completion for the same task identity.
 - [ ] New task identities begin incomplete; removed tasks no longer display, count or appear among next tasks.
