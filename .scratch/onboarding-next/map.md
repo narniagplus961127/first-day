@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Tickets 02, 03 and 05 are in progress; 07, 09 and 10 are ready. Local browser tests are temporarily waiting for Docker engine recovery after the usage interruption. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Ticket 02 is integrated at 2c7985a (12 effective browser checks including the corrected isolated starter preparation). Tickets 03, 05 and 06 are in progress; 07, 09 and 10 are ready. Docker engine and dedicated fixture recovered after the user relaunched Docker; no infrastructure blocker remains. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -18,9 +18,9 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 
 ## Current frontier
 
-- [02: Reorder tasks and move them between onboarding stages](issues/02-reorder-and-move-tasks.md) - ready after 01.
 - [03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) - in progress.
 - [05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) - in progress.
+- [06: Preserve accurate progress through checklist changes](issues/06-preserve-progress-through-task-edits.md) - in progress.
 
 Additional ready tickets after 04: [07](issues/07-open-current-guide-from-task.md), [09](issues/09-ask-from-checklist-task.md), [10](issues/10-synchronize-task-completion-tabs.md).
 
@@ -36,7 +36,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 2. **[02: Reorder tasks and move them between onboarding stages](issues/02-reorder-and-move-tasks.md) — M4**
    - **Blocked by:** 01
    - **What it delivers:** Administrators organize a saved checklist with accessible reorder and stage-move controls, and learners see the same published sequence.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 3. **[03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) — M4**
    - **Blocked by:** 01
@@ -56,7 +56,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 6. **[06: Preserve accurate progress through checklist changes](issues/06-preserve-progress-through-task-edits.md) — M5**
    - **Blocked by:** 02, 04
    - **What it delivers:** Learners keep completed work when an administrator clarifies or reorganizes tasks, while new and removed obligations change progress predictably.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 7. **[07: Open the current same-role guide from a checklist task](issues/07-open-current-guide-from-task.md) — M6**
    - **Blocked by:** 04
