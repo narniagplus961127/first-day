@@ -19,7 +19,7 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 
-Current active frontier: [20](issues/20-verify-five-role-product-release.md), in progress. All five roles now have canonical fictional guides and eight-task checklists with passing desktop/mobile journeys. HR had an unexplained first desktop guide-navigation failure followed by a passing retry; 20 will preserve that limitation and recheck fresh combined navigation. Final native-design reconciliation, complete regression checks, two-axis review and actual authorized release evidence remain outstanding. Only one fixture suite runs at a time.
+Current active frontier: [20](issues/20-verify-five-role-product-release.md), in progress. All five roles now have canonical fictional guides and eight-task checklists with passing desktop/mobile journeys. HR had an unexplained first desktop guide-navigation failure followed by a passing retry; 20 will preserve that limitation and recheck fresh combined navigation. Final native-design reconciliation and the combined 190-case regression run are active. Initial two-axis review identified one Spec gap (unsaved editor navigation, including Back) and one Standards heuristic (unused learner mode in the admin editor); ticket 20 owns both fixes before final delta review. Hosted release remains outstanding. Only one fixture suite runs at a time.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -149,3 +149,7 @@ CI/hooks, deferred checker fixes and optional expansion features remain excluded
 ## Existing hosted baseline inspection
 
 Read-only check:release passed on October 23 and again on October 24, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
+
+## Final gate release prerequisites
+
+October 24 read-only checks: public signup remains disabled; Vercel access and the previous main deployment are healthy. The authenticated Supabase CLI dry run, scoped to ohvojrdwxlsbzwdrhpzr with vault changes disabled, lists exactly the four new canonical migrations and needs no new credentials or history repair. No cloud schema/content changes, provider calls, Git publication or deployment have occurred in this programme yet. Final code review and verified release sequencing remain required; existing hosted evidence is not evidence for the new integration branch.
