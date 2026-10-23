@@ -2,10 +2,10 @@
 
 ## Current state — October 23, 2026
 
-- GitHub main: c386c3bd98df1f015df383e337b864b901ded51d (PR #3 merged).
-- Production: https://qw-firstday.vercel.app, READY dpl_Gv8UkXSwby2UG8wneFngGxqRKW8w, source cli, app 000a48c459db4ef48192fafd72c737220833af0e in Singapore sin1. This performance fix is ahead of GitHub main; no branch push or merge was performed for this follow-up. Earlier branch/main auto-deployment was verified after PR #3.
-- Retrospective follow-up is complete on chore/retro-environment (item 2 needs a fresh chat to refresh active permissions); CI/pre-commit wiring (item 1) is excluded. Saved Codex project path is correct; this old chat retains stale writable-root context.
-- Navigation fixed: knowledge library dropped from 1.4–2.1 seconds to 380–486 ms after the region-only change. Project default region also verified as sin1 for future Git deployments. See docs/navigation-performance.md for the red/green benchmark.
+- Last verified GitHub main: 1d5efea5e9214c2ebf4c006248419af77a838a45, PR #4 merged. Actual Git-triggered production READY dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS at https://qw-firstday.vercel.app, region sin1; deployed commit matched main.
+- Original eight RAG tickets and first retrospective follow-up are complete. Deferred checker fixes and CI/hooks remain excluded.
+- Next product work M4–M10 is specified and ticketed, not implemented: see [programme delivery map](../onboarding-next/map.md), [programme specification](../onboarding-next/spec.md) and [roadmap](../../docs/roadmap.md). The next implementation entry point is ticket 01 for checklist administration; independent tickets 08 and 14 are also ready.
+- The checklist interview accepted all 20 recommendations. This planning session makes no cloud changes, GitHub publication or application deployment.
 
 The sections below retain historical implementation and deployment evidence.
 
