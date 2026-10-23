@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 reset ticket 11 is integrated at 9afe4ad (54 relevant browser checks), and storage-recovery ticket 12 is in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
+Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 reset ticket 11 and storage-recovery ticket 12 are integrated (latest merge 436e7f1); the complete Frontend gate 13 is in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,7 +19,7 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 
-Current active frontier: [12](issues/12-handle-local-storage-failures.md), in progress.
+Current active frontier: [13](issues/13-verify-complete-frontend-checklist-journey.md), in progress. Ticket 12 passed 38 focused journeys, 4 legacy/history checks and 18 final storage cases on desktop/mobile, with typecheck and repository checks. Ticket 13 now combines the curated eight-task Frontend journey before the remaining four role releases.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -83,12 +83,12 @@ Choose one ready slice when resuming; readiness does not require implementing th
 12. **[12: Keep local activity honest when browser storage fails](issues/12-handle-local-storage-failures.md) — M7**
    - **Blocked by:** 11
    - **What it delivers:** Learners can still try the demo in a tab when browser storage is blocked or corrupted, with clear persistence limits and no false reset claims.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 13. **[13: Finish the complete Frontend checklist demo journey](issues/13-verify-complete-frontend-checklist-journey.md) — M7**
    - **Blocked by:** 03, 05, 06, 07, 12
    - **What it delivers:** The eight-task Frontend checklist is a coherent, verifiable onboarding journey with working supported guide/question bindings and reliable local activity.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 14. **[14: Filter the knowledge library by job role](issues/14-filter-published-guides-by-role.md) — M8**
    - **Blocked by:** None; completed RAG foundation is available.
