@@ -1,6 +1,6 @@
 # FirstDay product roadmap
 
-Scope agreed October 23, 2026. The user subsequently authorized implementation of the complete ticket graph on feat/onboarding-integration. For current progress and verification, use the [delivery map](../.scratch/onboarding-next/map.md). The completed foundation below describes the verified PR #4 production baseline at 1d5efea in Singapore; later milestone outcomes define completion boundaries, and their delivery status is maintained in the map.
+Scope agreed October 23, 2026; the complete authorized programme M1–M10 is delivered. PR #5 released the five-role application through Git preview and main-production deployment. For ticket evidence use the [delivery map](../.scratch/onboarding-next/map.md); for exact measured release snapshots use [hosted verification](hosted-verification.md).
 
 ## Completed foundation
 
@@ -12,7 +12,7 @@ Scope agreed October 23, 2026. The user subsequently authorized implementation o
 
 The original eight RAG implementation tickets belong to M1–M3; they are not eight additional pending product milestones.
 
-## Specified gradual delivery
+## Completed programme (M4–M10)
 
 | Milestone                                         | Depends on        | Outcome and completion boundary                                                                                                                                                                                                                                                                                                     |
 | ------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -33,8 +33,8 @@ The existing free-tier stack and direct Google/Groq approach remain the project 
 - Login and demo credential popup: M2, complete.
 - Administrator knowledge upload/status/retry/replacement: M2, complete.
 - Chat, contextual follow-ups, exact-version citations and no-evidence: M2, complete; checklist handoff/drafts extend it in M6.
-- Learner overview: basic screen exists; role introduction/selection, actual progress, next tasks and task-derived suggested questions complete in M5–M6.
-- Knowledge library: reading exists; role discovery and title search remain M8.
+- Learner overview: basic screen exists; role introduction/selection, actual progress, next tasks and task-derived suggested questions delivered in M5–M6.
+- Knowledge library: published reading, role discovery and title search delivered in M8.
 - Learner checklists and administrator editor: M4–M7.
 - Five role-specific knowledge/checklist experiences: M9 after the Frontend journey.
 - Browser privacy, reset, mobile and keyboard behavior: implemented for existing RAG and extended/verified with each checklist increment and M7/M10.
@@ -56,4 +56,4 @@ The remaining retrospective checker fixes were explicitly deferred. CI and pre-c
 - [Original RAG specification](../.scratch/onboarding/spec.md)
 - [RAG progress and verification history](../.scratch/rag-journey/map.md)
 
-The user subsequently authorized planning all M4–M10 with the recommendations and waived further approval. The [published programme specification](../.scratch/onboarding-next/spec.md) links seven detailed milestone specifications; the [delivery map](../.scratch/onboarding-next/map.md) lists 20 individual vertical tickets and blocking edges. Ticket Status remains ready-for-agent while the separate Progress field records delivery. The user subsequently authorized the complete implementation; resume at the active frontier in the delivery map. Planning publication alone was not that implementation or release authorization.
+The user subsequently authorized planning all M4–M10 with the recommendations and waived further approval. The [published programme specification](../.scratch/onboarding-next/spec.md) links seven detailed milestone specifications; the [delivery map](../.scratch/onboarding-next/map.md) lists 20 individual vertical tickets and blocking edges. Ticket Status remains ready-for-agent while the separate Progress field records delivery. The complete implementation and hosted release are finished; every ticket has Progress resolved in the delivery map. Planning publication alone was not that implementation or release authorization.

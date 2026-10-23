@@ -8,7 +8,7 @@
 
 **Status:** ready-for-agent
 
-**Progress:** in-progress
+**Progress:** resolved
 
 - [x] Exercise the integrated demo login, overview, checklist, guide discovery, reader, task question, draft protection, supported citation and no-evidence journey across all five roles.
 - [x] Verify private administrator maintenance/conflicts and current-definition/local-progress reconciliation without weakening authorization.
@@ -16,7 +16,7 @@
 - [x] Reconcile actual in-scope desktop/mobile and keyboard interactions with the approved native FigCraft design, preserving manual edits and omitting preview exports.
 - [x] Run appropriate local checks and final standards/spec review, resolve in-scope findings, and reuse valid current-version evidence instead of repeatedly consuming live model quota.
 - [x] Keep secrets out of public assets, logs and credential-bearing artifacts; retain free-provider/no-paid-fallback contracts and Singapore deployment.
-- [ ] When release is authorized, verify the actual branch preview/main-production Git flow, exact commit/alias/READY state and navigation health, then update current-state/run documentation.
+- [x] When release is authorized, verify the actual branch preview/main-production Git flow, exact commit/alias/READY state and navigation health, then update current-state/run documentation.
 - [x] Keep pending access, user-performed merge or release authorization explicit and unresolved; no automatic cloud mutation or Git publication follows from this ticket's creation.
 
 ## Local implementation evidence - October 24, 2026
@@ -31,10 +31,13 @@
 - Demo popup keyboard Enter/Escape/focus return, form fill and real fixture sign-in now have integrated coverage, with all five role labels and no horizontal overflow. Existing Space completion, Enter task links/reset decisions and native labelled form controls remain covered.
 
 - Final TypeScript check and production build passed. Repository validation passed 240 tracked/nonignored files with CRLF/ticket rules; all three tooling guardrail tests and git diff --check passed. React review confirmed unconditional hooks, effect cleanup, native labels/dialogs, one derived current navigation item and no new data fetch/provider dependency. Generated-only next-env.d.ts build changes were restored.
-- Private in-process comparison passed across 268 tracked/nonignored, built public static and selected verification-output files against four configured server-only values (Supabase secret, Google/Groq keys and administrator password), plus administrator email in public outputs. No value was displayed or copied. Intentionally public learner/publishable values remain allowed. The explicit deployment allowlist still excludes env, tests, plans and native design. Direct Google/Groq, request limits, no paid fallback and configured sin1 region remain unchanged; the new deployment itself is still outstanding.
+- Private in-process comparison passed across 268 tracked/nonignored, built public static and selected verification-output files against four configured server-only values (Supabase secret, Google/Groq keys and administrator password), plus administrator email in public outputs. No value was displayed or copied. Intentionally public learner/publishable values remain allowed. The explicit deployment allowlist still excludes env, tests, plans and native design. Direct Google/Groq, request limits, no paid fallback and configured sin1 region remain unchanged; the later hosted evidence below establishes the new deployment.
 
-## Outstanding final gates
+## Final review and hosted release
 
 - Final independent Standards and Spec delta reviews passed at a648fe7d5155b939df204e17068fc2c397ba0437 with zero remaining findings; both original findings were fixed by the single final implementer. See docs/reviews/onboarding-programme.md.
-- Root applied all four canonical programme migrations to FirstDay through pinned CLI 2.121.0 after exact dry-run validation, with vault changes disabled. Remote history now matches all 11 files; checklist RLS and sample execution privileges were verified, and security advisors introduced no new findings. Five-role preparation, actual providers and Git release remain pending. The local implementer itself performed no cloud/provider/Git publication. The hosted main baseline 1d5efea is prior release evidence, not this branch's five-role release.
-- A bounded actual-provider smoke tied to current published versions and authorized Git branch-preview/main-production verification must still establish the reviewed SHA, intended team/project, READY/sin1 state, production alias and navigation timings. Keep Progress in-progress and hosted-release acceptance unchecked until those gates pass.
+- Four canonical programme migrations were applied and verified on FirstDay. Remote history matches all eleven versions; checklist RLS and sample privileges passed, with no new advisor findings.
+- Git-triggered branch preview 66a6a3709cadb7afd4cf02ff3ac1062cd287d887 and main production f0e7c575e5c512defe197cf6340e082261f23aa6 passed READY/sin1/project/team/SHA/alias checks. PR #5 is merged. All five hosted role samples have revision 1 and eight tasks; unchanged reruns preserve IDs without further indexing. Exactly two actual-provider questions passed (supported exact-version citation and honest no_evidence).
+- Production browser verification passed all five task-linked guides/checklist/overview paths, combined title/role filtering, retained historical source, completion reload, reset cancellation/confirmation with authentication retained, and mobile Menu at 390x844 without overflow. This production smoke used zero model/index/upload/shared-write calls.
+- Production navigation passed the 1000 ms route-mean budget: overall median 262 ms; slowest route mean 463 ms. Login/favicon and all read-only release identity checks passed. See [hosted verification](../../../docs/hosted-verification.md) for exact snapshot identities and detailed provider/schema evidence.
+- All four implementation worktrees were verified clean, merged and free of private root environment files, then removed. The primary checkout, approved native design and private environment file were preserved. Deferred CI/hooks/checker work remains excluded.

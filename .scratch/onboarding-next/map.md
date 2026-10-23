@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 is integrated through the complete Frontend gate 13 at b59abb3; M9 is integrated through all four role releases (latest HR merge 73aa3e4); final five-role integration and release gate 20 is in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
+All 20 tickets and milestones M4–M10 are complete. The user authorized the complete implementation and routine recommended decisions without further input. PR #5 merged the reviewed integration into main; actual Git-preview, five-role cloud preparation, bounded live-provider and main-production checks passed. The graph below is the lifecycle source of truth; [hosted verification](../../docs/hosted-verification.md) records exact snapshot identities and results.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,9 +19,9 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 
-Current active frontier: [20](issues/20-verify-five-role-product-release.md), hosted release in progress. All local role, integration and targeted review-fix journeys pass; detailed full/focused run results are in the issue. Independent Standards and Spec reviews passed the complete application at a648fe7 with zero remaining findings; [review record](../../docs/reviews/onboarding-programme.md). The four additive migrations are applied and verified on FirstDay; actual Git preview, five-role cloud preparation, bounded provider smoke and production verification remain outstanding.
+No active frontier remains: tickets 01–20 are resolved. Independent Standards and Spec reviews passed application tip a648fe7 with zero remaining findings; [review record](../../docs/reviews/onboarding-programme.md). All five roles are published with eight tasks each, and hosted release checks passed.
 
-Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
+Future work starts with a new agreed scope. Existing implementation and release evidence remains attached to each completed ticket.
 
 ## Tracer-bullet ticket breakdown
 
@@ -123,7 +123,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 20. **[20: Verify and release the complete five-role FirstDay product](issues/20-verify-five-role-product-release.md) — M10**
    - **Blocked by:** 15, 16, 17, 18, 19
    - **What it delivers:** The complete five-role application matches the agreed product and approved native design, with accurate current release documentation and a verified Git-triggered deployment.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 ## Blocking and release rules
 
@@ -146,10 +146,10 @@ Original recommendations 1–15 remain accepted. Recommendations 16–20 and rou
 CI/hooks, deferred checker fixes and optional expansion features remain excluded. Local Markdown remains the tracker; no GitHub issues were created and no previous issue was closed or changed.
 
 
-## Existing hosted baseline inspection
+## Historical hosted baseline inspection
 
 Read-only check:release passed on October 23 and again on October 24, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
 
-## Final gate release prerequisites
+## Historical final-gate prerequisites
 
-October 24 read-only checks: public signup remains disabled; Vercel access and the previous main deployment are healthy. The authenticated Supabase CLI dry run, scoped to ohvojrdwxlsbzwdrhpzr with vault changes disabled, lists exactly the four new canonical migrations and needs no new credentials or history repair. After final code review passed, the four exact migrations were applied through the pinned CLI with vault changes disabled. Cloud history matches all 11 committed versions; new checklist RLS and anonymous/authenticated sample execution privileges were verified. Advisors have only the unchanged baseline findings. No content preparation, provider call, Git publication or new deployment has occurred yet; existing hosted evidence is not evidence for this integration branch.
+October 24 read-only checks: public signup remains disabled; Vercel access and the previous main deployment are healthy. The authenticated Supabase CLI dry run, scoped to ohvojrdwxlsbzwdrhpzr with vault changes disabled, lists exactly the four new canonical migrations and needs no new credentials or history repair. After final code review passed, the four exact migrations were applied through the pinned CLI with vault changes disabled. Cloud history matches all 11 committed versions; new checklist RLS and anonymous/authenticated sample execution privileges were verified. Advisors have only the unchanged baseline findings. This paragraph records the pre-release checkpoint. The subsequent five-role preparation, actual-provider and Git preview/production results are recorded in hosted verification.
