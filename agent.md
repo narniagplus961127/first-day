@@ -3,7 +3,7 @@
 An onboarding RAG application built with TypeScript.
 For UI changes, use the approved native FigCraft design referenced in .scratch/onboarding/map.md.
 
-For current progress, use .scratch/rag-journey/map.md. For environment checks and commands, use docs/agents/development.md.
+For active onboarding implementation progress, use .scratch/onboarding-next/map.md. For completed RAG and hosted release history, use .scratch/rag-journey/map.md. For environment checks and commands, use docs/agents/development.md.
 
 ## Agent skills
 
