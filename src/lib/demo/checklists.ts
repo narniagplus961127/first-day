@@ -47,15 +47,19 @@ const ROLE_KEY = 'firstday.demo.checklists.role.v2';
 const TASK_PREFIX = 'firstday.demo.checklists.task.v2.';
 const MAX_RETAINED_TASKS = 1000;
 function taskKeys() {
-  const keys = Object.keys(localStorage).filter((key) => key.startsWith(TASK_PREFIX));
-  if (keys.length > MAX_RETAINED_TASKS) throw new Error('Saved checklist progress is too large.');
+  const keys = Object.keys(localStorage).filter((key) =>
+    key.startsWith(TASK_PREFIX),
+  );
+  if (keys.length > MAX_RETAINED_TASKS)
+    throw new Error('Saved checklist progress is too large.');
   return keys;
 }
 export function loadChecklistActivity(): ChecklistActivity {
   const activity = loadLegacyActivity();
   const role = localStorage.getItem(ROLE_KEY);
   if (role !== null) {
-    if (!JOB_ROLES.includes(role as OnboardingRole)) throw new Error('Saved checklist role is invalid.');
+    if (!JOB_ROLES.includes(role as OnboardingRole))
+      throw new Error('Saved checklist role is invalid.');
     activity.role = role as OnboardingRole;
   }
   for (const key of taskKeys()) {
@@ -76,8 +80,16 @@ export function rememberOnboardingRole(role: OnboardingRole) {
   if (!JOB_ROLES.includes(role)) throw new Error('Invalid onboarding role.');
   localStorage.setItem(ROLE_KEY, role);
 }
-export function changeChecklistTask(role: OnboardingRole, id: string, complete: boolean) {
-  if (!JOB_ROLES.includes(role) || !UUID.test(id) || typeof complete !== 'boolean')
+export function changeChecklistTask(
+  role: OnboardingRole,
+  id: string,
+  complete: boolean,
+) {
+  if (
+    !JOB_ROLES.includes(role) ||
+    !UUID.test(id) ||
+    typeof complete !== 'boolean'
+  )
     throw new Error('Invalid checklist task change.');
   const key = TASK_PREFIX + JOB_ROLES.indexOf(role) + '.' + id;
   const keys = taskKeys();
@@ -89,8 +101,14 @@ export function changeChecklistTask(role: OnboardingRole, id: string, complete: 
 }
 export function subscribeChecklistActivity(onChange: () => void) {
   function receive(event: StorageEvent) {
-    if (event.storageArea === localStorage &&
-      (event.key === null || event.key === KEY || event.key === ROLE_KEY || event.key.startsWith(TASK_PREFIX))) onChange();
+    if (
+      event.storageArea === localStorage &&
+      (event.key === null ||
+        event.key === KEY ||
+        event.key === ROLE_KEY ||
+        event.key.startsWith(TASK_PREFIX))
+    )
+      onChange();
   }
   window.addEventListener('storage', receive);
   return () => window.removeEventListener('storage', receive);

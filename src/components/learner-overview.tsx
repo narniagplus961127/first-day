@@ -6,7 +6,8 @@ import { STAGES, type Checklist } from '@/lib/checklists/types';
 import {
   emptyChecklistActivity,
   loadChecklistActivity,
-  saveChecklistActivity,
+  rememberOnboardingRole,
+  subscribeChecklistActivity,
   type ChecklistActivity,
   type OnboardingRole,
 } from '@/lib/demo/checklists';
@@ -30,6 +31,19 @@ export function LearnerOverview() {
     }
     setReady(true);
   }, []);
+  useEffect(
+    () =>
+      subscribeChecklistActivity(() => {
+        try {
+          setActivity(loadChecklistActivity());
+        } catch {
+          setNotice(
+            'Saved progress could not be loaded. Your progress is temporary in this tab and may be lost on navigation or reload.',
+          );
+        }
+      }),
+    [],
+  );
   useEffect(() => {
     if (!ready) return;
     const controller = new AbortController();
@@ -80,7 +94,7 @@ export function LearnerOverview() {
           const value = { ...activity, role };
           setActivity(value);
           try {
-            saveChecklistActivity(value);
+            rememberOnboardingRole(role);
           } catch {
             setNotice(
               'Progress cannot be saved in this browser. Your progress is temporary in this tab and may be lost on navigation or reload.',
