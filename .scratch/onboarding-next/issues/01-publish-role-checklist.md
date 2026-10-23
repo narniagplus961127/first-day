@@ -25,3 +25,4 @@
 - Added approved-style desktop/mobile editor and reader, explicit Frontend starter preparation, bounded input, empty/loading/error/retry feedback and preserved failed-save edits.
 - Tests: real isolated Supabase fixture; checklist suite 10/10 desktop/mobile passes. Initial missing UI, inconsistent read/save projection and unhelpful network feedback were observed failing before their fixes. Production build and TypeScript checks pass. No cloud changes, provider requests, push or deployment.
 - Starter preparation is explicit through the administrator's Prepare Frontend starter tasks action (or authenticated POST /api/admin/checklists), runs only for an absent Frontend definition, and preserves any existing customized or intentionally empty checklist.
+- Integration verification: final empty-checklist assertion cleanup rechecked October 23, 2026; affected desktop/mobile cases passed 2/2 on integration commit 1aa661a.

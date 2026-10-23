@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+let calls = 0;
 const failures = new Set();
 const pending = new Map();
 const released = new Set();
@@ -21,6 +22,12 @@ function embedding(text) {
   return values.map((value) => value / length);
 }
 createServer(async (req, res) => {
+  if (req.method === 'GET' && req.url === '/calls') {
+    res.setHeader('content-type', 'application/json');
+    res.end(JSON.stringify({ calls }));
+    return;
+  }
+  if (req.method === 'POST') calls++;
   const url = new URL(req.url, 'http://127.0.0.1:19030');
   const key = url.searchParams.get('key');
   if (url.pathname === '/pending') {
