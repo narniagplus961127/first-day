@@ -7,7 +7,9 @@ import { STAGES, type Checklist } from '@/lib/checklists/types';
 import {
   emptyChecklistActivity,
   loadChecklistActivity,
-  saveChecklistActivity,
+  rememberOnboardingRole,
+  changeChecklistTask,
+  subscribeChecklistActivity,
   type ChecklistActivity,
   type OnboardingRole,
 } from '@/lib/demo/checklists';
@@ -50,7 +52,7 @@ export function LearnerChecklist({
     };
     setActivity(next);
     try {
-      saveChecklistActivity(next);
+      rememberOnboardingRole(next.role);
     } catch {
       setNotice(
         'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
@@ -58,16 +60,10 @@ export function LearnerChecklist({
     }
     setReady(true);
   }, [initial, explicitRole, router]);
-  function persist(next: ChecklistActivity) {
-    setActivity(next);
-    try {
-      saveChecklistActivity(next);
-    } catch {
-      setNotice(
-        'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
-      );
-    }
-  }
+  useEffect(() => subscribeChecklistActivity(() => {
+    try { setActivity({ ...loadChecklistActivity(), role: initial.job_role }); }
+    catch { setNotice('Saved progress could not be loaded. Checklist progress is temporary in this tab and may be lost on navigation or reload.'); }
+  }), [initial.job_role]);
   const completed = new Set(activity.completed[initial.job_role] || []);
   const count = initial.tasks.filter((task) => completed.has(task.id)).length;
   const percent = initial.tasks.length
@@ -88,7 +84,9 @@ export function LearnerChecklist({
         disabled={!ready}
         onChange={(event) => {
           const role = event.target.value as OnboardingRole;
-          persist({ ...activity, role });
+          setActivity({ ...activity, role });
+          try { rememberOnboardingRole(role); }
+          catch { setNotice('Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.'); }
           router.push('/checklist?role=' + encodeURIComponent(role));
         }}
       >
@@ -160,13 +158,16 @@ export function LearnerChecklist({
                       const next = new Set(completed);
                       if (event.target.checked) next.add(task.id);
                       else next.delete(task.id);
-                      persist({
+                      setActivity({
                         ...activity,
-                        completed: {
-                          ...activity.completed,
-                          [initial.job_role]: [...next],
-                        },
+                        completed: { ...activity.completed, [initial.job_role]: [...next] },
                       });
+                      try {
+                        changeChecklistTask(initial.job_role, task.id, event.target.checked);
+                        setActivity({ ...loadChecklistActivity(), role: initial.job_role });
+                      } catch {
+                        setNotice('Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.');
+                      }
                     }}
                   />
                   {completed.has(task.id) ? 'Complete' : 'Mark complete'}

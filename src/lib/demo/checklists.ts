@@ -9,7 +9,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export function emptyChecklistActivity(): ChecklistActivity {
   return { role: 'Frontend Developer', completed: {} };
 }
-export function loadChecklistActivity(): ChecklistActivity {
+function loadLegacyActivity(): ChecklistActivity {
   const raw = localStorage.getItem(KEY);
   if (!raw) return emptyChecklistActivity();
   if (raw.length > 12000)
@@ -42,6 +42,56 @@ export function loadChecklistActivity(): ChecklistActivity {
   }
   return { role: value.role as OnboardingRole, completed };
 }
-export function saveChecklistActivity(activity: ChecklistActivity) {
-  localStorage.setItem(KEY, JSON.stringify({ version: 1, ...activity }));
+
+const ROLE_KEY = 'firstday.demo.checklists.role.v2';
+const TASK_PREFIX = 'firstday.demo.checklists.task.v2.';
+const MAX_RETAINED_TASKS = 1000;
+function taskKeys() {
+  const keys = Object.keys(localStorage).filter((key) => key.startsWith(TASK_PREFIX));
+  if (keys.length > MAX_RETAINED_TASKS) throw new Error('Saved checklist progress is too large.');
+  return keys;
+}
+export function loadChecklistActivity(): ChecklistActivity {
+  const activity = loadLegacyActivity();
+  const role = localStorage.getItem(ROLE_KEY);
+  if (role !== null) {
+    if (!JOB_ROLES.includes(role as OnboardingRole)) throw new Error('Saved checklist role is invalid.');
+    activity.role = role as OnboardingRole;
+  }
+  for (const key of taskKeys()) {
+    const suffix = key.slice(TASK_PREFIX.length);
+    const match = /^([0-4])\.([0-9a-f-]{36})$/i.exec(suffix);
+    const value = localStorage.getItem(key);
+    if (!match || !UUID.test(match[2]) || (value !== '1' && value !== '0'))
+      throw new Error('Saved checklist progress is invalid.');
+    const taskRole = JOB_ROLES[Number(match[1])];
+    const completed = new Set(activity.completed[taskRole] || []);
+    if (value === '1') completed.add(match[2]);
+    else completed.delete(match[2]);
+    activity.completed[taskRole] = [...completed];
+  }
+  return activity;
+}
+export function rememberOnboardingRole(role: OnboardingRole) {
+  if (!JOB_ROLES.includes(role)) throw new Error('Invalid onboarding role.');
+  localStorage.setItem(ROLE_KEY, role);
+}
+export function changeChecklistTask(role: OnboardingRole, id: string, complete: boolean) {
+  if (!JOB_ROLES.includes(role) || !UUID.test(id) || typeof complete !== 'boolean')
+    throw new Error('Invalid checklist task change.');
+  const key = TASK_PREFIX + JOB_ROLES.indexOf(role) + '.' + id;
+  const keys = taskKeys();
+  if (keys.length >= MAX_RETAINED_TASKS && !keys.includes(key))
+    throw new Error('Saved checklist progress is too large.');
+  // One atomic storage operation per task keeps unrelated tab updates independent.
+  // Explicit false values also override completion in supported legacy snapshots.
+  localStorage.setItem(key, complete ? '1' : '0');
+}
+export function subscribeChecklistActivity(onChange: () => void) {
+  function receive(event: StorageEvent) {
+    if (event.storageArea === localStorage &&
+      (event.key === null || event.key === KEY || event.key === ROLE_KEY || event.key.startsWith(TASK_PREFIX))) onChange();
+  }
+  window.addEventListener('storage', receive);
+  return () => window.removeEventListener('storage', receive);
 }

@@ -8,7 +8,7 @@
 
 **Status:** ready-for-agent
 
-**Progress:** not-started
+**Progress:** in-progress
 
 - [ ] Propagate completed/incomplete changes to open same-origin tabs and subsequent reloads.
 - [ ] Interleaved changes to different tasks preserve both results rather than replacing a stale full snapshot.
