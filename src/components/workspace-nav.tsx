@@ -18,13 +18,18 @@ export function WorkspaceNav({ admin }: { admin: boolean }) {
         ['/knowledge', 'Knowledge library'],
         ['/chat', 'Ask FirstDay'],
       ];
+  const activeHref = links
+    .filter(
+      ([href]) =>
+        pathname === href ||
+        (href !== '/workspace' && pathname.startsWith(href + '/')) ||
+        (href === '/chat' && pathname.startsWith('/sources/')),
+    )
+    .sort(([left], [right]) => right.length - left.length)[0]?.[0];
   return (
     <>
       {links.map(([href, label]) => {
-        const active =
-          pathname === href ||
-          (href !== '/workspace' && pathname.startsWith(href + '/')) ||
-          (href === '/chat' && pathname.startsWith('/sources/'));
+        const active = href === activeHref;
         return (
           <Link
             key={href}
