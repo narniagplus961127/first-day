@@ -1,6 +1,20 @@
 import { createServer } from 'node:http';
+import { readFileSync, readdirSync } from 'node:fs';
+const sampleDirectory = new URL('../../docs/samples/', import.meta.url);
+const samples = readdirSync(sampleDirectory)
+  .filter((name) => name.endsWith('.json'))
+  .map((name) =>
+    JSON.parse(readFileSync(new URL(name, sampleDirectory), 'utf8')),
+  );
+let calls = 0;
 const failures = new Set();
 createServer(async (req, res) => {
+  if (req.method === 'GET' && req.url === '/calls') {
+    res.setHeader('content-type', 'application/json');
+    res.end(JSON.stringify({ calls }));
+    return;
+  }
+  if (req.method === 'POST') calls++;
   if (req.method === 'GET') {
     res.end('ready');
     return;
@@ -31,10 +45,28 @@ createServer(async (req, res) => {
     res.destroy();
     return;
   }
+  const sample = samples.find(
+    (sample) =>
+      input.question.includes(sample.supportedQuestion) ||
+      input.history?.some((exchange) =>
+        exchange.question.includes(sample.supportedQuestion),
+      ),
+  );
+  const sampleSource =
+    sample &&
+    input.sources.find((source) =>
+      source.content.includes(sample.supportedFact),
+    );
   const source =
+    sampleSource ||
+    (/lumen frontend/i.test(input.question) &&
+      input.sources.find((s) => s.content.includes('Run npm run dev:lumen'))) ||
     input.sources.find((s) => s.content.includes('Run npm run ')) ||
     input.sources[0];
-  const instruction = source?.content.match(/Run npm run [^\n]+/)?.[0] || '';
+  const instruction =
+    (sampleSource
+      ? sample.supportedFact
+      : source?.content.match(/Run npm run [^\n]+/)?.[0]) || '';
   const output = /salary/i.test(input.question)
     ? { supported: false, claims: [] }
     : {

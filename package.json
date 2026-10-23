@@ -13,7 +13,8 @@
     "test:tooling": "node --test tests/tooling/*.test.mjs",
     "fixture:up": "node scripts/fixture-bootstrap.mjs",
     "check:release": "node scripts/check-release.mjs",
-    "measure:navigation": "node scripts/measure-navigation.mjs"
+    "measure:navigation": "node scripts/measure-navigation.mjs",
+    "prepare:sample": "node scripts/prepare-role-sample.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "4.0.102",

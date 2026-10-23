@@ -1,0 +1,67 @@
+{
+  "role": "Business Analyst",
+  "key": "lumen.business-analyst-onboarding.v1",
+  "title": "Lumen Business Analyst onboarding",
+  "filename": "business-analyst.md",
+  "supportedQuestion": "Which fields belong in the Lumen requirement template, and how should acceptance criteria be written?",
+  "supportedFact": "Requirement fields: Problem / User / Outcome / Scope / Open questions. Acceptance criteria use Given / When / Then.",
+  "missingQuestion": "What is the approved delivery budget for LUM-101?",
+  "tasks": [
+    {
+      "title": "Read requirements guide",
+      "stage": "Before you start",
+      "instructions": "Read the fictional Lumen guide and summarize LUM-101's outcome and scope in an unsent practice note.",
+      "position": 0,
+      "suggestedQuestion": "What outcome and scope does the fictional LUM-101 welcome-checklist brief describe?"
+    },
+    {
+      "title": "Review the glossary",
+      "stage": "Before you start",
+      "instructions": "Review Learner, Checklist task, Published guide and Job role before using those terms in the exercise.",
+      "position": 1,
+      "suggestedQuestion": "How does the fictional Lumen guide define Learner, Checklist task and Published guide?"
+    },
+    {
+      "title": "Inspect the sample requirement",
+      "stage": "Day 1",
+      "instructions": "Review LUM-101 using Problem, User, Outcome, Scope and Open questions. Separate the discovery Observation, Assumption and Question in your practice notes.",
+      "position": 2,
+      "suggestedQuestion": "Which fields belong in the Lumen requirement template, and how should discovery observations, assumptions and questions be separated?"
+    },
+    {
+      "title": "Write a learner user story",
+      "stage": "Day 1",
+      "instructions": "Draft an unsent story using As a <role>, I want <action>, so that <outcome>, grounded in the guide-reading example for LUM-101.",
+      "position": 3,
+      "suggestedQuestion": "What user-story format and guide-reading example does the fictional Lumen guide provide?"
+    },
+    {
+      "title": "Add acceptance criteria",
+      "stage": "Day 1",
+      "instructions": "Write observable Given / When / Then criteria for guide reading and self-reported task completion, using AC-01 and AC-02 as examples.",
+      "position": 4,
+      "suggestedQuestion": "How should LUM-101 acceptance criteria use Given / When / Then, and what do AC-01 and AC-02 demonstrate?"
+    },
+    {
+      "title": "Map the sample learner flow",
+      "stage": "Week 1",
+      "instructions": "Map choose role, read task, inspect published guide and mark task complete. Show the learner decision that may leave a task incomplete.",
+      "position": 5,
+      "suggestedQuestion": "What is the fictional Lumen sample learner flow, and where does the learner decide whether to complete a task?"
+    },
+    {
+      "title": "Review requirement traceability",
+      "stage": "Week 1",
+      "instructions": "Trace LUM-101 to the learner story, AC-01 or AC-02 and an observable guide-reading or completion check. Flag missing links as open questions.",
+      "position": 6,
+      "suggestedQuestion": "How should each LUM-101 acceptance criterion connect to a scenario ID and an observable check?"
+    },
+    {
+      "title": "Prepare a small refinement note",
+      "stage": "Week 1",
+      "instructions": "Prepare an unsent Decision / Rationale / Remaining question note about separating guide reading from task completion; include the relevant LUM-101 and criterion reference.",
+      "position": 7,
+      "suggestedQuestion": "What fields and example decision belong in the fictional Lumen refinement note?"
+    }
+  ]
+}

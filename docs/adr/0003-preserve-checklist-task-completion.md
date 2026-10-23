@@ -1,0 +1,3 @@
+# Preserve checklist completion by task identity
+
+Administrator clarifications and reordering should not make learners repeat self-reported onboarding work, so completion follows stable checklist task identity rather than invalidating with every saved checklist revision. This deliberately trades automatic re-completion after content edits for continuity: a genuinely new obligation must receive a new identity, and deleted identities must not be reused. Once browser-local completions exist, changing this interpretation requires explicit migration or reset semantics; ordinary edits therefore cannot silently turn completed tasks into new obligations.

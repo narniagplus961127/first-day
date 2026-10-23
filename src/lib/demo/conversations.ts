@@ -1,3 +1,11 @@
+import {
+  activityKey,
+  readActivity,
+  writeActivity,
+  invalidActivity,
+  activityGeneration,
+  generationIsCurrent,
+} from '@/lib/demo/activity';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 import type {
   AnswerClaim,
@@ -14,9 +22,11 @@ export const CONVERSATION_SCOPES: ConversationScope[] = [
 ];
 export type Exchange = { id: string; question: string; result: AnswerResult };
 export type Conversations = Partial<Record<ConversationScope, Exchange[]>>;
+export type QuestionDrafts = Partial<Record<ConversationScope, string>>;
 export type DemoConversations = {
   scope: ConversationScope;
   conversations: Conversations;
+  drafts?: QuestionDrafts;
 };
 function record(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -95,8 +105,8 @@ function result(value: unknown): AnswerResult | null {
     claims,
   };
 }
-export function loadConversations(): DemoConversations {
-  const raw = localStorage.getItem(STORAGE_KEY);
+function readConversations(): DemoConversations {
+  const raw = readActivity(activityKey(STORAGE_KEY));
   if (!raw) return { scope: 'Frontend Developer', conversations: {} };
   if (raw.length > 2000000)
     throw new Error('Stored conversation is too large.');
@@ -126,12 +136,32 @@ export function loadConversations(): DemoConversations {
   const scope = CONVERSATION_SCOPES.includes(value.scope as ConversationScope)
     ? (value.scope as ConversationScope)
     : 'Frontend Developer';
-  return { scope, conversations };
+  const drafts: QuestionDrafts = {};
+  if (record(value.drafts)) {
+    for (const draftScope of CONVERSATION_SCOPES) {
+      const draft = value.drafts[draftScope];
+      if (typeof draft === 'string' && draft.length <= 1000)
+        drafts[draftScope] = draft;
+    }
+  }
+  return { scope, conversations, drafts };
 }
-export function saveConversations(state: DemoConversations) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...state }));
+export function saveConversations(
+  state: DemoConversations,
+  generation = activityGeneration(),
+) {
+  if (!generationIsCurrent(generation)) return;
+  writeActivity(
+    activityKey(STORAGE_KEY, generation),
+    JSON.stringify({ version: 1, ...state }),
+  );
 }
-export function resetDemoActivity() {
-  for (const key of Object.keys(localStorage))
-    if (key.startsWith('firstday.demo.')) localStorage.removeItem(key);
+
+export function loadConversations(): DemoConversations {
+  try {
+    return readConversations();
+  } catch {
+    invalidActivity(activityKey(STORAGE_KEY));
+    return { scope: 'Frontend Developer', conversations: {}, drafts: {} };
+  }
 }

@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-export function KnowledgeError({ reset }: { reset: () => void }) {
+export function KnowledgeError() {
   return (
     <main className="workspace-content">
       <span className="section-label">FIRSTDAY KNOWLEDGE</span>
@@ -8,7 +8,7 @@ export function KnowledgeError({ reset }: { reset: () => void }) {
       <p role="alert">
         Knowledge storage is temporarily unavailable. Please try again.
       </p>
-      <button className="button primary" onClick={reset}>
+      <button className="button primary" onClick={() => window.location.reload()}>
         Try again
       </button>
       <Link className="back-link" href="/workspace">
