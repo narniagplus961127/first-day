@@ -4,8 +4,8 @@
 
 - Last verified GitHub main: 1d5efea5e9214c2ebf4c006248419af77a838a45, PR #4 merged. Actual Git-triggered production READY dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS at https://qw-firstday.vercel.app, region sin1; deployed commit matched main.
 - Original eight RAG tickets and first retrospective follow-up are complete. Deferred checker fixes and CI/hooks remain excluded.
-- Next product work M4–M10 is specified and ticketed, not implemented: see [programme delivery map](../onboarding-next/map.md), [programme specification](../onboarding-next/spec.md) and [roadmap](../../docs/roadmap.md). The next implementation entry point is ticket 01 for checklist administration; independent tickets 08 and 14 are also ready.
-- The checklist interview accepted all 20 recommendations. This planning session makes no cloud changes, GitHub publication or application deployment.
+- M4–M10 implementation is active on feat/onboarding-integration; ticket 08 is integrated and tickets 01/14 are being verified. Use the [programme delivery map](../onboarding-next/map.md) for current progress and dependencies, [programme specification](../onboarding-next/spec.md) for scope and [roadmap](../../docs/roadmap.md) for milestone context.
+- The checklist interview accepted all 20 recommendations. Current implementation uses isolated local persistence; hosted release evidence above remains the last verified production state.
 
 The sections below retain historical implementation and deployment evidence.
 

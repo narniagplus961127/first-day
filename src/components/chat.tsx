@@ -7,16 +7,21 @@ import {
   loadConversations,
   saveConversations,
   resetDemoActivity,
-  type Conversations,
   type DemoConversations,
 } from '@/lib/demo/conversations';
 
 import { requestErrorMessage } from '@/lib/request-error-message';
 export function Chat() {
   const resetDialog = useRef<HTMLDialogElement>(null);
-  const [question, setQuestion] = useState('');
-  const [scope, setScope] = useState<ConversationScope>('Frontend Developer');
-  const [conversations, setConversations] = useState<Conversations>({});
+  const [activity, setActivity] = useState<DemoConversations>({
+    scope: 'Frontend Developer',
+    conversations: {},
+    drafts: {},
+  });
+  const currentActivity = useRef(activity);
+  const draftVersion = useRef(0);
+  const { scope, conversations, drafts = {} } = activity;
+  const question = drafts[scope] || '';
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -24,28 +29,35 @@ export function Chat() {
   useEffect(() => {
     try {
       const stored = loadConversations();
-      setScope(stored.scope);
-      setConversations(stored.conversations);
+      currentActivity.current = stored;
+      setActivity(stored);
     } catch {
       setStorageNotice(
-        'Saved history could not be loaded. This tab starts a fresh conversation.',
+        'Saved activity could not be loaded. History and question drafts are temporary in this tab.',
       );
     }
     setReady(true);
   }, []);
   function persist(state: DemoConversations) {
+    currentActivity.current = state;
+    setActivity(state);
     try {
       saveConversations(state);
     } catch {
       setStorageNotice(
-        'History cannot be saved in this browser. You can still ask questions in this tab.',
+        'Activity cannot be saved in this browser. History and question drafts are temporary in this tab.',
       );
     }
   }
   function reset() {
-    setConversations({});
-    setScope('Frontend Developer');
-    setQuestion('');
+    const empty: DemoConversations = {
+      scope: 'Frontend Developer',
+      conversations: {},
+      drafts: {},
+    };
+    currentActivity.current = empty;
+    setActivity(empty);
+    draftVersion.current++;
     setError('');
     try {
       resetDemoActivity();
@@ -63,6 +75,7 @@ export function Chat() {
   async function ask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!ready || busy) return;
+    const submittedVersion = draftVersion.current;
     setBusy(true);
     setError('');
     try {
@@ -85,16 +98,22 @@ export function Chat() {
           requestErrorMessage(data, 'The answer is unavailable. Please retry.'),
         );
       const result: AnswerResult = data;
+      const latest = currentActivity.current;
       const next = {
-        ...conversations,
+        ...latest.conversations,
         [scope]: [
           ...exchanges,
           { id: crypto.randomUUID(), question: question.trim(), result },
         ].slice(-20),
       };
-      setConversations(next);
-      persist({ scope, conversations: next });
-      setQuestion('');
+      persist({
+        ...latest,
+        conversations: next,
+        drafts: {
+          ...latest.drafts,
+          ...(draftVersion.current === submittedVersion ? { [scope]: '' } : {}),
+        },
+      });
     } catch (error) {
       setError(
         error instanceof Error
@@ -115,10 +134,8 @@ export function Chat() {
           disabled={!ready || busy}
           onChange={(event) => {
             const next = event.target.value as ConversationScope;
-            setScope(next);
-            setQuestion('');
             setError('');
-            persist({ scope: next, conversations });
+            persist({ ...currentActivity.current, scope: next });
           }}
         >
           {CONVERSATION_SCOPES.map((role) => (
@@ -132,12 +149,21 @@ export function Chat() {
         <textarea
           id="question"
           value={question}
-          onChange={(event) => setQuestion(event.target.value)}
+          onChange={(event) => {
+            draftVersion.current++;
+            persist({
+              ...currentActivity.current,
+              drafts: {
+                ...currentActivity.current.drafts,
+                [scope]: event.target.value,
+              },
+            });
+          }}
           maxLength={1000}
           required
           rows={3}
           placeholder="How do I run the frontend project?"
-          disabled={!ready || busy}
+          disabled={!ready}
         />
         <button
           type="submit"
@@ -184,10 +210,10 @@ export function Chat() {
         </section>
       ))}
       <p className="muted chat-footnote">
-        Demo conversations stay in this browser, separately for each search
-        scope. Up to three recent completed exchanges are sent to the server and
-        AI providers to interpret follow-ups. Answers still need published
-        source evidence.
+        Demo conversations and unfinished question drafts stay in this browser,
+        separately for each search scope. Up to three recent completed exchanges
+        are sent to the server and AI providers to interpret follow-ups. Answers
+        still need published source evidence.
       </p>
       <button
         type="button"
@@ -205,8 +231,9 @@ export function Chat() {
         <span className="section-label">A FRESH START</span>
         <h2 id="reset-demo-title">Reset this browser’s demo activity?</h2>
         <p id="reset-demo-description">
-          This clears this browser’s conversations across all roles and search
-          scopes. Shared guides and other visitors’ activity stay unchanged.
+          This clears this browser’s conversations and question drafts across
+          all roles and search scopes. Shared guides and other visitors’
+          activity stay unchanged.
         </p>
         <div className="dialog-actions">
           <button
