@@ -782,3 +782,9 @@ input[type='file']::file-selector-button {
   white-space: nowrap;
   border: 0;
 }
+
+.checklist-order-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
