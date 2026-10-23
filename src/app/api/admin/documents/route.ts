@@ -13,6 +13,16 @@ export async function POST(request: Request) {
     const { filename, content } = await readMarkdownFile(form);
     const title = form.get('title');
     const jobRole = form.get('jobRole');
+    const sampleKey = form.get('sampleKey');
+    if (
+      sampleKey !== null &&
+      (typeof sampleKey !== 'string' ||
+        !/^lumen\.(frontend|backend|designer|business-analyst|hr)-onboarding\.v1$/.test(
+          sampleKey,
+        ))
+    ) {
+      throw new HttpError(400, 'Choose a supported Lumen sample identity.');
+    }
     if (
       typeof title !== 'string' ||
       !title.trim() ||
@@ -34,6 +44,7 @@ export async function POST(request: Request) {
       jobRole,
       filename,
       content,
+      sampleKey: sampleKey as string | null,
     });
     return NextResponse.json(result, {
       status: 201,

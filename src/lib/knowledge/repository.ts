@@ -54,14 +54,23 @@ export async function saveDocument(input: {
   jobRole: string;
   filename: string;
   content: string;
+  sampleKey?: string | null;
 }): Promise<{ document: KnowledgeDocument; version: DocumentVersion }> {
   const client = await createSupabaseServerClient();
-  const { data, error } = await client.rpc('create_knowledge_document', {
-    p_title: input.title,
-    p_job_role: input.jobRole,
-    p_filename: input.filename,
-    p_content: input.content,
-  });
+  const { data, error } = await client.rpc(
+    input.sampleKey
+      ? 'create_sample_knowledge_document'
+      : 'create_knowledge_document',
+    {
+      p_title: input.title,
+      p_job_role: input.jobRole,
+      p_filename: input.filename,
+      p_content: input.content,
+      ...(input.sampleKey ? { p_sample_key: input.sampleKey } : {}),
+    },
+  );
+  if (error?.code === 'PT400') throw new HttpError(400, error.message);
+  if (error?.code === 'PT409') throw new HttpError(409, error.message);
   if (error) throw storageError();
   return data;
 }

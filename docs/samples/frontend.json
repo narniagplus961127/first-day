@@ -1,0 +1,117 @@
+{
+  "role": "Frontend Developer",
+  "key": "lumen.frontend-onboarding.v1",
+  "title": "Lumen Frontend Developer onboarding",
+  "filename": "frontend.md",
+  "supportedQuestion": "What exact command starts the fictional Lumen frontend and on which port?",
+  "supportedFact": "npm run dev:lumen -- --port 4101",
+  "missingQuestion": "What is the fictional Lumen frontend salary?",
+  "legacyTasks": [
+    {
+      "title": "Read onboarding guide",
+      "stage": "Before you start",
+      "instructions": "Learn how the fictional Lumen team works.",
+      "position": 0
+    },
+    {
+      "title": "Check required tools",
+      "stage": "Before you start",
+      "instructions": "Review the tools used by the Lumen frontend team.",
+      "position": 1
+    },
+    {
+      "title": "Configure environment",
+      "stage": "Day 1",
+      "instructions": "Prepare your local environment using the onboarding guide.",
+      "position": 2
+    },
+    {
+      "title": "Run frontend locally",
+      "stage": "Day 1",
+      "instructions": "Start the application and explore it in your browser.",
+      "position": 3
+    },
+    {
+      "title": "Explore project structure",
+      "stage": "Day 1",
+      "instructions": "Find pages, components and shared utilities.",
+      "position": 4
+    },
+    {
+      "title": "Review coding conventions",
+      "stage": "Week 1",
+      "instructions": "Read the shared frontend coding conventions.",
+      "position": 5
+    },
+    {
+      "title": "Trace a UI flow",
+      "stage": "Week 1",
+      "instructions": "Follow one user action through the application.",
+      "position": 6
+    },
+    {
+      "title": "Prepare small practice change",
+      "stage": "Week 1",
+      "instructions": "Try a small fictional practice change and review it.",
+      "position": 7
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Read onboarding guide",
+      "stage": "Before you start",
+      "instructions": "Learn how the fictional Lumen team works.",
+      "position": 0,
+      "suggestedQuestion": "Which steps and tools begin the fictional Lumen frontend exercise?"
+    },
+    {
+      "title": "Check required tools",
+      "stage": "Before you start",
+      "instructions": "Review the tools used by the Lumen frontend team.",
+      "position": 1,
+      "suggestedQuestion": "Which versions of Node.js and npm does the fictional Lumen frontend require?"
+    },
+    {
+      "title": "Configure environment",
+      "stage": "Day 1",
+      "instructions": "Prepare your local environment using the onboarding guide.",
+      "position": 2,
+      "suggestedQuestion": "What environment-file step and local port does the fictional Lumen frontend use?"
+    },
+    {
+      "title": "Run frontend locally",
+      "stage": "Day 1",
+      "instructions": "Start the application and explore it in your browser.",
+      "position": 3,
+      "suggestedQuestion": "What exact command starts the fictional Lumen frontend and on which port?"
+    },
+    {
+      "title": "Explore project structure",
+      "stage": "Day 1",
+      "instructions": "Find pages, components and shared utilities.",
+      "position": 4,
+      "suggestedQuestion": "Where are pages, reusable UI and shared utilities in the fictional Lumen frontend?"
+    },
+    {
+      "title": "Review coding conventions",
+      "stage": "Week 1",
+      "instructions": "Read the shared frontend coding conventions.",
+      "position": 5,
+      "suggestedQuestion": "Which coding and accessibility conventions apply to the fictional Lumen frontend?"
+    },
+    {
+      "title": "Trace a UI flow",
+      "stage": "Week 1",
+      "instructions": "Follow one user action through the application.",
+      "position": 6,
+      "suggestedQuestion": "How do I trace the welcome-button action in the fictional Lumen frontend?"
+    },
+    {
+      "title": "Prepare small practice change",
+      "stage": "Week 1",
+      "instructions": "Try a small fictional practice change and review it.",
+      "position": 7,
+      "suggestedQuestion": "How should I prepare and check a small fictional Lumen welcome-message change?"
+    }
+  ]
+}

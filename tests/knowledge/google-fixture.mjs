@@ -1,11 +1,34 @@
 import { createServer } from 'node:http';
+import { readFileSync, readdirSync } from 'node:fs';
+const sampleDirectory = new URL('../../docs/samples/', import.meta.url);
+const samples = readdirSync(sampleDirectory)
+  .filter((name) => name.endsWith('.json'))
+  .map((name) =>
+    JSON.parse(readFileSync(new URL(name, sampleDirectory), 'utf8')),
+  );
 let calls = 0;
 const failures = new Set();
 const pending = new Map();
 const released = new Set();
 const vector = Array.from({ length: 768 }, (_, i) => (i === 0 ? 1 : 0));
 function embedding(text) {
-  const marker = text.match(/Evidence[0-9]+/)?.[0];
+  const manifest = samples.find(
+    (sample) =>
+      text.startsWith('title: ' + sample.title + ' |') ||
+      text.includes(sample.supportedQuestion) ||
+      text.includes(sample.missingQuestion),
+  );
+  const sampleRole =
+    manifest?.key ||
+    /lumen (frontend|backend|designer|business analyst|hr)/i
+      .exec(text)?.[1]
+      .toLowerCase();
+  const missing =
+    /salary|cloud region|paid font|delivery budget|paid leave/i.test(text) &&
+    text.startsWith('task:');
+  const marker =
+    text.match(/Evidence[0-9]+/)?.[0] ||
+    (sampleRole ? 'sample-' + sampleRole + (missing ? '-absent' : '') : null);
   if (!marker) return vector;
   let hash = 0;
   for (const char of marker) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
