@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Ticket 02 is integrated at 2c7985a (12 effective browser checks including the corrected isolated starter preparation). Tickets 03, 05 and 06 are in progress; 07, 09 and 10 are ready. Docker engine and dedicated fixture recovered after the user relaunched Docker; no infrastructure blocker remains. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Ticket 02 is integrated at 2c7985a (12 effective browser checks including the corrected isolated starter preparation). Ticket 03 is integrated at 9d5f25e (six browser/API checks), completing M4. Ticket 05 is integrated at f9181c7 (six browser checks). Tickets 06, 07 and 10 are in progress; 09 is ready. Docker engine and dedicated fixture recovered after the user relaunched Docker; no infrastructure blocker remains. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -18,11 +18,9 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 
 ## Current frontier
 
-- [03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) - in progress.
-- [05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) - in progress.
 - [06: Preserve accurate progress through checklist changes](issues/06-preserve-progress-through-task-edits.md) - in progress.
 
-Additional ready tickets after 04: [07](issues/07-open-current-guide-from-task.md), [09](issues/09-ask-from-checklist-task.md), [10](issues/10-synchronize-task-completion-tabs.md).
+Additional frontier after 04 (07 and 10 in progress; 09 ready): [07](issues/07-open-current-guide-from-task.md), [09](issues/09-ask-from-checklist-task.md), [10](issues/10-synchronize-task-completion-tabs.md).
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -41,7 +39,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 3. **[03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) — M4**
    - **Blocked by:** 01
    - **What it delivers:** Two administrators or tabs can edit safely: the first valid save succeeds, and an outdated save receives a clear conflict instead of silently replacing it.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 4. **[04: Complete and revisit a role checklist privately](issues/04-complete-role-checklist.md) — M5**
    - **Blocked by:** 01
@@ -51,7 +49,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 5. **[05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) — M5**
    - **Blocked by:** 04
    - **What it delivers:** The overview reflects the same role and progress as the checklist, highlights up to three next incomplete tasks, and offers meaningful empty/completed states.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 6. **[06: Preserve accurate progress through checklist changes](issues/06-preserve-progress-through-task-edits.md) — M5**
    - **Blocked by:** 02, 04
@@ -61,7 +59,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 7. **[07: Open the current same-role guide from a checklist task](issues/07-open-current-guide-from-task.md) — M6**
    - **Blocked by:** 04
    - **What it delivers:** Administrators attach published same-role guides, and learners open current instructions from tasks without changing completion or historical answer citations.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 8. **[08: Preserve an unfinished question in each chat scope](issues/08-preserve-question-drafts.md) — M6**
    - **Blocked by:** None; completed RAG foundation is available.
@@ -76,7 +74,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 10. **[10: Keep checklist changes consistent between browser tabs](issues/10-synchronize-task-completion-tabs.md) — M7**
    - **Blocked by:** 04
    - **What it delivers:** Two tabs of the same browser see matching checklist progress without losing changes to different tasks.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 11. **[11: Reset all demo activity without stale resurrection](issues/11-reset-all-local-activity-safely.md) — M7**
    - **Blocked by:** 09, 10
