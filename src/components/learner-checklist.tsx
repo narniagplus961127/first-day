@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ResetDemo } from '@/components/reset-demo';
+import { subscribeDemoReset } from '@/lib/demo/activity';
 import { beginTaskQuestion } from '@/lib/demo/task-question';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 import { STAGES, type Checklist } from '@/lib/checklists/types';
@@ -76,6 +78,21 @@ export function LearnerChecklist({
       }),
     [initial.job_role],
   );
+  useEffect(
+    () =>
+      subscribeDemoReset(() => {
+        let fresh = emptyChecklistActivity();
+        try {
+          fresh = loadChecklistActivity();
+        } catch {
+          /* The reset still clears visible stale state. */
+        }
+        setActivity(fresh);
+        setNotice('');
+        router.replace('/checklist?role=' + encodeURIComponent(fresh.role));
+      }),
+    [router],
+  );
   const completed = new Set(activity.completed[initial.job_role] || []);
   const count = initial.tasks.filter((task) => completed.has(task.id)).length;
   const percent = initial.tasks.length
@@ -114,15 +131,16 @@ export function LearnerChecklist({
       <p className="muted">
         Your progress stays in this browser. Other visitors using the demo
         account cannot see it. Clearing browser data loses your progress. Use
-        Reset demo in Ask FirstDay to start again.
+        Reset demo to start again.
       </p>
+      <ResetDemo disabled={!ready} />
       {notice ? (
         <p role="status" className="notice">
           {notice}
         </p>
       ) : null}
       {!ready ? (
-        <p role="status">Loading your progressâ€¦</p>
+        <p role="status">Loading your progress…</p>
       ) : initial.tasks.length ? (
         <section
           className="card checklist-progress"
@@ -147,7 +165,7 @@ export function LearnerChecklist({
         </section>
       ) : (
         <p className="notice">
-          Coming soon. This roleâ€™s checklist has not been prepared yet.
+          Coming soon. This role’s checklist has not been prepared yet.
         </p>
       )}
       {STAGES.map((stage) => {

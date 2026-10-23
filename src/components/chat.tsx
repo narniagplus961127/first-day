@@ -1,6 +1,12 @@
 'use client';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
+import { ResetDemo } from '@/components/reset-demo';
+import {
+  activityGeneration,
+  generationIsCurrent,
+  subscribeDemoReset,
+} from '@/lib/demo/activity';
 import { consumeTaskQuestion } from '@/lib/demo/task-question';
 import type { Checklist } from '@/lib/checklists/types';
 import type { JobRole } from '@/lib/knowledge/types';
@@ -9,15 +15,16 @@ import {
   CONVERSATION_SCOPES,
   loadConversations,
   saveConversations,
-  resetDemoActivity,
   type DemoConversations,
 } from '@/lib/demo/conversations';
 
 import { requestErrorMessage } from '@/lib/request-error-message';
 export function Chat() {
-  const resetDialog = useRef<HTMLDialogElement>(null);
+  const generation = useRef('legacy');
+  const requestIdentity = useRef<object | null>(null);
   const suggestionDialog = useRef<HTMLDialogElement>(null);
   const [taskSuggestion, setTaskSuggestion] = useState<{
+    generation: string;
     role: JobRole;
     question: string;
   } | null>(null);
@@ -39,6 +46,8 @@ export function Chat() {
   const [error, setError] = useState('');
   const [storageNotice, setStorageNotice] = useState('');
   useEffect(() => {
+    generation.current = activityGeneration();
+    const startedGeneration = generation.current;
     try {
       const stored = loadConversations();
       currentActivity.current = stored;
@@ -77,12 +86,12 @@ export function Chat() {
     if (taskResolution.current) {
       void taskResolution.current
         .then((suggestion) => {
-          if (!active) return;
+          if (!active || !generationIsCurrent(startedGeneration)) return;
           const current = currentActivity.current;
           const existing = current.drafts?.[suggestion.role] || '';
           if (existing && existing !== suggestion.question) {
             persist({ ...current, scope: suggestion.role });
-            setTaskSuggestion(suggestion);
+            setTaskSuggestion({ ...suggestion, generation: startedGeneration });
           } else {
             persist({
               ...current,
@@ -95,13 +104,13 @@ export function Chat() {
           }
         })
         .catch(() => {
-          if (active)
+          if (active && generationIsCurrent(startedGeneration))
             setError(
               'This task question is unavailable. Open the current checklist and try again. Your drafts have been kept.',
             );
         })
         .finally(() => {
-          if (active) setReady(true);
+          if (active && generationIsCurrent(startedGeneration)) setReady(true);
         });
     } else setReady(true);
     return () => {
@@ -113,17 +122,22 @@ export function Chat() {
     else suggestionDialog.current?.close();
   }, [taskSuggestion]);
   function persist(state: DemoConversations) {
+    if (!generationIsCurrent(generation.current)) return;
     currentActivity.current = state;
     setActivity(state);
     try {
-      saveConversations(state);
+      saveConversations(state, generation.current);
     } catch {
       setStorageNotice(
         'Activity cannot be saved in this browser. History and question drafts are temporary in this tab.',
       );
     }
   }
-  function reset() {
+  function clearVisibleActivity() {
+    const nextGeneration = activityGeneration();
+    if (nextGeneration === generation.current) return;
+    generation.current = nextGeneration;
+    requestIdentity.current = null;
     const empty: DemoConversations = {
       scope: 'Frontend Developer',
       conversations: {},
@@ -132,23 +146,32 @@ export function Chat() {
     currentActivity.current = empty;
     setActivity(empty);
     draftVersion.current++;
+    setTaskSuggestion(null);
+    taskResolution.current = null;
     setError('');
-    try {
-      resetDemoActivity();
-      setStorageNotice(
-        'Demo activity reset in this browser. Shared guides and other visitors are unchanged.',
-      );
-    } catch {
-      setStorageNotice(
-        'This tab was cleared, but browser storage could not be cleared.',
-      );
-    }
-    resetDialog.current?.close();
+    setStorageNotice('');
+    setBusy(false);
+    setReady(true);
+  }
+  useEffect(() => subscribeDemoReset(clearVisibleActivity), []);
+  function latestActivity() {
+    if (!generationIsCurrent(generation.current)) clearVisibleActivity();
+    return currentActivity.current;
   }
   const exchanges = conversations[scope] || [];
   async function ask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!ready || busy) return;
+    if (!generationIsCurrent(generation.current)) {
+      clearVisibleActivity();
+      return;
+    }
+    const submittedGeneration = generation.current;
+    const identity = {};
+    requestIdentity.current = identity;
+    const isCurrent = () =>
+      requestIdentity.current === identity &&
+      generationIsCurrent(submittedGeneration);
     const submittedVersion = draftVersion.current;
     setBusy(true);
     setError('');
@@ -167,6 +190,7 @@ export function Chat() {
         }),
       });
       const data = await response.json();
+      if (!isCurrent()) return;
       if (!response.ok)
         throw new Error(
           requestErrorMessage(data, 'The answer is unavailable. Please retry.'),
@@ -189,13 +213,14 @@ export function Chat() {
         },
       });
     } catch (error) {
+      if (!isCurrent()) return;
       setError(
         error instanceof Error
           ? error.message
           : 'Connection interrupted. Please try again.',
       );
     } finally {
-      setBusy(false);
+      if (isCurrent()) setBusy(false);
     }
   }
   return (
@@ -226,6 +251,13 @@ export function Chat() {
             type="button"
             className="button primary"
             onClick={() => {
+              if (
+                taskSuggestion &&
+                !generationIsCurrent(taskSuggestion.generation)
+              ) {
+                clearVisibleActivity();
+                return;
+              }
               if (taskSuggestion) {
                 draftVersion.current++;
                 persist({
@@ -253,7 +285,7 @@ export function Chat() {
           onChange={(event) => {
             const next = event.target.value as ConversationScope;
             setError('');
-            persist({ ...currentActivity.current, scope: next });
+            persist({ ...latestActivity(), scope: next });
           }}
         >
           {CONVERSATION_SCOPES.map((role) => (
@@ -268,12 +300,13 @@ export function Chat() {
           id="question"
           value={question}
           onChange={(event) => {
+            const latest = latestActivity();
             draftVersion.current++;
             persist({
-              ...currentActivity.current,
+              ...latest,
               drafts: {
-                ...currentActivity.current.drafts,
-                [scope]: event.target.value,
+                ...latest.drafts,
+                [latest.scope]: event.target.value,
               },
             });
           }}
@@ -288,13 +321,13 @@ export function Chat() {
           className="button primary"
           disabled={!ready || busy}
         >
-          {busy ? 'Finding guidanceÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦' : 'Ask FirstDay'}
+          {busy ? 'Finding guidance…' : 'Ask FirstDay'}
         </button>
       </form>
       {busy ? (
         <p role="status">
           Searching your guides and checking the supporting
-          evidenceÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦
+          evidence…
         </p>
       ) : null}
       {error ? <p role="alert">{error}</p> : null}
@@ -306,7 +339,7 @@ export function Chat() {
           </p>
           <article aria-label="FirstDay answer" className="answer">
             <span className="section-label">
-              FIRSTDAY Ãƒâ€šÃ‚Â· {scope.toUpperCase()}
+              FIRSTDAY · {scope.toUpperCase()}
             </span>
             {exchange.result.status === 'no_evidence' ? (
               <p>{exchange.result.answer}</p>
@@ -318,7 +351,7 @@ export function Chat() {
                     {claim.citations.map((source) => (
                       <Link key={source.id} href={source.href}>
                         View source: {source.title}
-                        {source.heading ? ' Ãƒâ€šÃ‚Â· ' + source.heading : ''}
+                        {source.heading ? ' · ' + source.heading : ''}
                       </Link>
                     ))}
                   </div>
@@ -334,43 +367,7 @@ export function Chat() {
         are sent to the server and AI providers to interpret follow-ups. Answers
         still need published source evidence.
       </p>
-      <button
-        type="button"
-        className="button secondary"
-        disabled={!ready || busy}
-        onClick={() => resetDialog.current?.showModal()}
-      >
-        Reset demo
-      </button>
-      <dialog
-        ref={resetDialog}
-        aria-labelledby="reset-demo-title"
-        aria-describedby="reset-demo-description"
-      >
-        <span className="section-label">A FRESH START</span>
-        <h2 id="reset-demo-title">
-          Reset this browserÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s demo activity?
-        </h2>
-        <p id="reset-demo-description">
-          This clears this browserÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s checklist progress,
-          conversations and question drafts across all roles and search scopes.
-          Shared guides and other visitorsÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ activity stay
-          unchanged.
-        </p>
-        <div className="dialog-actions">
-          <button
-            type="button"
-            className="button secondary"
-            autoFocus
-            onClick={() => resetDialog.current?.close()}
-          >
-            Keep my history
-          </button>
-          <button type="button" className="button primary" onClick={reset}>
-            Reset this browser
-          </button>
-        </div>
-      </dialog>
+      <ResetDemo disabled={!ready} />
     </section>
   );
 }
