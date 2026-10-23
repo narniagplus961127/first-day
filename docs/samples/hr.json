@@ -1,0 +1,67 @@
+{
+  "role": "HR",
+  "key": "lumen.hr-onboarding.v1",
+  "title": "Lumen HR onboarding",
+  "filename": "hr.md",
+  "supportedQuestion": "What fields are required in Lumen's WELCOME-01 exercise template, and where is the resource directory?",
+  "supportedFact": "WELCOME-01 requires Role / First-day plan / Resource links / Questions. Its resource directory is People Sandbox / Resources.",
+  "missingQuestion": "How many paid leave days does Lumen provide?",
+  "tasks": [
+    {
+      "title": "Read HR guide",
+      "stage": "Before you start",
+      "instructions": "Read the fictional Lumen HR guide and identify the limits of this synthetic exercise.",
+      "position": 0,
+      "suggestedQuestion": "What is the scope of the fictional Lumen HR orientation exercise?"
+    },
+    {
+      "title": "Locate resource directory",
+      "stage": "Before you start",
+      "instructions": "Locate People Sandbox / Resources and identify the sample resources grouped there.",
+      "position": 1,
+      "suggestedQuestion": "Where is the fictional Lumen HR resource directory and what does it contain?"
+    },
+    {
+      "title": "Review welcome template",
+      "stage": "Day 1",
+      "instructions": "Make a practice WELCOME-01 copy with its four required fields and invented details for Demo Joiner A.",
+      "position": 2,
+      "suggestedQuestion": "What fields are required in Lumen's WELCOME-01 exercise template, and where is the resource directory?"
+    },
+    {
+      "title": "Prepare fictional orientation outline",
+      "stage": "Day 1",
+      "instructions": "Draft Welcome, Resources and Practice walkthrough sections using only the fictional exercise resources.",
+      "position": 3,
+      "suggestedQuestion": "What fields are required in Lumen's WELCOME-01 exercise template, and where is the resource directory?"
+    },
+    {
+      "title": "Check sample privacy guidance",
+      "stage": "Day 1",
+      "instructions": "Review your practice copy for invented participant labels and remove any real personal or sensitive details.",
+      "position": 4,
+      "suggestedQuestion": "Which privacy checks should I apply to the fictional Lumen HR practice artifacts?"
+    },
+    {
+      "title": "Review FAQ",
+      "stage": "Week 1",
+      "instructions": "Identify where workspace and technical exercise questions belong and record unanswered questions without inventing policy.",
+      "position": 5,
+      "suggestedQuestion": "Where does the fictional Lumen FAQ route workspace and technical exercise questions?"
+    },
+    {
+      "title": "Draft fictional welcome message",
+      "stage": "Week 1",
+      "instructions": "Use WELCOME-01 to draft, check fictional details and self-review a message; keep it as an unsent exercise.",
+      "position": 6,
+      "suggestedQuestion": "Which communication workflow keeps the fictional Lumen welcome message as an unsent exercise?"
+    },
+    {
+      "title": "Review onboarding summary",
+      "stage": "Week 1",
+      "instructions": "Create a synthetic summary with resources reviewed, questions remaining and one next practice step; check it against the privacy guidance.",
+      "position": 7,
+      "suggestedQuestion": "Which fields belong in the fictional Lumen onboarding summary?"
+    }
+  ]
+}
