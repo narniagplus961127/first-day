@@ -21,6 +21,8 @@ export function ChecklistView({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [conflict, setConflict] = useState(false);
+  const [reloading, setReloading] = useState(false);
   useEffect(() => {
     if (!dirty) return;
     const leaving = (event: BeforeUnloadEvent) => {
@@ -84,6 +86,13 @@ export function ChecklistView({
             }),
       });
       const result = await response.json();
+      if (response.status === 409) {
+        setConflict(true);
+        setError(
+          'Another administrator saved a newer checklist. Your edits have been kept. Copy any work you want to keep, then reload the saved checklist before saving again.',
+        );
+        return;
+      }
       if (!response.ok)
         throw new Error(
           result.error || 'Checklist could not be saved. Please try again.',
@@ -91,6 +100,7 @@ export function ChecklistView({
       setTasks(result.tasks);
       setRevision(result.revision);
       setDirty(false);
+      setConflict(false);
       setMessage('Changes saved. Learners can now read this checklist.');
     } catch (error) {
       setError(
@@ -100,6 +110,39 @@ export function ChecklistView({
       );
     } finally {
       setPending(false);
+    }
+  }
+  async function reloadSaved() {
+    if (
+      !window.confirm(
+        'Discard your unsaved edits and load the latest saved checklist?',
+      )
+    )
+      return;
+    setPending(true);
+    setReloading(true);
+    setError('');
+    setMessage('');
+    try {
+      const response = await fetch(
+        '/api/checklists?role=' + encodeURIComponent(initial.job_role),
+        { cache: 'no-store' },
+      );
+      if (!response.ok)
+        throw new Error('The saved checklist could not be loaded.');
+      const saved: Checklist = await response.json();
+      setTasks(saved.tasks);
+      setRevision(saved.revision);
+      setDirty(false);
+      setConflict(false);
+      setMessage('Saved checklist reloaded. You can edit the latest revision.');
+    } catch {
+      setError(
+        'The saved checklist could not be loaded. Your edits have been kept. Please try reloading again.',
+      );
+    } finally {
+      setPending(false);
+      setReloading(false);
     }
   }
   return (
@@ -139,9 +182,21 @@ export function ChecklistView({
           {error}
         </p>
       ) : null}
+      {conflict ? (
+        <button
+          type="button"
+          className="button secondary"
+          disabled={pending}
+          onClick={() => void reloadSaved()}
+        >
+          Reload saved checklist
+        </button>
+      ) : null}
       <p role="status" aria-live="polite">
         {pending
-          ? 'Saving checklist…'
+          ? reloading
+            ? 'Loading saved checklist…'
+            : 'Saving checklist…'
           : message ||
             (dirty ? 'Unsaved changes' : `Saved revision ${revision}`)}
       </p>
@@ -268,7 +323,7 @@ export function ChecklistView({
               >
                 Add task
               </button>
-              <button type="submit" className="button">
+              <button type="submit" className="button" disabled={conflict}>
                 Save changes
               </button>
               {initial.job_role === 'Frontend Developer' && revision === 0 ? (
