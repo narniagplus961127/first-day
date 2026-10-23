@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 reset ticket 11 and storage-recovery ticket 12 are integrated (latest merge 436e7f1); the complete Frontend gate 13 is in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
+Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 is integrated through the complete Frontend gate 13 at b59abb3; M9 role-content tickets 16–18 are in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,7 +19,7 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 
-Current active frontier: [13](issues/13-verify-complete-frontend-checklist-journey.md), in progress. Ticket 12 passed 38 focused journeys, 4 legacy/history checks and 18 final storage cases on desktop/mobile, with typecheck and repository checks. Ticket 13 now combines the curated eight-task Frontend journey before the remaining four role releases.
+Current active frontier: [16](issues/16-publish-backend-onboarding.md), [17](issues/17-publish-designer-onboarding.md) and [18](issues/18-publish-business-analyst-onboarding.md), in progress; [19](issues/19-publish-hr-onboarding.md) is ready. Ticket 13 passed 24 distinct desktop/mobile checks and an enhanced two-viewport journey recheck, plus typecheck/build/repository checks and local security advisors. Its shared safe preparation and role-journey pattern now supports the four independent role releases. Only one fixture suite runs at a time.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -88,7 +88,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 13. **[13: Finish the complete Frontend checklist demo journey](issues/13-verify-complete-frontend-checklist-journey.md) — M7**
    - **Blocked by:** 03, 05, 06, 07, 12
    - **What it delivers:** The eight-task Frontend checklist is a coherent, verifiable onboarding journey with working supported guide/question bindings and reliable local activity.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 14. **[14: Filter the knowledge library by job role](issues/14-filter-published-guides-by-role.md) — M8**
    - **Blocked by:** None; completed RAG foundation is available.
@@ -103,17 +103,17 @@ Choose one ready slice when resuming; readiness does not require implementing th
 16. **[16: Publish the Backend Developer onboarding journey](issues/16-publish-backend-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional Backend Developer starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 17. **[17: Publish the Designer onboarding journey](issues/17-publish-designer-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional Designer starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 18. **[18: Publish the Business Analyst onboarding journey](issues/18-publish-business-analyst-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional Business Analyst starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 19. **[19: Publish the HR onboarding journey](issues/19-publish-hr-onboarding.md) — M9**
    - **Blocked by:** 13
