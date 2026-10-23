@@ -1,0 +1,67 @@
+{
+  "role": "Backend Developer",
+  "key": "lumen.backend-onboarding.v1",
+  "title": "Lumen Backend Developer onboarding",
+  "filename": "backend.md",
+  "supportedQuestion": "What exact command starts the fictional Lumen API and on which port?",
+  "supportedFact": "npm run api:dev -- --port 4102",
+  "missingQuestion": "Which cloud region hosts Lumen production?",
+  "tasks": [
+    {
+      "title": "Read the backend onboarding guide",
+      "stage": "Before you start",
+      "instructions": "Read the fictional exercise boundaries and follow the guide's local API learning sequence.",
+      "position": 0,
+      "suggestedQuestion": "What is the learning sequence for the fictional Lumen backend exercise?"
+    },
+    {
+      "title": "Check required backend tools",
+      "stage": "Before you start",
+      "instructions": "Review the documented Node.js and npm versions for the imaginary exercise workspace.",
+      "position": 1,
+      "suggestedQuestion": "Which Node.js and npm versions does the fictional Lumen backend require?"
+    },
+    {
+      "title": "Configure the sample API environment",
+      "stage": "Day 1",
+      "instructions": "Describe the sample environment-file copy and local port setting. Use placeholders only, with no real secrets.",
+      "position": 2,
+      "suggestedQuestion": "What environment-file step and port setting does the fictional Lumen API use?"
+    },
+    {
+      "title": "Run the sample API",
+      "stage": "Day 1",
+      "instructions": "Review the exact sample startup command and local address in the guide. These describe an imaginary repository.",
+      "position": 3,
+      "suggestedQuestion": "What exact command starts the fictional Lumen API and on which port?"
+    },
+    {
+      "title": "Inspect a sample health endpoint",
+      "stage": "Day 1",
+      "instructions": "Trace the documented GET /health response from its route handler into the service boundary.",
+      "position": 4,
+      "suggestedQuestion": "What does GET /health return, and where do routes and services live in the fictional Lumen API?"
+    },
+    {
+      "title": "Run a sample API test",
+      "stage": "Week 1",
+      "instructions": "Identify the sample test command and outline assertions for the health response using the guide.",
+      "position": 5,
+      "suggestedQuestion": "Which command and test folder does the fictional Lumen API use, and what should the health test assert?"
+    },
+    {
+      "title": "Review service and debugging conventions",
+      "stage": "Week 1",
+      "instructions": "Review input validation, service boundaries and safe redacted logs before sketching a local debugging step.",
+      "position": 6,
+      "suggestedQuestion": "What input validation, service boundary and logging conventions apply to the fictional Lumen API?"
+    },
+    {
+      "title": "Prepare a small response-field change",
+      "stage": "Week 1",
+      "instructions": "Sketch the guide's fictional serviceName response field with its test and self-review note; do not change real services.",
+      "position": 7,
+      "suggestedQuestion": "How should I prepare and review the fictional Lumen serviceName response-field practice change?"
+    }
+  ]
+}
