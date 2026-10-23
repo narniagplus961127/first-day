@@ -21,6 +21,8 @@ export function ChecklistView({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [conflict, setConflict] = useState(false);
+  const [reloading, setReloading] = useState(false);
   useEffect(() => {
     if (!dirty) return;
     const leaving = (event: BeforeUnloadEvent) => {
@@ -33,6 +35,37 @@ export function ChecklistView({
     setTasks((previous) =>
       previous.map((task, i) => (i === index ? { ...task, ...patch } : task)),
     );
+    setDirty(true);
+    setMessage('');
+  }
+  function reorder(index: number, direction: -1 | 1) {
+    const task = tasks[index];
+    const peers = tasks.flatMap((entry, i) =>
+      entry.stage === task.stage ? [i] : [],
+    );
+    const destination = peers[peers.indexOf(index) + direction];
+    if (destination === undefined) return;
+    setTasks((previous) => {
+      const updated = [...previous];
+      [updated[index], updated[destination]] = [
+        updated[destination],
+        updated[index],
+      ];
+      return updated;
+    });
+    setDirty(true);
+    setMessage('');
+  }
+  function moveStage(index: number, stage: (typeof STAGES)[number]) {
+    if (tasks[index].stage === stage) return;
+    setTasks((previous) => {
+      const moved = { ...previous[index], stage };
+      const remaining = previous.filter((_, i) => i !== index);
+      return STAGES.flatMap((group) => [
+        ...remaining.filter((task) => task.stage === group),
+        ...(group === stage ? [moved] : []),
+      ]);
+    });
     setDirty(true);
     setMessage('');
   }
@@ -53,6 +86,13 @@ export function ChecklistView({
             }),
       });
       const result = await response.json();
+      if (response.status === 409) {
+        setConflict(true);
+        setError(
+          'Another administrator saved a newer checklist. Your edits have been kept. Copy any work you want to keep, then reload the saved checklist before saving again.',
+        );
+        return;
+      }
       if (!response.ok)
         throw new Error(
           result.error || 'Checklist could not be saved. Please try again.',
@@ -60,6 +100,7 @@ export function ChecklistView({
       setTasks(result.tasks);
       setRevision(result.revision);
       setDirty(false);
+      setConflict(false);
       setMessage('Changes saved. Learners can now read this checklist.');
     } catch (error) {
       setError(
@@ -69,6 +110,39 @@ export function ChecklistView({
       );
     } finally {
       setPending(false);
+    }
+  }
+  async function reloadSaved() {
+    if (
+      !window.confirm(
+        'Discard your unsaved edits and load the latest saved checklist?',
+      )
+    )
+      return;
+    setPending(true);
+    setReloading(true);
+    setError('');
+    setMessage('');
+    try {
+      const response = await fetch(
+        '/api/checklists?role=' + encodeURIComponent(initial.job_role),
+        { cache: 'no-store' },
+      );
+      if (!response.ok)
+        throw new Error('The saved checklist could not be loaded.');
+      const saved: Checklist = await response.json();
+      setTasks(saved.tasks);
+      setRevision(saved.revision);
+      setDirty(false);
+      setConflict(false);
+      setMessage('Saved checklist reloaded. You can edit the latest revision.');
+    } catch {
+      setError(
+        'The saved checklist could not be loaded. Your edits have been kept. Please try reloading again.',
+      );
+    } finally {
+      setPending(false);
+      setReloading(false);
     }
   }
   return (
@@ -108,9 +182,21 @@ export function ChecklistView({
           {error}
         </p>
       ) : null}
+      {conflict ? (
+        <button
+          type="button"
+          className="button secondary"
+          disabled={pending}
+          onClick={() => void reloadSaved()}
+        >
+          Reload saved checklist
+        </button>
+      ) : null}
       <p role="status" aria-live="polite">
         {pending
-          ? 'Saving checklist…'
+          ? reloading
+            ? 'Loading saved checklist…'
+            : 'Saving checklist…'
           : message ||
             (dirty ? 'Unsaved changes' : `Saved revision ${revision}`)}
       </p>
@@ -152,9 +238,10 @@ export function ChecklistView({
                   id={`task-stage-${index}`}
                   value={task.stage}
                   onChange={(event) =>
-                    edit(index, {
-                      stage: event.target.value as (typeof STAGES)[number],
-                    })
+                    moveStage(
+                      index,
+                      event.target.value as (typeof STAGES)[number],
+                    )
                   }
                 >
                   {STAGES.map((stage) => (
@@ -173,6 +260,38 @@ export function ChecklistView({
                     edit(index, { instructions: event.target.value })
                   }
                 />
+                <div
+                  className="checklist-order-actions"
+                  role="group"
+                  aria-label={`Order task ${index + 1}`}
+                >
+                  <button
+                    type="button"
+                    className="button secondary"
+                    aria-label={`Move task ${index + 1} up`}
+                    disabled={
+                      !tasks
+                        .slice(0, index)
+                        .some((entry) => entry.stage === task.stage)
+                    }
+                    onClick={() => reorder(index, -1)}
+                  >
+                    Move up
+                  </button>
+                  <button
+                    type="button"
+                    className="button secondary"
+                    aria-label={`Move task ${index + 1} down`}
+                    disabled={
+                      !tasks
+                        .slice(index + 1)
+                        .some((entry) => entry.stage === task.stage)
+                    }
+                    onClick={() => reorder(index, 1)}
+                  >
+                    Move down
+                  </button>
+                </div>
                 <button
                   type="button"
                   className="button secondary"
@@ -204,7 +323,7 @@ export function ChecklistView({
               >
                 Add task
               </button>
-              <button type="submit" className="button">
+              <button type="submit" className="button" disabled={conflict}>
                 Save changes
               </button>
               {initial.job_role === 'Frontend Developer' && revision === 0 ? (

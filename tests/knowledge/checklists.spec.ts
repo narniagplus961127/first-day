@@ -301,6 +301,37 @@ test('anonymous and learner writes are denied by the application and real Data A
 test('Frontend starter preparation is idempotent and preserves custom definitions and other roles', async ({
   page,
 }) => {
+  // Only this case needs an absent definition. Never clear a hosted checklist.
+  const { readFileSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const { createClient } = await import('@supabase/supabase-js');
+  const local = JSON.parse(
+    readFileSync(
+      process.env.FIRSTDAY_TEST_SUPABASE_STATUS_FILE ||
+        join(tmpdir(), 'firstday-supabase-fixture', 'status.json'),
+      'utf8',
+    ),
+  );
+  const endpoint = new URL(local.API_URL);
+  if (
+    endpoint.protocol !== 'http:' ||
+    endpoint.hostname !== '127.0.0.1' ||
+    endpoint.port !== '55421'
+  ) {
+    throw new Error(
+      'Starter setup requires the dedicated FirstDay loopback fixture on port 55421.',
+    );
+  }
+  const fixture = createClient(local.API_URL, local.SECRET_KEY, {
+    auth: { persistSession: false },
+  });
+  const { error } = await fixture
+    .from('onboarding_checklists')
+    .delete()
+    .eq('job_role', 'Frontend Developer');
+  if (error)
+    throw new Error('Unable to prepare isolated Frontend starter test.');
   await page.request.post('/api/auth/login', {
     headers: { origin },
     data: { email: 'admin@firstday.example', password: 'FirstDayDemo!2026' },
