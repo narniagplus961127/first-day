@@ -1,4 +1,5 @@
 'use client';
+import { ActivityStorageNotice } from '@/components/activity-storage-notice';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { ResetDemo } from '@/components/reset-demo';
@@ -326,8 +327,7 @@ export function Chat() {
       </form>
       {busy ? (
         <p role="status">
-          Searching your guides and checking the supporting
-          evidence…
+          Searching your guides and checking the supporting evidence…
         </p>
       ) : null}
       {error ? <p role="alert">{error}</p> : null}
@@ -362,11 +362,13 @@ export function Chat() {
         </section>
       ))}
       <p className="muted chat-footnote">
-        Demo conversations and unfinished question drafts stay in this browser,
-        separately for each search scope. Up to three recent completed exchanges
-        are sent to the server and AI providers to interpret follow-ups. Answers
-        still need published source evidence.
+        When browser storage is available, demo conversations and unfinished
+        question drafts stay in this browser, separately for each search scope.
+        Up to three recent completed exchanges are sent to the server and AI
+        providers to interpret follow-ups. Answers still need published source
+        evidence.
       </p>
+      <ActivityStorageNotice />
       <ResetDemo disabled={!ready} />
     </section>
   );

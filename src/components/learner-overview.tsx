@@ -1,4 +1,5 @@
 'use client';
+import { ActivityStorageNotice } from '@/components/activity-storage-notice';
 import Link from 'next/link';
 import { ResetDemo } from '@/components/reset-demo';
 import { subscribeDemoReset } from '@/lib/demo/activity';
@@ -28,7 +29,7 @@ export function LearnerOverview() {
       setActivity(loadChecklistActivity());
     } catch {
       setNotice(
-        'Saved progress could not be loaded. Your progress is temporary in this tab and may be lost on navigation or reload.',
+        'Saved progress could not be loaded. Your progress is temporary in this tab and may be lost on reload.',
       );
     }
     setReady(true);
@@ -40,7 +41,7 @@ export function LearnerOverview() {
           setActivity(loadChecklistActivity());
         } catch {
           setNotice(
-            'Saved progress could not be loaded. Your progress is temporary in this tab and may be lost on navigation or reload.',
+            'Saved progress could not be loaded. Your progress is temporary in this tab and may be lost on reload.',
           );
         }
       }),
@@ -113,7 +114,7 @@ export function LearnerOverview() {
             rememberOnboardingRole(role);
           } catch {
             setNotice(
-              'Progress cannot be saved in this browser. Your progress is temporary in this tab and may be lost on navigation or reload.',
+              'Progress cannot be saved in this browser. Your progress is temporary in this tab and may be lost on reload.',
             );
           }
         }}
@@ -130,6 +131,7 @@ export function LearnerOverview() {
           Continue onboarding →
         </Link>
       </section>
+      <ActivityStorageNotice />
       <ResetDemo disabled={!ready} />
       {notice ? (
         <p role="status" className="notice">
