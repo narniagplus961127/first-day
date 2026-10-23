@@ -104,6 +104,7 @@ test('overview shares role and completion, links the next three saved tasks and 
     page.getByText('1 of 4 tasks complete', { exact: true }),
   ).toBeVisible();
   await page.goto('/checklist');
+  await expect(checkbox).toBeChecked();
   await checkbox.uncheck();
   await page.goto('/workspace');
   await expect(

@@ -21,7 +21,7 @@ export default async function AdminChecklistPage({
   ]);
   return (
     <WorkspaceShell user={user}>
-      <ChecklistView key={selected} initial={checklist} guides={guides} admin />
+      <ChecklistView key={selected} initial={checklist} guides={guides} />
     </WorkspaceShell>
   );
 }

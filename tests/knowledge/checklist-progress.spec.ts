@@ -189,7 +189,9 @@ test('blocked browser storage explains temporary checklist progress and remains 
   });
   await page.goto('/checklist');
   await expect(
-    page.getByRole('status').filter({ hasText: 'Progress cannot be saved' }),
+    page
+      .getByRole('status')
+      .filter({ hasText: 'Browser storage is unavailable' }),
   ).toBeVisible();
   const first = page.getByRole('checkbox', {
     name: baseline.tasks[0].title,
