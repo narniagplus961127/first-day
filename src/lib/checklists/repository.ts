@@ -48,3 +48,38 @@ export async function saveChecklist(
     tasks: data.tasks,
   };
 }
+
+export async function listChecklistGuides(
+  role: JobRole,
+): Promise<{ id: string; title: string }[]> {
+  const client = await createSupabaseServerClient();
+  const { data: documents, error } = await client
+    .from('knowledge_documents')
+    .select('id,title,active_version_id')
+    .eq('job_role', role)
+    .not('active_version_id', 'is', null)
+    .order('title');
+  if (error)
+    throw new HttpError(503, 'Guides could not be loaded. Please try again.');
+  if (!documents.length) return [];
+  const { data: versions, error: versionError } = await client
+    .from('knowledge_versions')
+    .select('id,document_id')
+    .in(
+      'id',
+      documents.map((document) => document.active_version_id!),
+    )
+    .eq('status', 'ready')
+    .not('published_at', 'is', null);
+  if (versionError)
+    throw new HttpError(503, 'Guides could not be loaded. Please try again.');
+  return documents
+    .filter((document) =>
+      versions.some(
+        (version) =>
+          version.id === document.active_version_id &&
+          version.document_id === document.id,
+      ),
+    )
+    .map(({ id, title }) => ({ id, title }));
+}

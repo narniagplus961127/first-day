@@ -14,9 +14,11 @@ import {
 export function LearnerChecklist({
   initial,
   explicitRole,
+  guides = [],
 }: {
   initial: Checklist;
   explicitRole: boolean;
+  guides?: { id: string; title: string }[];
 }) {
   const router = useRouter();
   const [activity, setActivity] = useState<ChecklistActivity>(
@@ -149,6 +151,26 @@ export function LearnerChecklist({
                 <h3>{task.title}</h3>
                 {task.instructions ? (
                   <p className="checklist-instructions">{task.instructions}</p>
+                ) : null}
+                {task.guideId ? (
+                  guides.some((guide) => guide.id === task.guideId) ? (
+                    <Link
+                      className="button secondary"
+                      prefetch={false}
+                      href={
+                        '/checklist/guide?role=' +
+                        encodeURIComponent(initial.job_role) +
+                        '&task=' +
+                        task.id
+                      }
+                    >
+                      Open guide
+                    </Link>
+                  ) : (
+                    <p className="notice">
+                      Guide unavailable. You can still complete this task.
+                    </p>
+                  )
                 ) : null}
                 <label className="checklist-completion">
                   <input
