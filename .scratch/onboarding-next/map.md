@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 is integrated through the complete Frontend gate 13 at b59abb3; M9 Backend ticket 16 is integrated at a329a85; Designer, Business Analyst and HR tickets 17–19 are in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
+Implementation is active on feat/onboarding-integration, based on main 1d5efea and the accepted planning baseline 416bbd1. The user authorized the complete ticket graph and routine recommended decisions without further input. M4, M5, M6 and M8 are integrated; M7 is integrated through the complete Frontend gate 13 at b59abb3; M9 Backend 16 and Designer 17 are integrated (latest merge 8aeccce); Business Analyst 18 and HR 19 are in progress. Each resolved issue records its own implementation and verification evidence; the graph below is the lifecycle source of truth. The local Docker fixture is healthy. New-branch release evidence remains pending.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,7 +19,7 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 
-Current active frontier: [17](issues/17-publish-designer-onboarding.md), [18](issues/18-publish-business-analyst-onboarding.md) and [19](issues/19-publish-hr-onboarding.md), in progress. Backend 16 passed the full desktop/mobile role journey and is integrated. Designer resumes its final two-viewport check; Business Analyst and HR follow with exclusive fixture leases. Ticket 13 provides the verified safe preparation and shared role-journey pattern. Only one fixture suite runs at a time.
+Current active frontier: [18](issues/18-publish-business-analyst-onboarding.md) and [19](issues/19-publish-hr-onboarding.md), in progress. Backend 16 and Designer 17 passed their full desktop/mobile role journeys and are integrated. Business Analyst and HR follow with exclusive fixture leases. Ticket 13 provides the verified safe preparation and shared role-journey pattern. Only one fixture suite runs at a time.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -108,7 +108,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 17. **[17: Publish the Designer onboarding journey](issues/17-publish-designer-onboarding.md) — M9**
    - **Blocked by:** 13
    - **What it delivers:** A learner can read a fictional Designer starter guide, follow eight role-specific tasks and ask supported questions using the established checklist/RAG journey.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 18. **[18: Publish the Business Analyst onboarding journey](issues/18-publish-business-analyst-onboarding.md) — M9**
    - **Blocked by:** 13
@@ -148,4 +148,4 @@ CI/hooks, deferred checker fixes and optional expansion features remain excluded
 
 ## Existing hosted baseline inspection
 
-Read-only check:release passed on October 23, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
+Read-only check:release passed on October 23 and again on October 24, 2026. Production qw-firstday.vercel.app remains Git-main deployment dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS, READY in sin1, matching remote main 1d5efea5e9214c2ebf4c006248419af77a838a45; intended team/project, alias, login and favicon passed. This confirms existing access and baseline health; it does not deploy or validate the unfinished onboarding integration branch.
