@@ -1,5 +1,9 @@
 import {
   activityKey,
+  readActivity,
+  writeActivity,
+  activityKeys,
+  invalidActivity,
   activityGeneration,
   LEGACY_GENERATION,
 } from '@/lib/demo/activity';
@@ -15,7 +19,7 @@ export function emptyChecklistActivity(): ChecklistActivity {
   return { role: 'Frontend Developer', completed: {} };
 }
 function loadLegacyActivity(): ChecklistActivity {
-  const raw = localStorage.getItem(activityKey(KEY));
+  const raw = readActivity(activityKey(KEY));
   if (!raw) return emptyChecklistActivity();
   if (raw.length > 12000)
     throw new Error('Saved checklist progress is too large.');
@@ -52,19 +56,19 @@ const ROLE_KEY = 'firstday.demo.checklists.role.v2';
 const TASK_PREFIX = 'firstday.demo.checklists.task.v2.';
 const MAX_RETAINED_TASKS = 1000;
 function taskKeys() {
-  const keys = Object.keys(localStorage).filter((key) =>
+  const keys = activityKeys().filter((key) =>
     key.startsWith(activityKey(TASK_PREFIX)),
   );
   if (keys.length > MAX_RETAINED_TASKS)
     throw new Error('Saved checklist progress is too large.');
   return keys;
 }
-export function loadChecklistActivity(): ChecklistActivity {
+function readChecklistActivity(): ChecklistActivity {
   const activity =
     activityGeneration() === LEGACY_GENERATION
       ? loadLegacyActivity()
       : emptyChecklistActivity();
-  const role = localStorage.getItem(activityKey(ROLE_KEY));
+  const role = readActivity(activityKey(ROLE_KEY));
   if (role !== null) {
     if (!JOB_ROLES.includes(role as OnboardingRole))
       throw new Error('Saved checklist role is invalid.');
@@ -73,7 +77,9 @@ export function loadChecklistActivity(): ChecklistActivity {
   for (const key of taskKeys()) {
     const suffix = key.slice(activityKey(TASK_PREFIX).length);
     const match = /^([0-4])\.([0-9a-f-]{36})$/i.exec(suffix);
-    const value = localStorage.getItem(key);
+    const value = readActivity(key);
+    // Quarantined or concurrently removed records are absent, not fresh corruption.
+    if (value === null) continue;
     if (!match || !UUID.test(match[2]) || (value !== '1' && value !== '0'))
       throw new Error('Saved checklist progress is invalid.');
     const taskRole = JOB_ROLES[Number(match[1])];
@@ -86,7 +92,7 @@ export function loadChecklistActivity(): ChecklistActivity {
 }
 export function rememberOnboardingRole(role: OnboardingRole) {
   if (!JOB_ROLES.includes(role)) throw new Error('Invalid onboarding role.');
-  localStorage.setItem(activityKey(ROLE_KEY), role);
+  writeActivity(activityKey(ROLE_KEY), role);
 }
 export function changeChecklistTask(
   role: OnboardingRole,
@@ -105,7 +111,7 @@ export function changeChecklistTask(
     throw new Error('Saved checklist progress is too large.');
   // One atomic storage operation per task keeps unrelated tab updates independent.
   // Explicit false values also override completion in supported legacy snapshots.
-  localStorage.setItem(key, complete ? '1' : '0');
+  writeActivity(key, complete ? '1' : '0');
 }
 export function subscribeChecklistActivity(onChange: () => void) {
   function receive(event: StorageEvent) {
@@ -119,4 +125,20 @@ export function subscribeChecklistActivity(onChange: () => void) {
   }
   window.addEventListener('storage', receive);
   return () => window.removeEventListener('storage', receive);
+}
+
+export function loadChecklistActivity(): ChecklistActivity {
+  try {
+    return readChecklistActivity();
+  } catch {
+    for (const key of [
+      activityKey(KEY),
+      activityKey(ROLE_KEY),
+      ...activityKeys().filter((key) =>
+        key.startsWith(activityKey(TASK_PREFIX)),
+      ),
+    ])
+      invalidActivity(key);
+    return emptyChecklistActivity();
+  }
 }

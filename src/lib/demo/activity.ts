@@ -1,3 +1,69 @@
+// Tab-local cache survives client navigation, never reload.
+const memory = new Map<string, string>();
+const pending = new Set<string>();
+const unavailable = new Set<string>();
+let storageProblem = '';
+let unconfirmedReset = false;
+export function activityStorageNotice() {
+  return storageProblem;
+}
+export function subscribeActivityStorage(listener: () => void) {
+  window.addEventListener('firstday-storage-status', listener);
+  return () => window.removeEventListener('firstday-storage-status', listener);
+}
+function warn(reason = 'Browser storage is unavailable.') {
+  storageProblem =
+    reason +
+    ' Activity is temporary in this tab, may be lost on reload, and is not synchronized with other tabs.';
+  window.dispatchEvent(new Event('firstday-storage-status'));
+}
+function recovered() {
+  if (!pending.size && !unavailable.size && !unconfirmedReset) {
+    storageProblem = '';
+    window.dispatchEvent(new Event('firstday-storage-status'));
+  }
+}
+export function readActivity(key: string): string | null {
+  if (pending.has(key)) return memory.get(key) ?? null;
+  try {
+    const value = localStorage.getItem(key);
+    unavailable.delete('read');
+    if (value === null) memory.delete(key);
+    else memory.set(key, value);
+    return value;
+  } catch {
+    unavailable.add('read');
+    warn();
+    return memory.get(key) ?? null;
+  }
+}
+export function writeActivity(key: string, value: string) {
+  memory.set(key, value);
+  try {
+    localStorage.setItem(key, value);
+    pending.delete(key);
+    recovered();
+  } catch {
+    pending.add(key);
+    warn();
+  }
+}
+export function activityKeys() {
+  try {
+    const keys = Object.keys(localStorage);
+    unavailable.delete('enumerate');
+    return [...new Set([...keys, ...memory.keys()])];
+  } catch {
+    unavailable.add('enumerate');
+    warn();
+    return [...memory.keys()];
+  }
+}
+export function invalidActivity(key: string) {
+  memory.delete(key);
+  pending.add(key);
+  warn('Some saved activity is invalid and was ignored.');
+}
 // Browser-only reset boundary. Old generations remain unreadable even if cleanup races.
 const MARKER = 'firstday.demo.reset-generation.v1';
 export const LEGACY_GENERATION = 'legacy';
@@ -6,9 +72,23 @@ let knownGeneration = LEGACY_GENERATION;
 export function activityGeneration() {
   if (temporaryGeneration) return temporaryGeneration;
   try {
-    knownGeneration = localStorage.getItem(MARKER) || LEGACY_GENERATION;
+    const stored = localStorage.getItem(MARKER);
+    unavailable.delete('generation');
+    if (
+      stored !== null &&
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        stored,
+      )
+    ) {
+      pending.add(MARKER);
+      warn('The saved reset marker is invalid and was ignored.');
+      temporaryGeneration = crypto.randomUUID();
+      return temporaryGeneration;
+    }
+    knownGeneration = stored || LEGACY_GENERATION;
   } catch {
-    /* Domain reads/writes report the storage failure; tokens remain usable in this tab. */
+    unavailable.add('generation');
+    warn();
   }
   return knownGeneration;
 }
@@ -71,6 +151,15 @@ export function resetDemoActivity(): boolean {
   } catch {
     confirmed = false;
   }
+  memory.clear();
+  pending.clear();
+  if (confirmed) unavailable.clear();
+  unconfirmedReset = !confirmed;
+  if (confirmed) recovered();
+  else
+    warn(
+      'Some browser data could not be removed; old activity may return on reload.',
+    );
   window.dispatchEvent(new Event('firstday-demo-reset'));
   return confirmed;
 }

@@ -1,4 +1,5 @@
 'use client';
+import { ActivityStorageNotice } from '@/components/activity-storage-notice';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -37,7 +38,7 @@ export function LearnerChecklist({
       restored = loadChecklistActivity();
     } catch {
       setNotice(
-        'Saved progress could not be loaded. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
+        'Saved progress could not be loaded. Checklist progress is temporary in this tab and may be lost on reload.',
       );
     }
     if (!explicitRole && restored.role !== initial.job_role) {
@@ -60,7 +61,7 @@ export function LearnerChecklist({
       rememberOnboardingRole(next.role);
     } catch {
       setNotice(
-        'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
+        'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on reload.',
       );
     }
     setReady(true);
@@ -72,7 +73,7 @@ export function LearnerChecklist({
           setActivity({ ...loadChecklistActivity(), role: initial.job_role });
         } catch {
           setNotice(
-            'Saved progress could not be loaded. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
+            'Saved progress could not be loaded. Checklist progress is temporary in this tab and may be lost on reload.',
           );
         }
       }),
@@ -118,7 +119,7 @@ export function LearnerChecklist({
             rememberOnboardingRole(role);
           } catch {
             setNotice(
-              'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
+              'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on reload.',
             );
           }
           router.push('/checklist?role=' + encodeURIComponent(role));
@@ -129,10 +130,11 @@ export function LearnerChecklist({
         ))}
       </select>
       <p className="muted">
-        Your progress stays in this browser. Other visitors using the demo
-        account cannot see it. Clearing browser data loses your progress. Use
-        Reset demo to start again.
+        When browser storage is available, your progress stays in this browser.
+        Other visitors using the demo account cannot see it. Clearing browser
+        data loses your progress. Use Reset demo to start again.
       </p>
+      <ActivityStorageNotice />
       <ResetDemo disabled={!ready} />
       {notice ? (
         <p role="status" className="notice">
@@ -249,7 +251,7 @@ export function LearnerChecklist({
                         });
                       } catch {
                         setNotice(
-                          'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on navigation or reload.',
+                          'Progress cannot be saved in this browser. Checklist progress is temporary in this tab and may be lost on reload.',
                         );
                       }
                     }}

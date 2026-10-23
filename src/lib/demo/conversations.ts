@@ -1,5 +1,8 @@
 import {
   activityKey,
+  readActivity,
+  writeActivity,
+  invalidActivity,
   activityGeneration,
   generationIsCurrent,
 } from '@/lib/demo/activity';
@@ -102,8 +105,8 @@ function result(value: unknown): AnswerResult | null {
     claims,
   };
 }
-export function loadConversations(): DemoConversations {
-  const raw = localStorage.getItem(activityKey(STORAGE_KEY));
+function readConversations(): DemoConversations {
+  const raw = readActivity(activityKey(STORAGE_KEY));
   if (!raw) return { scope: 'Frontend Developer', conversations: {} };
   if (raw.length > 2000000)
     throw new Error('Stored conversation is too large.');
@@ -148,8 +151,17 @@ export function saveConversations(
   generation = activityGeneration(),
 ) {
   if (!generationIsCurrent(generation)) return;
-  localStorage.setItem(
+  writeActivity(
     activityKey(STORAGE_KEY, generation),
     JSON.stringify({ version: 1, ...state }),
   );
+}
+
+export function loadConversations(): DemoConversations {
+  try {
+    return readConversations();
+  } catch {
+    invalidActivity(activityKey(STORAGE_KEY));
+    return { scope: 'Frontend Developer', conversations: {}, drafts: {} };
+  }
 }
