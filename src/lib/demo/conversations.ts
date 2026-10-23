@@ -14,9 +14,11 @@ export const CONVERSATION_SCOPES: ConversationScope[] = [
 ];
 export type Exchange = { id: string; question: string; result: AnswerResult };
 export type Conversations = Partial<Record<ConversationScope, Exchange[]>>;
+export type QuestionDrafts = Partial<Record<ConversationScope, string>>;
 export type DemoConversations = {
   scope: ConversationScope;
   conversations: Conversations;
+  drafts?: QuestionDrafts;
 };
 function record(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -126,7 +128,15 @@ export function loadConversations(): DemoConversations {
   const scope = CONVERSATION_SCOPES.includes(value.scope as ConversationScope)
     ? (value.scope as ConversationScope)
     : 'Frontend Developer';
-  return { scope, conversations };
+  const drafts: QuestionDrafts = {};
+  if (record(value.drafts)) {
+    for (const draftScope of CONVERSATION_SCOPES) {
+      const draft = value.drafts[draftScope];
+      if (typeof draft === 'string' && draft.length <= 1000)
+        drafts[draftScope] = draft;
+    }
+  }
+  return { scope, conversations, drafts };
 }
 export function saveConversations(state: DemoConversations) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, ...state }));

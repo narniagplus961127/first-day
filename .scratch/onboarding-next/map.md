@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Planning published October 23, 2026. All seven milestone specifications and 20 individual tickets are ready-for-agent; every implementation ticket has Progress: not-started. The user accepted all recommendations and explicitly waived further approval for specification/test-seam synthesis and ticket publication. No application implementation, infrastructure change, GitHub publication or release occurs in this planning session.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Ticket 08 is resolved and integrated at de31686 (18 browser checks, typecheck/build/CRLF passed). Tickets 01 and 14 are in progress in isolated worktrees; other tickets retain their declared blockers. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,7 +19,6 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 - [01: Publish and read an administrator-defined role checklist](issues/01-publish-role-checklist.md) — recommended starting point for checklist implementation.
-- [08: Preserve an unfinished question in each chat scope](issues/08-preserve-question-drafts.md) — independent improvement to the already-working chat.
 - [14: Filter the knowledge library by job role](issues/14-filter-published-guides-by-role.md) — independent improvement to the already-working library.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
@@ -29,7 +28,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 1. **[01: Publish and read an administrator-defined role checklist](issues/01-publish-role-checklist.md) — M4**
    - **Blocked by:** None; completed RAG foundation is available.
    - **What it delivers:** A private administrator creates, edits and removes tasks, saves a coherent role checklist, and an authenticated learner can read the saved result.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 2. **[02: Reorder tasks and move them between onboarding stages](issues/02-reorder-and-move-tasks.md) — M4**
    - **Blocked by:** 01
@@ -64,7 +63,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 8. **[08: Preserve an unfinished question in each chat scope](issues/08-preserve-question-drafts.md) — M6**
    - **Blocked by:** None; completed RAG foundation is available.
    - **What it delivers:** Existing chat remembers unfinished questions across page navigation and reload, separately for each job role and All roles, without losing completed conversations.
-   - **Progress:** not-started
+   - **Progress:** resolved
 
 9. **[09: Ask a task question without overwriting unfinished work](issues/09-ask-from-checklist-task.md) — M6**
    - **Blocked by:** 04, 08
@@ -94,7 +93,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 14. **[14: Filter the knowledge library by job role](issues/14-filter-published-guides-by-role.md) — M8**
    - **Blocked by:** None; completed RAG foundation is available.
    - **What it delivers:** Learners narrow published guides to one role or browse All roles while retaining the existing authenticated reader.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 15. **[15: Search published guide titles alongside role filters](issues/15-search-guide-titles-with-role-filter.md) — M8**
    - **Blocked by:** 14
