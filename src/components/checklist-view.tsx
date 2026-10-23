@@ -36,6 +36,37 @@ export function ChecklistView({
     setDirty(true);
     setMessage('');
   }
+  function reorder(index: number, direction: -1 | 1) {
+    const task = tasks[index];
+    const peers = tasks.flatMap((entry, i) =>
+      entry.stage === task.stage ? [i] : [],
+    );
+    const destination = peers[peers.indexOf(index) + direction];
+    if (destination === undefined) return;
+    setTasks((previous) => {
+      const updated = [...previous];
+      [updated[index], updated[destination]] = [
+        updated[destination],
+        updated[index],
+      ];
+      return updated;
+    });
+    setDirty(true);
+    setMessage('');
+  }
+  function moveStage(index: number, stage: (typeof STAGES)[number]) {
+    if (tasks[index].stage === stage) return;
+    setTasks((previous) => {
+      const moved = { ...previous[index], stage };
+      const remaining = previous.filter((_, i) => i !== index);
+      return STAGES.flatMap((group) => [
+        ...remaining.filter((task) => task.stage === group),
+        ...(group === stage ? [moved] : []),
+      ]);
+    });
+    setDirty(true);
+    setMessage('');
+  }
   async function save(seed = false) {
     setPending(true);
     setError('');
@@ -152,9 +183,10 @@ export function ChecklistView({
                   id={`task-stage-${index}`}
                   value={task.stage}
                   onChange={(event) =>
-                    edit(index, {
-                      stage: event.target.value as (typeof STAGES)[number],
-                    })
+                    moveStage(
+                      index,
+                      event.target.value as (typeof STAGES)[number],
+                    )
                   }
                 >
                   {STAGES.map((stage) => (
@@ -173,6 +205,38 @@ export function ChecklistView({
                     edit(index, { instructions: event.target.value })
                   }
                 />
+                <div
+                  className="checklist-order-actions"
+                  role="group"
+                  aria-label={`Order task ${index + 1}`}
+                >
+                  <button
+                    type="button"
+                    className="button secondary"
+                    aria-label={`Move task ${index + 1} up`}
+                    disabled={
+                      !tasks
+                        .slice(0, index)
+                        .some((entry) => entry.stage === task.stage)
+                    }
+                    onClick={() => reorder(index, -1)}
+                  >
+                    Move up
+                  </button>
+                  <button
+                    type="button"
+                    className="button secondary"
+                    aria-label={`Move task ${index + 1} down`}
+                    disabled={
+                      !tasks
+                        .slice(index + 1)
+                        .some((entry) => entry.stage === task.stage)
+                    }
+                    onClick={() => reorder(index, 1)}
+                  >
+                    Move down
+                  </button>
+                </div>
                 <button
                   type="button"
                   className="button secondary"
