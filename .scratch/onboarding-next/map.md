@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Ticket 08 is resolved and integrated at de31686 (18 browser checks, typecheck/build/CRLF passed). Tickets 01 and 14 are in progress in isolated worktrees; other tickets retain their declared blockers. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Ticket 08 is integrated at de31686 (18 browser checks); ticket 01 is integrated at 1aa661a (10 focused browser/API checks, final test-only cleanup recheck pending). Ticket 14 has six passing desktop/mobile checks and is preparing integration. Ticket 04 has started; 02 and 03 are ready. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -18,7 +18,9 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 
 ## Current frontier
 
-- [01: Publish and read an administrator-defined role checklist](issues/01-publish-role-checklist.md) — recommended starting point for checklist implementation.
+- [02: Reorder tasks and move them between onboarding stages](issues/02-reorder-and-move-tasks.md) - ready after 01.
+- [03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) - ready after 01.
+- [04: Complete and revisit a role checklist privately](issues/04-complete-role-checklist.md) - in progress.
 - [14: Filter the knowledge library by job role](issues/14-filter-published-guides-by-role.md) — independent improvement to the already-working library.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
@@ -28,7 +30,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 1. **[01: Publish and read an administrator-defined role checklist](issues/01-publish-role-checklist.md) — M4**
    - **Blocked by:** None; completed RAG foundation is available.
    - **What it delivers:** A private administrator creates, edits and removes tasks, saves a coherent role checklist, and an authenticated learner can read the saved result.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 2. **[02: Reorder tasks and move them between onboarding stages](issues/02-reorder-and-move-tasks.md) — M4**
    - **Blocked by:** 01
@@ -43,7 +45,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 4. **[04: Complete and revisit a role checklist privately](issues/04-complete-role-checklist.md) — M5**
    - **Blocked by:** 01
    - **What it delivers:** Learners choose a role, follow its grouped checklist, toggle task completion and retain their own progress after navigation and reload.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 5. **[05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) — M5**
    - **Blocked by:** 04
