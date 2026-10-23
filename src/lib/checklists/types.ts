@@ -8,7 +8,7 @@ export const checklistTaskInput = z
     stage: z.enum(STAGES),
     instructions: z.string().max(2000),
     position: z.number().int().nonnegative().optional(),
-    guideId: z.null().optional(),
+    guideId: z.uuid().nullable().optional(),
     suggestedQuestion: z.null().optional(),
   })
   .strict();

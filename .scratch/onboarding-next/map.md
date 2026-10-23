@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Ticket 02 is integrated at 2c7985a (12 effective browser checks including the corrected isolated starter preparation). Ticket 03 is integrated at 9d5f25e (six browser/API checks), completing M4. Tickets 05, 06, 07 and 10 are in progress; 09 is ready. Docker engine and dedicated fixture recovered after the user relaunched Docker; no infrastructure blocker remains. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Ticket 02 is integrated at 2c7985a (12 effective browser checks including the corrected isolated starter preparation). Ticket 03 is integrated at 9d5f25e (six browser/API checks), completing M4. Ticket 05 is integrated at f9181c7 (six browser checks). Ticket 06 is integrated at 9ecb394 (two complete reconciliation checks), completing M5. Ticket 07 is integrated at aef6600 (four browser/API association and guide-version checks). Tickets 09 and 10 are in progress; 11 waits for both. Docker engine and dedicated fixture recovered after the user relaunched Docker; no infrastructure blocker remains. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -18,10 +18,8 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 
 ## Current frontier
 
-- [05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) - in progress.
-- [06: Preserve accurate progress through checklist changes](issues/06-preserve-progress-through-task-edits.md) - in progress.
 
-Additional frontier after 04 (07 and 10 in progress; 09 ready): [07](issues/07-open-current-guide-from-task.md), [09](issues/09-ask-from-checklist-task.md), [10](issues/10-synchronize-task-completion-tabs.md).
+Current active frontier: [09](issues/09-ask-from-checklist-task.md), [10](issues/10-synchronize-task-completion-tabs.md). Both are in progress.
 
 Choose one ready slice when resuming; readiness does not require implementing the whole programme at once. Use the declared graph rather than blindly processing every ticket in numerical order. M9 roles are separate small releases, not one large content batch.
 
@@ -50,17 +48,17 @@ Choose one ready slice when resuming; readiness does not require implementing th
 5. **[05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) — M5**
    - **Blocked by:** 04
    - **What it delivers:** The overview reflects the same role and progress as the checklist, highlights up to three next incomplete tasks, and offers meaningful empty/completed states.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 6. **[06: Preserve accurate progress through checklist changes](issues/06-preserve-progress-through-task-edits.md) — M5**
    - **Blocked by:** 02, 04
    - **What it delivers:** Learners keep completed work when an administrator clarifies or reorganizes tasks, while new and removed obligations change progress predictably.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 7. **[07: Open the current same-role guide from a checklist task](issues/07-open-current-guide-from-task.md) — M6**
    - **Blocked by:** 04
    - **What it delivers:** Administrators attach published same-role guides, and learners open current instructions from tasks without changing completion or historical answer citations.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 8. **[08: Preserve an unfinished question in each chat scope](issues/08-preserve-question-drafts.md) — M6**
    - **Blocked by:** None; completed RAG foundation is available.
@@ -70,7 +68,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 9. **[09: Ask a task question without overwriting unfinished work](issues/09-ask-from-checklist-task.md) — M6**
    - **Blocked by:** 04, 08
    - **What it delivers:** A learner opens a configured task question in the correct role, edits it, protects an existing draft and submits through the normal grounded-answer journey.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 10. **[10: Keep checklist changes consistent between browser tabs](issues/10-synchronize-task-completion-tabs.md) — M7**
    - **Blocked by:** 04
