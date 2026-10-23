@@ -1,6 +1,6 @@
 # FirstDay product roadmap
 
-Planning snapshot: October 23, 2026. The user wants gradual future implementation, not immediate development. Completed status reflects the implemented RAG journey and verified PR #4 production release at 1d5efea in Singapore. The user accepted all 20 design/planning recommendations and authorized the milestone specifications and ticket publication. The delivery graph defines real prerequisites; implementation remains future work.
+Scope agreed October 23, 2026. The user subsequently authorized implementation of the complete ticket graph on feat/onboarding-integration. For current progress and verification, use the [delivery map](../.scratch/onboarding-next/map.md). The completed foundation below describes the verified PR #4 production baseline at 1d5efea in Singapore; later milestone outcomes define completion boundaries, and their delivery status is maintained in the map.
 
 ## Completed foundation
 
