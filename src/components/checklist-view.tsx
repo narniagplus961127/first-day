@@ -10,9 +10,11 @@ import {
 export function ChecklistView({
   initial,
   admin = false,
+  guides = [],
 }: {
   initial: Checklist;
   admin?: boolean;
+  guides?: { id: string; title: string }[];
 }) {
   const router = useRouter();
   const [tasks, setTasks] = useState<ChecklistTaskInput[]>(initial.tasks);
@@ -260,6 +262,30 @@ export function ChecklistView({
                     edit(index, { instructions: event.target.value })
                   }
                 />
+                <label htmlFor={`task-guide-${index}`}>Guide</label>
+                <select
+                  id={`task-guide-${index}`}
+                  value={task.guideId || ''}
+                  onChange={(event) =>
+                    edit(index, { guideId: event.target.value || null })
+                  }
+                >
+                  <option value="">No guide</option>
+                  {task.guideId &&
+                  !guides.some((guide) => guide.id === task.guideId) ? (
+                    <option value={task.guideId}>
+                      Guide unavailable — remove or choose another
+                    </option>
+                  ) : null}
+                  {guides.map((guide) => (
+                    <option key={guide.id} value={guide.id}>
+                      {guide.title}
+                    </option>
+                  ))}
+                </select>
+                <p className="muted">
+                  Only published guides for this role can be attached.
+                </p>
                 <div
                   className="checklist-order-actions"
                   role="group"
