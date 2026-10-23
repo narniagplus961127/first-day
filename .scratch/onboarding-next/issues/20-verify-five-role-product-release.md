@@ -14,7 +14,7 @@
 - [x] Verify private administrator maintenance/conflicts and current-definition/local-progress reconciliation without weakening authorization.
 - [x] Verify role/scope labels, completed/empty/error states, browser privacy, multi-tab reset fencing and honest storage fallback.
 - [x] Reconcile actual in-scope desktop/mobile and keyboard interactions with the approved native FigCraft design, preserving manual edits and omitting preview exports.
-- [ ] Run appropriate local checks and final standards/spec review, resolve in-scope findings, and reuse valid current-version evidence instead of repeatedly consuming live model quota.
+- [x] Run appropriate local checks and final standards/spec review, resolve in-scope findings, and reuse valid current-version evidence instead of repeatedly consuming live model quota.
 - [x] Keep secrets out of public assets, logs and credential-bearing artifacts; retain free-provider/no-paid-fallback contracts and Singapore deployment.
 - [ ] When release is authorized, verify the actual branch preview/main-production Git flow, exact commit/alias/READY state and navigation health, then update current-state/run documentation.
 - [x] Keep pending access, user-performed merge or release authorization explicit and unresolved; no automatic cloud mutation or Git publication follows from this ticket's creation.
@@ -35,6 +35,6 @@
 
 ## Outstanding final gates
 
-- Root owns the final standards/spec delta review and closure of its review acceptance box after this branch is integrated.
-- Cloud still requires the four committed programme migrations and deliberate five-role preparation through normal application routes. No actual Google/Groq call, cloud mutation, Git push or deployment was performed by this ticket's local implementation. The hosted main baseline 1d5efea is prior release evidence, not this branch's five-role release.
+- Final independent Standards and Spec delta reviews passed at a648fe7d5155b939df204e17068fc2c397ba0437 with zero remaining findings; both original findings were fixed by the single final implementer. See docs/reviews/onboarding-programme.md.
+- Root applied all four canonical programme migrations to FirstDay through pinned CLI 2.121.0 after exact dry-run validation, with vault changes disabled. Remote history now matches all 11 files; checklist RLS and sample execution privileges were verified, and security advisors introduced no new findings. Five-role preparation, actual providers and Git release remain pending. The local implementer itself performed no cloud/provider/Git publication. The hosted main baseline 1d5efea is prior release evidence, not this branch's five-role release.
 - A bounded actual-provider smoke tied to current published versions and authorized Git branch-preview/main-production verification must still establish the reviewed SHA, intended team/project, READY/sin1 state, production alias and navigation timings. Keep Progress in-progress and hosted-release acceptance unchecked until those gates pass.
