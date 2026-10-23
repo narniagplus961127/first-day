@@ -1,6 +1,6 @@
 import { requirePageUser } from '@/lib/auth';
 import { WorkspaceShell } from '@/components/workspace-shell';
-import { ChecklistView } from '@/components/checklist-view';
+import { LearnerChecklist } from '@/components/learner-checklist';
 import { readChecklist } from '@/lib/checklists/repository';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 export const dynamic = 'force-dynamic';
@@ -15,7 +15,11 @@ export default async function ChecklistPage({
   const checklist = await readChecklist(selected);
   return (
     <WorkspaceShell user={user}>
-      <ChecklistView key={selected} initial={checklist} />
+      <LearnerChecklist
+        key={selected}
+        initial={checklist}
+        explicitRole={role === selected}
+      />
     </WorkspaceShell>
   );
 }

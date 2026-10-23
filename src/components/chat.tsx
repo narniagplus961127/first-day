@@ -231,9 +231,9 @@ export function Chat() {
         <span className="section-label">A FRESH START</span>
         <h2 id="reset-demo-title">Reset this browser’s demo activity?</h2>
         <p id="reset-demo-description">
-          This clears this browser’s conversations and question drafts across
-          all roles and search scopes. Shared guides and other visitors’
-          activity stay unchanged.
+          This clears this browser’s checklist progress, conversations and
+          question drafts across all roles and search scopes. Shared guides and
+          other visitors’ activity stay unchanged.
         </p>
         <div className="dialog-actions">
           <button
