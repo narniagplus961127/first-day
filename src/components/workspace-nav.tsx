@@ -6,12 +6,15 @@ export function WorkspaceNav({ admin }: { admin: boolean }) {
   const links = admin
     ? [
         ['/admin', 'Documents'],
+        ['/admin/checklists', 'Manage checklists'],
         ['/workspace', 'Learner workspace'],
+        ['/checklist', 'Checklist'],
         ['/knowledge', 'Knowledge library'],
         ['/chat', 'Ask FirstDay'],
       ]
     : [
         ['/workspace', 'Overview'],
+        ['/checklist', 'Checklist'],
         ['/knowledge', 'Knowledge library'],
         ['/chat', 'Ask FirstDay'],
       ];
