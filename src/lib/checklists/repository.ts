@@ -55,31 +55,35 @@ export async function listChecklistGuides(
   const client = await createSupabaseServerClient();
   const { data: documents, error } = await client
     .from('knowledge_documents')
-    .select('id,title,active_version_id')
+    .select(
+      'id,title,active_version:knowledge_versions!knowledge_documents_active_version_fkey(id,status,published_at,document_id)',
+    )
     .eq('job_role', role)
     .not('active_version_id', 'is', null)
-    .order('title');
+    .order('title')
+    .returns<
+      {
+        id: string;
+        title: string;
+        active_version: {
+          id: string;
+          document_id: string;
+          status: string;
+          published_at: string | null;
+        } | null;
+      }[]
+    >();
   if (error)
     throw new HttpError(503, 'Guides could not be loaded. Please try again.');
-  if (!documents.length) return [];
-  const { data: versions, error: versionError } = await client
-    .from('knowledge_versions')
-    .select('id,document_id')
-    .in(
-      'id',
-      documents.map((document) => document.active_version_id!),
-    )
-    .eq('status', 'ready')
-    .not('published_at', 'is', null);
-  if (versionError)
-    throw new HttpError(503, 'Guides could not be loaded. Please try again.');
   return documents
-    .filter((document) =>
-      versions.some(
-        (version) =>
-          version.id === document.active_version_id &&
-          version.document_id === document.id,
-      ),
-    )
+    .filter((document) => {
+      const version = document.active_version;
+      return (
+        version &&
+        version.document_id === document.id &&
+        version.status === 'ready' &&
+        version.published_at !== null
+      );
+    })
     .map(({ id, title }) => ({ id, title }));
 }
