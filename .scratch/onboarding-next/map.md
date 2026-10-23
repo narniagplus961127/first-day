@@ -2,7 +2,7 @@
 
 ## State and authorization
 
-Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Tickets 02, 05 and 15 are in progress; 03, 07, 09 and 10 are ready. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
+Implementation started October 23, 2026 using implement-spec on integration branch feat/onboarding-integration, based on main 1d5efea. The user authorized the complete ticket graph and recommended routine decisions without further input. Tickets 01, 08 and 14 are resolved and integrated (1aa661a, de31686, fd9a5e0). Their focused checks and final test cleanup recheck passed; see issue evidence. Ticket 04 is integrated at e873130 (six browser checks). Ticket 15 is integrated at 680b5b0 (six browser checks, static checks passed). Tickets 02, 03 and 05 are in progress; 07, 09 and 10 are ready. Local browser tests are temporarily waiting for Docker engine recovery after the usage interruption. Build/typecheck/CRLF evidence accompanies each completed issue. The accepted planning baseline is commit 416bbd1. Release evidence remains pending until the reviewed implementation exists.
 
 Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../docs/roadmap.md). Accepted checklist discussion: [decision map](../checklists/map.md).
 
@@ -19,9 +19,8 @@ Canonical programme: [specification](spec.md). Product roadmap: [roadmap](../../
 ## Current frontier
 
 - [02: Reorder tasks and move them between onboarding stages](issues/02-reorder-and-move-tasks.md) - ready after 01.
-- [03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) - ready after 01.
+- [03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) - in progress.
 - [05: Show role progress and next tasks on the learner overview](issues/05-show-overview-progress.md) - in progress.
-- [15: Search published guide titles alongside role filters](issues/15-search-guide-titles-with-role-filter.md) - in progress after 14.
 
 Additional ready tickets after 04: [07](issues/07-open-current-guide-from-task.md), [09](issues/09-ask-from-checklist-task.md), [10](issues/10-synchronize-task-completion-tabs.md).
 
@@ -42,7 +41,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 3. **[03: Protect newer checklist saves from stale administrators](issues/03-protect-concurrent-checklist-edits.md) — M4**
    - **Blocked by:** 01
    - **What it delivers:** Two administrators or tabs can edit safely: the first valid save succeeds, and an outdated save receives a clear conflict instead of silently replacing it.
-   - **Progress:** not-started
+   - **Progress:** in-progress
 
 4. **[04: Complete and revisit a role checklist privately](issues/04-complete-role-checklist.md) — M5**
    - **Blocked by:** 01
@@ -102,7 +101,7 @@ Choose one ready slice when resuming; readiness does not require implementing th
 15. **[15: Search published guide titles alongside role filters](issues/15-search-guide-titles-with-role-filter.md) — M8**
    - **Blocked by:** 14
    - **What it delivers:** Learners find published guides with a case-insensitive title query combined with the selected role.
-   - **Progress:** in-progress
+   - **Progress:** resolved
 
 16. **[16: Publish the Backend Developer onboarding journey](issues/16-publish-backend-onboarding.md) — M9**
    - **Blocked by:** 13
