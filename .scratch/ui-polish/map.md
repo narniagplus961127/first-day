@@ -23,4 +23,6 @@ User reported a scrolling-away sidebar footer, touching overview/task actions an
 
 ## Release
 
-Git preview and production verification pending publication. Original M1–M10 release snapshot remains historical evidence in docs/hosted-verification.md; use npm run check:release for current main/alias identity.
+Protected Git preview 31c7bca0ba57ab45a580eda5dc8091f720254325, deployment dpl_DvJeQat8Thuyvq98YyHsfhkg2t3e, passed the actual cloud browser smoke: public admin popup/login, published inspection, role switching, learner/admin/root logos, stationary footer, 16/16/12 px task gaps, mobile navigation and five HTTP 403 write denials. No provider calls or shared content writes.
+
+[PR #7](https://github.com/narniagplus961127/first-day/pull/7) carries the release gate results, including final main/production identities after merging. Original M1–M10 snapshots in docs/hosted-verification.md are historical evidence; npm run check:release verifies the current main/alias identity.
