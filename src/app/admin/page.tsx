@@ -22,7 +22,7 @@ export default async function Admin() {
       <p className="muted">
         A private space to maintain your team’s onboarding guides.
       </p>
-      <UploadForm />
+      <UploadForm readOnly={user.role === 'admin_demo'} />
       <section className="knowledge-list" aria-label="Knowledge documents">
         <h2>Knowledge documents</h2>
         <p className="muted">Inspect your uploaded guides before publishing.</p>

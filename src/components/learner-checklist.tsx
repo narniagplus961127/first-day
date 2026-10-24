@@ -185,43 +185,45 @@ export function LearnerChecklist({
                 {task.instructions ? (
                   <p className="checklist-instructions">{task.instructions}</p>
                 ) : null}
-                {task.guideId ? (
-                  guides.some((guide) => guide.id === task.guideId) ? (
+                <div className="task-actions">
+                  {task.guideId ? (
+                    guides.some((guide) => guide.id === task.guideId) ? (
+                      <Link
+                        className="button secondary"
+                        prefetch={false}
+                        href={
+                          '/checklist/guide?role=' +
+                          encodeURIComponent(initial.job_role) +
+                          '&task=' +
+                          task.id
+                        }
+                      >
+                        Open guide
+                      </Link>
+                    ) : (
+                      <p className="notice">
+                        Guide unavailable. You can still complete this task.
+                      </p>
+                    )
+                  ) : null}
+                  {task.suggestedQuestion ? (
                     <Link
-                      className="button secondary"
-                      prefetch={false}
-                      href={
-                        '/checklist/guide?role=' +
-                        encodeURIComponent(initial.job_role) +
-                        '&task=' +
-                        task.id
-                      }
+                      href="/chat"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        let href = '/chat?taskIntent=unavailable';
+                        try {
+                          href = beginTaskQuestion(initial.job_role, task.id);
+                        } catch {
+                          /* Chat explains that the handoff is unavailable. */
+                        }
+                        router.push(href);
+                      }}
                     >
-                      Open guide
+                      Ask about this task
                     </Link>
-                  ) : (
-                    <p className="notice">
-                      Guide unavailable. You can still complete this task.
-                    </p>
-                  )
-                ) : null}
-                {task.suggestedQuestion ? (
-                  <Link
-                    href="/chat"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      let href = '/chat?taskIntent=unavailable';
-                      try {
-                        href = beginTaskQuestion(initial.job_role, task.id);
-                      } catch {
-                        /* Chat explains that the handoff is unavailable. */
-                      }
-                      router.push(href);
-                    }}
-                  >
-                    Ask about this task
-                  </Link>
-                ) : null}
+                  ) : null}
+                </div>
                 <label className="checklist-completion">
                   <input
                     type="checkbox"

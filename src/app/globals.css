@@ -294,6 +294,12 @@ dialog h2 {
   grid-template-columns: 246px 1fr;
 }
 .sidebar {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  min-height: 0;
+  align-self: start;
+  overflow: hidden;
   padding: 28px 20px;
   border-right: 1px solid var(--line);
   background: white;
@@ -327,8 +333,23 @@ dialog h2 {
   color: var(--action);
   font-weight: bold;
 }
+.sidebar > .brand {
+  flex-shrink: 0;
+}
+.sidebar-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  scrollbar-gutter: stable;
+}
 .sidebar-footer {
-  margin-top: auto;
+  flex-shrink: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  overflow-wrap: anywhere;
 }
 .sidebar-footer small {
   display: block;
@@ -808,4 +829,33 @@ input[type='file']::file-selector-button {
   width: 22px;
   height: 22px;
   accent-color: var(--action);
+}
+
+.overview-actions {
+  margin: 24px 0;
+}
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 16px;
+}
+.task-actions > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.task-actions:empty {
+  display: none;
+}
+.demo-account-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+.demo-account-options [aria-pressed='true'] {
+  background: var(--pale);
+  border-color: var(--action);
 }

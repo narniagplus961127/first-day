@@ -2,6 +2,8 @@
 
 ## Current state — October 24, 2026
 
+- Follow-up workspace polish and separate read-only admin demo are implemented and locally verified; [current follow-up record](../ui-polish/map.md) tracks release.
+
 - M1–M10 and all 20 onboarding programme tickets are complete; PR #5 merged the five-role application into main.
 - Actual Git-preview and main-production deployment, cloud definitions, bounded live-provider and browser/navigation checks passed. See [hosted verification](../../docs/hosted-verification.md) for exact measured snapshots; npm run check:release inspects the current alias against remote main.
 - [Programme delivery map](../onboarding-next/map.md) and [review record](../../docs/reviews/onboarding-programme.md) retain delivery and independent Standards/Spec evidence.

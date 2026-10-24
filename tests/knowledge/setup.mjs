@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { readFileSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createClient } from '@supabase/supabase-js';
+import { ADMIN_DEMO } from '../../src/lib/demo/admin-account.ts';
 export default async function setup() {
   const status = JSON.parse(
     readFileSync(
@@ -24,10 +25,12 @@ export default async function setup() {
   for (const [email, role] of [
     ['admin@firstday.example', 'admin'],
     ['demo@firstday.example', 'learner'],
+    [ADMIN_DEMO.email, 'admin_demo'],
   ]) {
     const existing = data.users.find((user) => user.email === email);
     const input = {
-      password: 'FirstDayDemo!2026',
+      password:
+        role === 'admin_demo' ? ADMIN_DEMO.password : 'FirstDayDemo!2026',
       email_confirm: true,
       app_metadata: { role },
     };
