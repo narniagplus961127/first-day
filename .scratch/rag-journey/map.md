@@ -2,7 +2,8 @@
 
 ## Current state — October 24, 2026
 
-- Follow-up workspace polish and separate read-only admin demo are implemented and locally verified; [current follow-up record](../ui-polish/map.md) tracks release.
+- Workspace polish and the read-only admin demo shipped through PR #7. [Follow-up evidence](../ui-polish/map.md) links its actual release checks.
+- Durable regression coverage, visitor README and compact design inspection are recorded in the [current retrospective delivery](../retro-visitor/map.md).
 
 - M1–M10 and all 20 onboarding programme tickets are complete; PR #5 merged the five-role application into main.
 - Actual Git-preview and main-production deployment, cloud definitions, bounded live-provider and browser/navigation checks passed. See [hosted verification](../../docs/hosted-verification.md) for exact measured snapshots; npm run check:release inspects the current alias against remote main.

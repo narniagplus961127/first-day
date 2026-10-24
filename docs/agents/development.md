@@ -2,6 +2,8 @@
 
 Use the On Board RAG local project, rooted at C:\Projects\On Board RAG on this machine. The saved app project was verified with that path on October 23, 2026. This existing chat still reports C:\Projects\RAG as its writable sandbox root. The repository cannot change an active chat's permissions; use the existing On Board RAG project for the next chat and verify its supplied cwd/writable root before edits. OpenAI's [project documentation](https://learn.chatgpt.com/docs/projects) distinguishes saved chats' recorded directories from the current working tree. No app state database or permission policy is edited by repository scripts.
 
+For complete environment variables, account provisioning, hosted smoke bounds and restoration, read the [technical guide](../technical-guide.md). The root README is the visitor product tour.
+
 ## Local checks
 
 - Run npm run check:repo for CRLF text and permitted ticket Status/Progress fields. Binary design/assets are preserved. This command includes tracked and nonignored untracked files; generated ignored output is excluded.
@@ -22,3 +24,9 @@ Run npm run check:release using the existing authenticated Vercel CLI account. I
 Discover exact connector tools by name instead of dumping an entire provider catalog. Return only fields needed for the decision. For long tool/agent operations, prefer completion notifications or one bounded wait with progress changes instead of repeated short polls.
 
 For the separate navigation benchmark, run npm run measure:navigation. It uses only the intentionally public demo popup, checks Overview/Knowledge/Chat navigation, emits timing summaries and closes the browser without saving auth state or traces. FIRSTDAY_BASE_URL selects the intended application; FIRSTDAY_NAV_BUDGET_MS sets the explicit navigation budget. It does not ask a question or spend model quota.
+
+## Native design inspection
+
+Use npm run inspect:design -- --list to discover native frame names. Use npm run inspect:design -- --frame "04 Overview" --layer "Continue onboarding" for selected layer dimensions, colours and spacing. The helper requires an exact frame name and caps output at 40 layers. It reads design/FirstDay.figcraft through the installed FigCraft CLI with read-only automation roots; it does not save the native file or export previews. FIGCRAFT_CLI overrides the local CLI executable path.
+
+For PowerShell searches, pass file globs through rg -g rather than treating a wildcard path as a file, and use Get-Content -LiteralPath for App Router folders containing brackets. Select only relevant source ranges or fields from CLI results.
