@@ -1,5 +1,39 @@
 # Hosted verification
 
+## Five-role release snapshot — October 24, 2026 (Malaysia)
+
+[PR #5](https://github.com/narniagplus961127/first-day/pull/5) merged the complete M4–M10 application. The observed Git-main production snapshot is **f0e7c575e5c512defe197cf6340e082261f23aa6**, deployment **dpl_Cginrm7WJQFELStKWYSjVAF2fEsa**, READY in **sin1**, at [qw-firstday.vercel.app](https://qw-firstday.vercel.app); immutable URL https://firstday-faf2hxkog-qw-e7b7.vercel.app. Intended team/project, Git source, main branch, exact remote/deployed SHA, production alias, login and favicon all passed npm run check:release. These are measured snapshot identities; subsequent documentation-only commits may produce later deployments. Use check:release for current main/alias identity.
+
+The protected Git-branch preview was READY at 66a6a3709cadb7afd4cf02ff3ac1062cd287d887, deployment dpl_8skaNXmJiH5EfK4JFajBhzHGx9d1, https://firstday-ig2n9e61n-qw-e7b7.vercel.app. Short-lived origin-scoped OIDC access left protection unchanged. Independent Standards and Spec reviews passed application tip a648fe7 with zero remaining findings; subsequent commits only record release evidence.
+
+### Cloud definitions and actual providers
+
+All four canonical programme migrations were applied to the dedicated FirstDay project ohvojrdwxlsbzwdrhpzr, with exact dry-run validation and vault changes disabled. Remote history matches all eleven canonical versions. Checklist RLS and anonymous/authenticated sample execution privileges were checked; security advisors have no new findings. Public signup remains disabled.
+
+Normal administrator upload/index/publication/checklist APIs prepared all five fictional Lumen guides, eight tasks each in 2/3/3 stages. Ten successful bounded index requests completed preparation. Unchanged reruns retained document/version/task identities and checklist revision with zero extra indexing. Existing unrelated knowledge was preserved.
+
+| Role | Document | Published version | Revision / tasks |
+| --- | --- | --- | --- |
+| Frontend Developer | a67b99fd-5db2-48fc-b806-95b5dfc61190 | 3b241457-92f7-42f3-b642-3ca5338d99ce | 1 / 8 |
+| Backend Developer | aa301c1c-d06d-4cd3-9b58-bc7dff2348e5 | ed78dfca-22c9-4e22-8c8f-819686172ea3 | 1 / 8 |
+| Designer | 9384d632-0bab-4a6e-a64d-df858a57ced5 | c72ec63f-8dd2-48ec-a5e0-89db3ab3cfc2 | 1 / 8 |
+| Business Analyst | 1122970b-3db3-47a3-a60b-db4d44cafb60 | 0fed58e2-57d8-4908-b27a-d9dcab296f19 | 1 / 8 |
+| HR | 85e29ec9-b536-4999-9c44-5b2c21eb8b78 | dc7cb9fc-8898-49ee-8bd2-33d9d222d187 | 1 / 8 |
+
+Exactly two live frontend questions used the configured direct Google gemini-embedding-2 and Groq openai/gpt-oss-20b path. The supported answer returned HTTP 200 and the exact command npm run dev:lumen -- --port 4101, citing the prepared Frontend document/version above and readable passage 1c7e40d2-3eb1-4dd7-b153-6935c0a56b39 (lines 9–12). The absent salary question returned HTTP 200, no_evidence and empty claims. This bounded smoke establishes actual semantic retrieval/generation for Frontend; controlled-provider desktop/mobile tests cover all five role journeys. No live all-role model sweep, failure injection, quota exhaustion, counter reset or paid fallback occurred.
+
+Hosted preview browser checks passed demo popup/login, all five overview/checklist counts, combined role/title discovery, task guide, draft keep/replace, completion reload, role/second-browser isolation and reset cancellation/confirmation. Reset retained authentication and shared definitions. Anonymous administrator mutation returned 401 and learner mutation 403. Credential-bearing state stayed in memory; no traces, screenshots or credential artifacts were saved.
+
+Production browser verification on the exact main snapshot passed public demo login, all five eight-task checklists/overviews, task-linked published guides with manifest facts, combined title/role search, retained exact Frontend source, completion persistence and reset cancellation/confirmation. At 390x844, Menu/Checklist navigation passed without horizontal overflow. This production smoke performed zero model/index/upload/shared mutations.
+
+### Production navigation
+
+The production benchmark passed its 1000 ms per-route mean budget. Overall six-sample median: **262 ms**. Knowledge samples: 707/219 ms; Chat: 477/143 ms; Overview: 304/197 ms. Slowest route mean: **463 ms**. These measurements describe this run, not an availability guarantee. Benchmark login/navigation spent no model quota.
+
+The local full/focused test results, resolved findings, unchanged native design and scoped secret checks are recorded in [programme review](reviews/onboarding-programme.md). Earlier sections below retain historical releases and their original evidence; older uses of current/final describe those historical snapshots.
+
+## Historical release evidence
+
 Historical verification log. For the current production identity and follow-up work, see the Current state section of [.scratch/rag-journey/map.md](../.scratch/rag-journey/map.md).
 
 Ticket 08 verifies the actual deployed journey separately from deterministic tests. The complete real-provider journey passed. Current production is [qw-firstday.vercel.app](https://qw-firstday.vercel.app), serving reviewed app commit 9a8886e with the FirstDay favicon; the original full journey evidence and subsequent asset/health verification are distinguished below.

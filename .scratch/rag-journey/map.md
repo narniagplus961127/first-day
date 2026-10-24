@@ -1,11 +1,11 @@
 # FirstDay RAG journey tickets
 
-## Current state — October 23, 2026
+## Current state — October 24, 2026
 
-- Last verified GitHub main: 1d5efea5e9214c2ebf4c006248419af77a838a45, PR #4 merged. Actual Git-triggered production READY dpl_Cw3hH8ZYPKSXr5TmYbiFHWB21CbS at https://qw-firstday.vercel.app, region sin1; deployed commit matched main.
-- Original eight RAG tickets and first retrospective follow-up are complete. Deferred checker fixes and CI/hooks remain excluded.
-- M4–M10 implementation is active on feat/onboarding-integration. Use the [programme delivery map](../onboarding-next/map.md) as the current source for progress, dependencies and verification; [programme specification](../onboarding-next/spec.md) defines scope and [roadmap](../../docs/roadmap.md) gives milestone context.
-- The checklist interview accepted all 20 recommendations. Current implementation uses isolated local persistence; hosted release evidence above remains the last verified production state.
+- M1–M10 and all 20 onboarding programme tickets are complete; PR #5 merged the five-role application into main.
+- Actual Git-preview and main-production deployment, cloud definitions, bounded live-provider and browser/navigation checks passed. See [hosted verification](../../docs/hosted-verification.md) for exact measured snapshots; npm run check:release inspects the current alias against remote main.
+- [Programme delivery map](../onboarding-next/map.md) and [review record](../../docs/reviews/onboarding-programme.md) retain delivery and independent Standards/Spec evidence.
+- Deferred checker fixes and CI/hooks remain excluded.
 
 The sections below retain historical implementation and deployment evidence.
 

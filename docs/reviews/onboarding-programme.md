@@ -20,3 +20,7 @@ Standards: 0 remaining findings. Spec: 0 remaining findings. Neither code review
 - TypeScript, production build, repository CRLF/ticket rules, three tooling tests and whitespace checks passed. Private configured-secret comparison passed for source and public outputs. Approved native FigCraft binary remained unchanged; no previews were exported.
 
 See the complete evidence and hosted-release gates in [.scratch/onboarding-next/issues/20-verify-five-role-product-release.md](../../.scratch/onboarding-next/issues/20-verify-five-role-product-release.md). The programme [delivery map](../../.scratch/onboarding-next/map.md) records current release state.
+
+## Hosted release
+
+PR #5 merged application release f0e7c575e5c512defe197cf6340e082261f23aa6. Git preview and main-production READY/sin1 checks, five-role cloud preparation, exactly two live questions, browser/privacy/reset checks and the production navigation benchmark passed. Exact identities and measured results are preserved in [hosted verification](../hosted-verification.md). The post-release closure changes only documentation; application code remains the independently reviewed tip.
