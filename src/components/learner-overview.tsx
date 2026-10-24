@@ -132,7 +132,9 @@ export function LearnerOverview() {
         </Link>
       </section>
       <ActivityStorageNotice />
-      <ResetDemo disabled={!ready} />
+      <div className="overview-actions">
+        <ResetDemo disabled={!ready} />
+      </div>
       {notice ? (
         <p role="status" className="notice">
           {notice}

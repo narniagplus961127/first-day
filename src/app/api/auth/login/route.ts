@@ -39,7 +39,9 @@ export async function POST(request: Request) {
     }
     return NextResponse.json(
       {
-        redirect: user.app_metadata.role === 'admin' ? '/admin' : '/workspace',
+        redirect: ['admin', 'admin_demo'].includes(user.app_metadata.role)
+          ? '/admin'
+          : '/workspace',
       },
       { headers: { 'Cache-Control': 'no-store' } },
     );

@@ -20,8 +20,10 @@ function historyIndex(): number | undefined {
 export function ChecklistView({
   initial,
   guides = [],
+  readOnly = false,
 }: {
   initial: Checklist;
+  readOnly?: boolean;
   guides?: { id: string; title: string }[];
 }) {
   const router = useRouter();
@@ -291,7 +293,7 @@ export function ChecklistView({
           void save();
         }}
       >
-        <fieldset disabled={pending} className="checklist-fields">
+        <fieldset disabled={pending || readOnly} className="checklist-fields">
           <legend className="sr-only">Checklist tasks</legend>
           {tasks.map((task, index) => (
             <section

@@ -21,6 +21,12 @@ Apply all committed `supabase/migrations` in order to the intended dedicated pro
 
 Run `npm run dev`; production uses `npm run build` then `npm start`. Normal authentication always uses Supabase. No production fake login or model fallback exists. Keep `.env.local`, private fixture status, build output and dependencies out of version control.
 
+## Public administrator demo
+
+The login popup offers Learner demo and Admin demo. The separate public admin demo opens published guide inspection and checklist management in read-only mode. Uploading, replacing, indexing and saving are disabled and rejected by server authorization; existing database policies continue to require the private admin role for writes. Unpublished candidates remain private. The original private administrator credentials are never displayed.
+
+Provision this separate identity deliberately against the dedicated project with node --env-file=.env.local scripts/seed-admin-demo.mjs. The script uses the intentionally public credentials from src/lib/demo/admin-account.ts, accepts only FirstDay or its isolated loopback fixture, and refuses to overwrite an existing account with another role. It does not change the private administrator or learner. No new hosting variables or database migration are required.
+
 ## Behavior and bounds
 
 An administrator uploads one UTF-8 English `.md` file (the server applies the documented [practical prose-admission policy](docs/uploads.md)), maximum 102400 bytes, with title and job role. Candidates remain private until all passages are embedded. Each resumable indexing request embeds at most four passages using `gemini-embedding-2`, 768 dimensions and a stored configuration identity. Replacement preserves the active guide until atomic publication; three published versions retain exact historical citations. Failed indexing preserves progress for explicit retry. See [indexing](docs/indexing.md) and [replacement](docs/replacement.md).

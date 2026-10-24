@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import { Brand } from '@/components/brand';
+import { ADMIN_DEMO } from '@/lib/demo/admin-account';
 export function LoginForm({
   demoEmail,
   demoPassword,
@@ -16,6 +17,10 @@ export function LoginForm({
   const [error, setError] = useState(initialMessage);
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState('');
+  const [account, setAccount] = useState<'learner' | 'admin'>('learner');
+  const selectedEmail = account === 'admin' ? ADMIN_DEMO.email : demoEmail;
+  const selectedPassword =
+    account === 'admin' ? ADMIN_DEMO.password : demoPassword;
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError('');
@@ -134,18 +139,52 @@ export function LoginForm({
         <span className="eyebrow">EXPLORE FIRSTDAY</span>
         <h2 id="demo-title">A first day, without the signup.</h2>
         <p className="muted">
-          Use the sample account to explore your workspace.
+          Choose a learner workspace or a read-only admin tour.
         </p>
-        {demoEmail && demoPassword ? (
+        <div
+          className="demo-account-options"
+          role="group"
+          aria-label="Demo account type"
+        >
+          <button
+            type="button"
+            className="button secondary"
+            aria-pressed={account === 'learner'}
+            onClick={() => {
+              setAccount('learner');
+              setCopied('');
+            }}
+          >
+            Learner demo
+          </button>
+          <button
+            type="button"
+            className="button secondary"
+            aria-pressed={account === 'admin'}
+            onClick={() => {
+              setAccount('admin');
+              setCopied('');
+            }}
+          >
+            Admin demo
+          </button>
+        </div>
+        {account === 'admin' && (
+          <p className="notice">
+            Read-only admin demo. Explore published guides and checklist
+            management; shared content cannot be changed.
+          </p>
+        )}
+        {selectedEmail && selectedPassword ? (
           <>
             <div className="credential">
               <span>Demo email</span>
               <div>
-                <code>{demoEmail}</code>
+                <code>{selectedEmail}</code>
                 <button
                   type="button"
                   className="text-button"
-                  onClick={() => copy(demoEmail, 'Email')}
+                  onClick={() => copy(selectedEmail, 'Email')}
                 >
                   Copy email
                 </button>
@@ -154,11 +193,11 @@ export function LoginForm({
             <div className="credential">
               <span>Demo password</span>
               <div>
-                <code>{demoPassword}</code>
+                <code>{selectedPassword}</code>
                 <button
                   type="button"
                   className="text-button"
-                  onClick={() => copy(demoPassword, 'Password')}
+                  onClick={() => copy(selectedPassword, 'Password')}
                 >
                   Copy password
                 </button>
@@ -177,10 +216,10 @@ export function LoginForm({
         <div className="dialog-actions">
           <button
             className="button primary"
-            disabled={!demoEmail || !demoPassword}
+            disabled={!selectedEmail || !selectedPassword}
             onClick={() => {
-              setEmail(demoEmail);
-              setPassword(demoPassword);
+              setEmail(selectedEmail);
+              setPassword(selectedPassword);
               dialog.current?.close();
             }}
           >

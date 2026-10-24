@@ -1,4 +1,8 @@
 import { redirect } from 'next/navigation';
-export default function Home() {
-  redirect('/login');
+import { getViewer } from '@/lib/auth';
+export default async function Home() {
+  const user = await getViewer();
+  redirect(
+    user ? (user.role === 'learner' ? '/workspace' : '/admin') : '/login',
+  );
 }

@@ -3,7 +3,11 @@ import { cache } from 'react';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from './supabase/server';
 import { HttpError } from './http-error';
-export type Viewer = { id: string; email: string; role: 'admin' | 'learner' };
+export type Viewer = {
+  id: string;
+  email: string;
+  role: 'admin' | 'admin_demo' | 'learner';
+};
 export const getViewer = cache(async (): Promise<Viewer | null> => {
   const supabase = await createSupabaseServerClient();
   const {
@@ -14,7 +18,12 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
   return {
     id: user.id,
     email: user.email ?? '',
-    role: user.app_metadata.role === 'admin' ? 'admin' : 'learner',
+    role:
+      user.app_metadata.role === 'admin'
+        ? 'admin'
+        : user.app_metadata.role === 'admin_demo'
+          ? 'admin_demo'
+          : 'learner',
   };
 });
 export async function requireUser() {
@@ -26,12 +35,23 @@ export async function requireUser() {
 export async function requireAdministrator() {
   const viewer = await requireUser();
   if (viewer.role !== 'admin')
+    throw new HttpError(
+      403,
+      viewer.role === 'admin_demo'
+        ? 'The admin demo is read only. Use a private administrator account to save changes.'
+        : 'Administrator access is required.',
+    );
+  return viewer;
+}
+export async function requireAdministratorView() {
+  const viewer = await requireUser();
+  if (viewer.role === 'learner')
     throw new HttpError(403, 'Administrator access is required.');
   return viewer;
 }
 export async function requirePageUser(admin = false) {
   try {
-    return admin ? await requireAdministrator() : await requireUser();
+    return admin ? await requireAdministratorView() : await requireUser();
   } catch (error) {
     if (error instanceof HttpError)
       redirect(

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { JOB_ROLES } from '@/lib/knowledge/types';
 
-export function UploadForm() {
+export function UploadForm({ readOnly = false }: { readOnly?: boolean }) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -44,45 +44,47 @@ export function UploadForm() {
         until indexing is complete.
       </p>
       <form onSubmit={submit} className="upload-form">
-        <label htmlFor="document-title">Document title</label>
-        <input
-          id="document-title"
-          name="title"
-          maxLength={160}
-          required
-          placeholder="Frontend environment setup"
-        />
-        <label htmlFor="job-role">Job role</label>
-        <select id="job-role" name="jobRole">
-          {JOB_ROLES.map((role) => (
-            <option key={role}>{role}</option>
-          ))}
-        </select>
-        <label htmlFor="markdown-file">Markdown file</label>
-        <input
-          id="markdown-file"
-          name="file"
-          type="file"
-          accept=".md,text/markdown,text/plain"
-          required
-          aria-describedby="file-hint"
-        />
-        <p id="file-hint" className="hint">
-          One .md file, up to 100 KB. Use fictional demo content only.
-        </p>
-        {error && (
-          <p role="alert" className="error">
-            {error}
+        <fieldset className="checklist-fields" disabled={readOnly}>
+          <label htmlFor="document-title">Document title</label>
+          <input
+            id="document-title"
+            name="title"
+            maxLength={160}
+            required
+            placeholder="Frontend environment setup"
+          />
+          <label htmlFor="job-role">Job role</label>
+          <select id="job-role" name="jobRole">
+            {JOB_ROLES.map((role) => (
+              <option key={role}>{role}</option>
+            ))}
+          </select>
+          <label htmlFor="markdown-file">Markdown file</label>
+          <input
+            id="markdown-file"
+            name="file"
+            type="file"
+            accept=".md,text/markdown,text/plain"
+            required
+            aria-describedby="file-hint"
+          />
+          <p id="file-hint" className="hint">
+            One .md file, up to 100 KB. Use fictional demo content only.
           </p>
-        )}
-        <button className="button primary" disabled={saving} type="submit">
-          {saving ? 'Saving guide…' : 'Upload Markdown + '}
-        </button>
-        {saving && (
-          <p role="status" className="hint">
-            Saving your guide securely. Please keep this page open.
-          </p>
-        )}
+          {error && (
+            <p role="alert" className="error">
+              {error}
+            </p>
+          )}
+          <button className="button primary" disabled={saving} type="submit">
+            {saving ? 'Saving guide…' : 'Upload Markdown + '}
+          </button>
+          {saving && (
+            <p role="status" className="hint">
+              Saving your guide securely. Please keep this page open.
+            </p>
+          )}
+        </fieldset>
       </form>
     </section>
   );
