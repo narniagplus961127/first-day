@@ -93,6 +93,7 @@ function readChecklistActivity(): ChecklistActivity {
 export function rememberOnboardingRole(role: OnboardingRole) {
   if (!JOB_ROLES.includes(role)) throw new Error('Invalid onboarding role.');
   writeActivity(activityKey(ROLE_KEY), role);
+  window.dispatchEvent(new Event('firstday-onboarding-role'));
 }
 export function changeChecklistTask(
   role: OnboardingRole,

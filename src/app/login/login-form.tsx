@@ -81,6 +81,14 @@ export function LoginForm({
       <section className="login-panel">
         <div className="login-content">
           <span className="section-label">YOUR NEXT CHAPTER</span>
+          <div className="mobile-login-intro">
+            <h1>
+              A good first day
+              <br />
+              starts here.
+            </h1>
+            <p>Your team’s knowledge. A clear path forward.</p>
+          </div>
           <h2>Welcome to FirstDay</h2>
           <p className="muted">Your next chapter starts here.</p>
           <form onSubmit={submit}>

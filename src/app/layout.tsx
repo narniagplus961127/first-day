@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './design.css';
 export const metadata: Metadata = {
   title: 'FirstDay',
   description: 'A warmer welcome to work.',

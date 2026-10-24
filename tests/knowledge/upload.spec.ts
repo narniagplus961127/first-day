@@ -51,6 +51,12 @@ test('administrator uploads through the form and can recover after a connection 
     data: { email: 'admin@firstday.example', password: 'FirstDayDemo!2026' },
   });
   await page.goto('/admin');
+  await page
+    .getByRole('button', { name: 'Upload Markdown +', exact: true })
+    .click();
+  const uploadDialog = page.getByRole('dialog', {
+    name: 'Add a knowledge document',
+  });
   await page.getByLabel('Document title').fill('A recoverable upload');
   await page.getByLabel('Job role').selectOption('Designer');
   await page.getByLabel('Markdown file').setInputFiles({
@@ -59,15 +65,15 @@ test('administrator uploads through the form and can recover after a connection 
     buffer: Buffer.from('# Design guide\n\nUse the shared design system.'),
   });
   await page.route('**/api/admin/documents', (route) => route.abort());
-  await page.getByRole('button', { name: 'Upload Markdown +' }).click();
+  await uploadDialog.getByRole('button', { name: 'Upload Markdown +' }).click();
   await expect(
     page.getByRole('alert').filter({ hasText: 'Please try again' }),
   ).toBeVisible();
   await expect(
-    page.getByRole('button', { name: 'Upload Markdown +' }),
+    uploadDialog.getByRole('button', { name: 'Upload Markdown +' }),
   ).toBeEnabled();
   await page.unroute('**/api/admin/documents');
-  await page.getByRole('button', { name: 'Upload Markdown +' }).click();
+  await uploadDialog.getByRole('button', { name: 'Upload Markdown +' }).click();
   await expect(page).toHaveURL(/\/admin\/documents\/[0-9a-f-]+$/);
   await expect(
     page.getByRole('heading', { name: 'A recoverable upload', level: 1 }),

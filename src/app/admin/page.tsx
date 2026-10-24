@@ -31,7 +31,7 @@ export default async function Admin() {
             {storageError}
           </p>
         ) : documents.length ? (
-          <div className="document-grid">
+          <div className="admin-document-list">
             {documents.map((document) => (
               <Link
                 href={'/admin/documents/' + document.id}
@@ -40,6 +40,9 @@ export default async function Admin() {
               >
                 <span className="badge">{document.job_role}</span>
                 <h3>{document.title}</h3>
+                <span className="document-status badge">
+                  {document.active_version_id ? 'Ready' : 'Not indexed'}
+                </span>
                 <span className="document-link">Inspect document →</span>
               </Link>
             ))}

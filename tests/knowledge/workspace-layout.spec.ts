@@ -59,10 +59,17 @@ test('overview and task actions keep clearance at desktop and narrow mobile widt
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/workspace');
     const hero = await bounds(page.locator('.hero'));
-    const reset = await bounds(
-      page.getByRole('button', { name: 'Reset demo', exact: true }),
-    );
-    expect(reset.y - hero.y - hero.height).toBeGreaterThanOrEqual(16);
+    const stats = await bounds(page.locator('.overview-stats'));
+    expect(stats.y - hero.y - hero.height).toBeGreaterThanOrEqual(20);
+    const cta = page.getByRole('link', {
+      name: 'Continue onboarding →',
+      exact: true,
+    });
+    expect(
+      await cta.evaluate(
+        (element) => getComputedStyle(element).backgroundColor,
+      ),
+    ).toBe('rgb(169, 71, 22)');
     await noOverflow(page);
     await page.goto('/checklist?role=Frontend%20Developer');
     const guide = await bounds(
@@ -100,7 +107,7 @@ test('logos and root take each authenticated account home and anonymous visitors
     await page.goto('/knowledge');
     const logo = (await page.locator('.sidebar').isVisible())
       ? page.locator('.sidebar .brand')
-      : page.locator('.mobile-menu .brand');
+      : page.locator('.mobile-menu summary .brand');
     await expect(logo).toHaveAttribute('href', home);
     await logo.click();
     await page.waitForURL(origin + home);

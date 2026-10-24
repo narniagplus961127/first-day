@@ -10,7 +10,7 @@ The demo uses a fictional company, Lumen, so you can explore without signing up.
 
 1. Open the demo and select **View demo account**.
 2. Choose **Learner demo**, select **Fill login form**, then **Log in**.
-3. Pick a role on Overview and open its eight-task onboarding checklist.
+3. Pick a role on Overview (or **Change role** in the desktop sidebar / mobile **Menu**) and open its eight-task onboarding checklist.
 4. Select **Open guide** to read the instructions, or **Ask about this task** to prepare a question. Review it and submit when ready.
 5. Open an answer's supporting passage to see the guide and exact version behind it.
 
@@ -41,7 +41,7 @@ Each role has a fictional onboarding guide and eight tasks grouped into **Before
 - **Knowledge you can find:** filter published guides by role and search their titles.
 - **Answers you can inspect:** questions retrieve relevant guide passages, and supported answers link back to their sources.
 - **Room to ask follow-ups:** chat scopes and unfinished questions are kept separately for each role and All roles.
-- **A responsive workspace:** explore on desktop or mobile, with keyboard-accessible controls.
+- **A responsive workspace:** use the desktop sidebar or mobile bottom navigation, open source details alongside chat or in a mobile panel, and explore with keyboard-accessible controls.
 
 This is a retrieval-augmented generation (RAG) app: it finds relevant passages before asking an AI model to answer. The guides provide the evidence; the model turns that evidence into an answer.
 

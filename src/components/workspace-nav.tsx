@@ -8,15 +8,15 @@ export function WorkspaceNav({ admin }: { admin: boolean }) {
         ['/admin', 'Documents'],
         ['/admin/checklists', 'Manage checklists'],
         ['/workspace', 'Learner workspace'],
-        ['/checklist', 'Checklist'],
-        ['/knowledge', 'Knowledge library'],
         ['/chat', 'Ask FirstDay'],
+        ['/knowledge', 'Knowledge library'],
+        ['/checklist', 'Checklist'],
       ]
     : [
         ['/workspace', 'Overview'],
-        ['/checklist', 'Checklist'],
-        ['/knowledge', 'Knowledge library'],
         ['/chat', 'Ask FirstDay'],
+        ['/knowledge', 'Knowledge library'],
+        ['/checklist', 'Checklist'],
       ];
   const activeHref = links
     .filter(
@@ -28,16 +28,26 @@ export function WorkspaceNav({ admin }: { admin: boolean }) {
     .sort(([left], [right]) => right.length - left.length)[0]?.[0];
   return (
     <>
-      {links.map(([href, label]) => {
+      {links.map(([href, label], index) => {
         const active = href === activeHref;
         return (
           <Link
             key={href}
             href={href}
+            aria-label={label}
             className={active ? 'active' : undefined}
             aria-current={active ? 'page' : undefined}
           >
-            {label}
+            <span className="nav-number" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span>
+              {label === 'Knowledge library'
+                ? 'Knowledge'
+                : label === 'Checklist'
+                  ? 'My checklist'
+                  : label}
+            </span>
           </Link>
         );
       })}

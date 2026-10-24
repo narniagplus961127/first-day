@@ -30,6 +30,8 @@ test('administrator keyboard reorders and moves tasks atomically for learners', 
   expect(setup.ok()).toBe(true);
   const baseline = await setup.json();
   await page.goto('/admin/checklists?role=Business%20Analyst');
+  for (const task of await page.locator('.admin-task').all())
+    await task.locator('summary').click();
   await page
     .getByRole('button', { name: 'Move task 2 up', exact: true })
     .focus();
