@@ -497,15 +497,10 @@ textarea {
   max-width: none;
 }
 .native-library-filters > div:first-child {
-  flex: 0 0 206px;
-  order: 2;
+  display: none;
 }
 .native-library-filters > div:nth-child(2) {
-  flex: 1 1 100%;
-  order: 1;
-}
-.native-library-filters > .button {
-  order: 3;
+  flex: 1 1 230px;
 }
 .native-library-filters label {
   position: absolute;
@@ -1193,10 +1188,15 @@ textarea {
     gap: 12px;
   }
   .native-library-filters > div:first-child {
-    flex: 1 1 180px;
+    display: block;
+    flex: 1 1 100%;
+    order: 2;
   }
   .native-library-filters > div:nth-child(2) {
-    flex: 1 1 100%;
+    flex: 1 1 180px;
+  }
+  .native-library-filters > .button {
+    order: 1;
   }
   .native-library-filters .button {
     font-size: 12px;
