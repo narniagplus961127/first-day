@@ -23,4 +23,4 @@ User approved the retrospective improvements and requested a README for visitors
 
 ## Release record
 
-The branch will use the existing Git preview/main-production flow. Exact release identities and final checks belong to its PR record; npm run check:release inspects the current main/production alias. No application behavior, database schema/policy, provider configuration, native design or account was changed in this slice.
+Implementation and verification are complete. [PR #8](https://github.com/narniagplus961127/first-day/pull/8) carries the existing Git preview/main-production release gate results. Preview 3eb8e7b6d9ad160d1eff25a94136c39e33ae2adb is READY as dpl_HDgcDXgQsU3EwGUduSs5X2fSnz2F. Exact final main/production identities belong to the PR record; npm run check:release inspects the current main/production alias. No application behavior, database schema/policy, provider configuration, native design or account was changed in this slice.
