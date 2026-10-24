@@ -6,6 +6,10 @@ A clearer first day for every role. FirstDay brings onboarding guides, practical
 
 The demo uses a fictional company, Lumen, so you can explore without signing up.
 
+![FirstDay desktop Overview with a role selector, eight-task progress, guide count and suggested questions](docs/screenshots/desktop-overview.png)
+
+Choose a role, see your progress and pick up your next onboarding task. Your progress belongs to this browser, so other demo visitors start with their own activity.
+
 ## Try it in a few minutes
 
 1. Open the demo and select **View demo account**.
@@ -34,6 +38,37 @@ Both accounts are available in the login popup. Full editing belongs to a separa
 - HR
 
 Each role has a fictional onboarding guide and eight tasks grouped into **Before you start**, **Day 1** and **Week 1**. All visitors can read every role's published guides.
+
+## See FirstDay in action
+
+### Answers with sources
+
+Ask a question in a role’s chat scope and inspect the evidence behind the answer. The source panel links to the supporting passage and its exact document version. This example answers a question about the fictional Lumen frontend exercise; its command is not a FirstDay setup instruction.
+
+![FirstDay answering a fictional frontend startup question with a supporting guide passage in the Sources panel](docs/screenshots/desktop-chat.png)
+
+### Find the right guide
+
+Use role chips on desktop or the role dropdown on mobile, then search guide titles. Every visitor can browse all five roles’ published onboarding knowledge.
+
+![Knowledge library showing title search, desktop role chips and published onboarding guide cards](docs/screenshots/desktop-knowledge.png)
+
+### Take your next step on mobile
+
+The mobile layout keeps progress and suggested questions within reach. Bottom navigation opens Overview, Ask, Knowledge and Checklist; Menu contains role switching and account actions.
+
+<img src="docs/screenshots/mobile-overview.png" alt="FirstDay mobile Overview showing role selection, progress, suggested questions and fixed bottom navigation" width="300" />
+
+<details>
+<summary>Preview the read-only admin tour</summary>
+
+Explore published documents and checklist management through **Admin demo** in the login popup. The banner identifies this read-only account; uploading, indexing and saving require a private administrator account.
+
+![Read-only admin demo with its access banner, disabled upload action and published document list](docs/screenshots/desktop-admin.png)
+
+</details>
+
+Screenshots show the live fictional demo on October 24, 2026. Published content, counts and generated wording can change. [Screenshot details](docs/screenshots/README.md).
 
 ## What FirstDay demonstrates
 

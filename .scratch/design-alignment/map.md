@@ -42,3 +42,7 @@ Production build, TypeScript, Prettier for affected layout components, repositor
 ## Library filter follow-up — October 24, 2026
 
 User approved removing the duplicate role controls. Desktop now shows role chips and a title search with its Apply filters action; mobile shows the dropdown and title search. The same server form retains the applied role when a desktop title search is submitted. Existing library journeys exercise the visible control for each viewport and assert that the alternate role control is hidden. The four existing desktop/mobile role/title-search journeys passed with the correct control visible per viewport, preserved role/title queries, refresh/reader return and independent chat scope. TypeScript, production build and CRLF/diff checks passed. Hosted results are recorded in this follow-up pull request.
+
+## Visitor README screenshots — October 24, 2026
+
+User requested screenshots and explanations in README files. Added five real live-app captures for desktop Overview, knowledge, a sourced answer, read-only administrator access and mobile Overview. The root README explains each journey; docs/screenshots/README.md records capture context and refresh guidance. Only public demo accounts were used, with one real supported question and no shared-content writes. Native FigCraft design remains unchanged. All five images were visually inspected; PNG dimensions and all 17 local README/image links passed. Total image payload is 550411 bytes. CRLF/repository and diff checks passed. No runtime code or native design changed.
