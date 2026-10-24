@@ -38,3 +38,7 @@ React review checked server/client serialization, hook cleanup, unique native-di
 ## Local completion gate
 
 Production build, TypeScript, Prettier for affected layout components, repository CRLF/ticket checks (257 files), three tooling cases and diff checks passed. The native design Git blob still exactly matches the tracked version; only the app and supporting documentation/tests changed. Hosted verification uses public demo accounts, scoped preview protection access and zero model calls/shared-content writes.
+
+## Library filter follow-up — October 24, 2026
+
+User approved removing the duplicate role controls. Desktop now shows role chips and a title search with its Apply filters action; mobile shows the dropdown and title search. The same server form retains the applied role when a desktop title search is submitted. Existing library journeys exercise the visible control for each viewport and assert that the alternate role control is hidden. The four existing desktop/mobile role/title-search journeys passed with the correct control visible per viewport, preserved role/title queries, refresh/reader return and independent chat scope. TypeScript, production build and CRLF/diff checks passed. Hosted results are recorded in this follow-up pull request.

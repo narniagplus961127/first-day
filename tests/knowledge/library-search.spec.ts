@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { filterDesigner } from './library-support';
 import { execFileSync } from 'node:child_process';
 const origin = 'http://127.0.0.1:3200';
 
@@ -55,8 +56,7 @@ test('title search combines literal mixed-case matches with role and preserves r
   );
   await page.goto('/knowledge');
   await page.getByLabel('Search guide titles').fill('  lUmEn %_  ');
-  await page.getByLabel('Filter guides by role').selectOption('Designer');
-  await page.getByRole('button', { name: 'Apply filters' }).press('Enter');
+  await filterDesigner(page);
   await expect(
     page.getByRole('link', { name: titles[0], exact: true }),
   ).toBeVisible();
@@ -81,8 +81,7 @@ test('title search combines literal mixed-case matches with role and preserves r
   await expect(
     page.getByRole('link', { name: titles[1], exact: true }),
   ).toBeVisible();
-  await page.getByLabel('Filter guides by role').selectOption('Designer');
-  await page.getByRole('button', { name: 'Apply filters' }).click();
+  await filterDesigner(page);
   await page.getByRole('link', { name: 'Clear search', exact: true }).click();
   await expect(page.getByLabel('Filter guides by role')).toHaveValue(
     'Designer',

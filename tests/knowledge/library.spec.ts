@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { filterDesigner } from './library-support';
 import { execFileSync } from 'node:child_process';
 const origin = 'http://127.0.0.1:3200';
 
@@ -55,8 +56,7 @@ test('library role selection survives refresh and reader return without changing
     'Business Analyst',
     'HR',
   ]);
-  await filter.selectOption('Designer');
-  await page.getByRole('button', { name: 'Apply filters' }).press('Enter');
+  await filterDesigner(page);
   await expect(page).toHaveURL(/role=Designer/);
   await expect(
     page.getByRole('link', { name: titles[0], exact: true }),
