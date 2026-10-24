@@ -1,11 +1,12 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { resetDemoActivity } from '@/lib/demo/activity';
 export function ResetDemo({ disabled = false }: { disabled?: boolean }) {
+  const id = useId();
   const dialog = useRef<HTMLDialogElement>(null);
   const [notice, setNotice] = useState('');
   return (
-    <>
+    <div className="reset-control">
       <button
         type="button"
         className="button secondary"
@@ -16,12 +17,12 @@ export function ResetDemo({ disabled = false }: { disabled?: boolean }) {
       </button>
       <dialog
         ref={dialog}
-        aria-labelledby="reset-demo-title"
-        aria-describedby="reset-demo-description"
+        aria-labelledby={id + '-title'}
+        aria-describedby={id + '-description'}
       >
         <span className="section-label">A FRESH START</span>
-        <h2 id="reset-demo-title">Reset this browser’s demo activity?</h2>
-        <p id="reset-demo-description">
+        <h2 id={id + '-title'}>Reset this browser’s demo activity?</h2>
+        <p id={id + '-description'}>
           This clears this browser’s checklist progress, conversations and
           question drafts across all roles and search scopes, including pending
           task questions. Open tabs return to Frontend Developer. You stay
@@ -56,6 +57,6 @@ export function ResetDemo({ disabled = false }: { disabled?: boolean }) {
         </div>
       </dialog>
       {notice ? <p role="status">{notice}</p> : null}
-    </>
+    </div>
   );
 }

@@ -35,10 +35,10 @@ export default async function Knowledge({
         Explore published onboarding guides across all five roles.
       </p>
       <form
+        className="library-filters native-library-filters"
         key={JSON.stringify([role, search.query])}
         action="/knowledge"
         method="get"
-        className="library-filters"
       >
         <div>
           <label htmlFor="library-role">Filter guides by role</label>
@@ -84,6 +84,29 @@ export default async function Knowledge({
           </Link>
         )}
       </form>
+      <nav className="library-role-tabs" aria-label="Guide roles">
+        {[
+          ['', 'All roles'],
+          ...JOB_ROLES.map((value) => [
+            value,
+            value
+              .replace(' Developer', '')
+              .replace('Designer', 'Design')
+              .replace('Business Analyst', 'Business analysis'),
+          ]),
+        ].map(([value, label]) => (
+          <Link
+            key={value}
+            href={libraryHref(
+              JOB_ROLES.find((item) => item === value),
+              search.query,
+            )}
+            aria-current={(role || '') === value ? 'page' : undefined}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
       {query.role && !role && (
         <p className="notice">Unknown role filter. Showing all roles.</p>
       )}
@@ -95,7 +118,7 @@ export default async function Knowledge({
       {search.error ? null : documents.length ? (
         <div className="document-grid">
           {documents.map((d) => (
-            <article className="card" key={d.id}>
+            <article className="card library-card" key={d.id}>
               <span className="badge">{d.job_role}</span>
               <h2>
                 <Link
@@ -107,7 +130,18 @@ export default async function Knowledge({
                   {d.title}
                 </Link>
               </h2>
-              <p className="muted">Ready to explore →</p>
+              <p className="muted">
+                A practical guide to your tools, team habits, and next steps.
+              </p>
+              <Link
+                className="document-link"
+                href={libraryHref(role, search.query).replace(
+                  '/knowledge',
+                  '/knowledge/' + d.id,
+                )}
+              >
+                Read guide →
+              </Link>
             </article>
           ))}
         </div>

@@ -1,0 +1,1526 @@
+/* Native FirstDay desktop and mobile layouts. Keep data and states live. */
+h1,
+h2,
+h3,
+strong,
+.brand,
+.button {
+  font-weight: 600;
+}
+textarea {
+  font-family: inherit;
+}
+.brand {
+  font-size: 23px;
+  letter-spacing: -0.6px;
+}
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  font:
+    600 24px Inter,
+    Arial,
+    sans-serif;
+  flex-shrink: 0;
+}
+.button {
+  min-height: 44px;
+  font-weight: 600;
+}
+.text-button {
+  min-height: 44px;
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.app-layout {
+  grid-template-columns: 248px minmax(0, 1fr);
+}
+.sidebar {
+  padding: 28px 18px;
+  gap: 40px;
+}
+.sidebar > .brand {
+  margin-left: 8px;
+}
+.sidebar-scroll {
+  display: block;
+  scrollbar-gutter: auto;
+}
+.sidebar-caption {
+  display: block;
+  margin: 0 8px 10px;
+  font-size: 11px;
+  letter-spacing: 1.1px;
+  color: var(--muted);
+}
+.role-label {
+  width: 100%;
+  min-height: 62px;
+  padding: 10px 14px;
+  text-align: left;
+  background: var(--canvas);
+}
+.role-picker-trigger strong {
+  font-size: 13px;
+}
+.role-picker-trigger > span {
+  display: flex;
+  justify-content: space-between;
+}
+.role-label span span {
+  margin: 0;
+}
+.nav {
+  margin-top: 26px;
+}
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.nav-number {
+  font-size: 11px;
+  color: var(--muted);
+}
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0;
+  border: 0;
+}
+.sidebar-help {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--canvas);
+}
+.sidebar-help strong {
+  font-size: 13px;
+}
+.sidebar-help p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+.sidebar-footer .reset-control > .button {
+  border: 0;
+  background: transparent;
+  padding: 8px 2px;
+  justify-content: flex-start;
+  font-size: 12px;
+}
+.account-identity {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 8px 0;
+  min-height: 42px;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  background: var(--peach);
+  color: var(--action);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.account-identity strong {
+  font-size: 12px;
+  display: block;
+}
+.account-identity small {
+  display: none;
+}
+.account-identity .button {
+  padding: 0;
+  min-height: 24px;
+  border: 0;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.workspace-header {
+  height: 72px;
+  padding: 0 40px 0 36px;
+}
+.workspace-content {
+  position: relative;
+  padding: 32px 40px 44px 44px;
+  max-width: 1440px;
+}
+.workspace h1 {
+  font-size: 32px;
+  line-height: 1.45;
+  letter-spacing: -1px;
+  margin: 0 0 8px;
+}
+.workspace h1 + .muted {
+  font-size: 15px;
+  margin: 0;
+}
+.workspace-content > .section-label {
+  display: none;
+}
+.workspace-content .reset-control {
+  display: none;
+}
+.workspace-content label[for='overview-role'],
+.workspace-content label[for='checklist-role'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+#overview-role {
+  position: absolute;
+  right: 40px;
+  top: 89px;
+  width: 240px;
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 12px;
+  background: var(--pale);
+}
+#checklist-role {
+  width: 240px;
+  min-height: 44px;
+  margin: 28px 0 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  background: var(--pale);
+}
+.hero {
+  position: relative;
+  margin-top: 34px;
+  padding: 24px 26px;
+  min-height: 200px;
+}
+.hero h2 {
+  font-size: 30px;
+  line-height: 1.45;
+  margin: 16px 0 4px;
+  letter-spacing: -0.9px;
+  max-width: 740px;
+}
+.hero p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+.hero .button {
+  position: absolute;
+  right: 28px;
+  bottom: 32px;
+  min-width: 254px;
+}
+.overview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 26px;
+}
+.overview-stats > .card {
+  margin: 0;
+  padding: 20px;
+  min-height: 140px;
+}
+.overview-stat strong,
+.overview-stats .checklist-progress > p {
+  display: block;
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin: 8px 0;
+}
+.overview-stats small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+.overview-stats .checklist-progress > strong {
+  display: block;
+  font-size: 12px;
+  color: var(--action);
+  margin-bottom: 6px;
+}
+.overview-stats progress {
+  display: block;
+  height: 5px;
+  margin: 0 0 8px;
+}
+.overview-lower {
+  display: grid;
+  grid-template-columns: minmax(0, 670fr) minmax(0, 412fr);
+  gap: 26px;
+  margin-top: 38px;
+  align-items: start;
+}
+.overview-lower > .checklist-stage {
+  margin: 0;
+}
+.overview-lower h2 {
+  font-size: 23px;
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+}
+.overview-lower .muted {
+  font-size: 14px;
+  margin: 0 0 26px;
+}
+.overview-lower .checklist-task {
+  margin: 20px 0;
+  padding: 24px;
+}
+.overview-lower .checklist-task h3 {
+  font-size: 20px;
+  margin: 14px 0 8px;
+}
+.suggested-questions {
+  padding: 24px;
+}
+.suggested-questions h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.suggested-questions > a {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 50px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--action);
+}
+.suggested-questions > a:last-child {
+  border: 0;
+}
+.mobile-bottom-nav,
+.mobile-sources,
+.mobile-login-intro {
+  display: none;
+}
+.role-dialog {
+  width: 544px;
+  padding: 32px;
+}
+.role-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+.role-option {
+  position: relative;
+  text-align: left;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 38px 14px 16px;
+  min-height: 70px;
+  color: var(--ink);
+}
+.role-option strong,
+.role-option span {
+  display: block;
+}
+.role-option strong {
+  font-size: 15px;
+}
+.role-option span {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.role-option[aria-pressed='true'] {
+  border-color: var(--action);
+  background: var(--pale);
+}
+.role-option .role-check {
+  position: absolute;
+  right: 16px;
+  top: 20px;
+  color: var(--action);
+}
+.drawer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.chat-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 736fr) minmax(280px, 348fr);
+  gap: 24px;
+  margin-top: 34px;
+}
+.chat-controls {
+  grid-column: 1/-1;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 30px;
+}
+.chat-controls label,
+.chat-composer label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.chat-controls select {
+  width: 206px;
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 12px;
+  background: var(--pale);
+}
+.chat-controls > p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.chat-controls .scope-shortcut {
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 12px;
+}
+.chat-thread {
+  min-height: 590px;
+  padding: 24px;
+  min-width: 0;
+}
+.chat-thread h2 {
+  font-size: 24px;
+  line-height: 1.45;
+  margin: 26px 0 12px;
+}
+.chat-thread > p {
+  font-size: 15px;
+  color: var(--muted);
+}
+.chat-sources {
+  grid-column: 2;
+  grid-row: 2;
+  padding: 20px;
+  min-width: 0;
+}
+.chat-sources > h2 {
+  font-size: 20px;
+  margin: 0;
+}
+.chat-sources > p {
+  font-size: 12px;
+  margin: 12px 0 20px;
+}
+.source-card {
+  display: block;
+  padding: 16px;
+  margin-top: 16px;
+  overflow-wrap: anywhere;
+}
+.source-card h3 {
+  font-size: 16px;
+  margin: 12px 0 6px;
+}
+.source-card p {
+  font-size: 12px;
+  margin: 6px 0;
+}
+.source-card > span:last-child {
+  font-size: 12px;
+  color: var(--action);
+}
+.chat-composer {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 0;
+  padding: 10px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  min-width: 0;
+}
+.chat-composer textarea {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  min-height: 44px;
+  resize: vertical;
+  border: 0;
+  padding: 10px 12px;
+  font: inherit;
+  background: transparent;
+}
+.chat-composer .button {
+  margin: 0;
+  flex-shrink: 0;
+}
+.chat-layout > .chat-footnote,
+.chat-layout > .notice,
+.chat-layout > .reset-control {
+  grid-column: 1/-1;
+  margin: 0;
+  font-size: 11px;
+}
+.conversation-exchange:first-child {
+  margin-top: 0;
+}
+.question-text {
+  max-width: 90%;
+  margin-left: auto;
+  font-size: 14px;
+}
+.answer h3 {
+  font-size: 20px;
+}
+.native-library-filters {
+  margin-top: 34px;
+  gap: 12px;
+}
+.native-library-filters > div {
+  max-width: none;
+}
+.native-library-filters > div:first-child {
+  flex: 0 0 206px;
+  order: 2;
+}
+.native-library-filters > div:nth-child(2) {
+  flex: 1 1 100%;
+  order: 1;
+}
+.native-library-filters > .button {
+  order: 3;
+}
+.native-library-filters label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.native-library-filters select {
+  min-height: 44px;
+  padding: 9px 12px;
+}
+.library-role-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0 32px;
+}
+.library-role-tabs a {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  font-size: 12px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: white;
+}
+.library-role-tabs [aria-current='page'] {
+  color: var(--action);
+  background: var(--pale);
+  border-color: var(--action);
+}
+.document-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+.library-card {
+  min-height: 224px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.library-card h2 {
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  margin: 16px 0 8px;
+  overflow-wrap: anywhere;
+}
+.library-card p {
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+.library-card > .document-link {
+  margin-top: auto;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+.reader-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 760fr) minmax(240px, 324fr);
+  gap: 24px;
+  align-items: start;
+}
+.reader-article {
+  min-width: 0;
+  padding: 28px;
+}
+.reader-article h1 {
+  font-size: 29px;
+  margin: 20px 0 8px;
+}
+.reader-article > .muted {
+  font-size: 13px;
+}
+.reader-article .markdown-content {
+  margin-top: 30px;
+  padding: 0;
+}
+.reader-toc {
+  position: sticky;
+  top: 24px;
+  padding: 24px;
+}
+.reader-toc h2 {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.reader-toc a:not(.button) {
+  display: block;
+  font-size: 13px;
+  padding: 10px 0;
+  color: var(--muted);
+}
+.reader-toc .button {
+  margin-top: 24px;
+  width: 100%;
+}
+.markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 24px;
+}
+.progress-privacy {
+  font-size: 12px;
+  max-width: 800px;
+  margin: 20px 0;
+}
+.workspace-content > .checklist-progress {
+  margin-top: 24px;
+  padding: 24px;
+  max-width: 100%;
+  min-height: 144px;
+}
+.workspace-content > .checklist-progress p:first-child {
+  font-size: 23px;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.workspace-content > .checklist-stage > h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+.learner-task {
+  position: relative;
+  padding: 18px 20px 18px 60px;
+  margin: 12px 0;
+  min-height: 62px;
+}
+.learner-task h3 {
+  font-size: 16px;
+  margin: 0;
+}
+.learner-task .checklist-instructions {
+  font-size: 13px;
+  margin: 8px 0;
+}
+.learner-task .checklist-completion {
+  position: absolute;
+  left: 18px;
+  top: 8px;
+  width: 32px;
+  min-height: 44px;
+  margin: 0;
+}
+.checklist-completion input {
+  min-height: 22px;
+  margin: 0;
+}
+.learner-task .task-actions {
+  margin-top: 8px;
+  gap: 12px 16px;
+}
+.learner-task .task-actions > a {
+  font-size: 12px;
+}
+.learner-task .task-actions > .button {
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.upload-card {
+  margin-top: 34px;
+  padding: 24px 28px;
+  min-height: 190px;
+}
+.upload-card > .section-label {
+  display: none;
+}
+.upload-card > h2 {
+  font-size: 24px;
+  line-height: 1.4;
+  margin: 0 0 12px;
+}
+.upload-card > p {
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+.upload-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.upload-trigger > span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.upload-dialog .upload-form {
+  margin-top: 20px;
+}
+.upload-dialog h2 {
+  margin-top: 0;
+}
+.knowledge-list > h2 {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.knowledge-list > .muted {
+  font-size: 13px;
+}
+.admin-document-list {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+}
+.admin-document-list .document-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px 140px;
+  align-items: center;
+  gap: 16px;
+  min-height: 74px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 14px 24px;
+}
+.admin-document-list .document-card:last-child {
+  border: 0;
+}
+.admin-document-list .document-card h3 {
+  font-size: 15px;
+  margin: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+.admin-document-list .document-card .badge {
+  grid-column: 2;
+  grid-row: 1;
+  background: transparent;
+  color: var(--muted);
+  padding: 0;
+}
+.admin-document-list .document-link {
+  grid-column: 3;
+  font-size: 12px;
+}
+.admin-checklist-form {
+  margin-top: 28px;
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.admin-task {
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0;
+}
+.admin-task > summary {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  padding: 12px 0;
+  list-style: none;
+  font-size: 15px;
+}
+.admin-task > summary::before {
+  content: '⠿';
+  color: var(--muted);
+}
+.admin-task > summary > span:last-child {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--action);
+}
+.admin-task-body {
+  padding: 8px 12px 24px;
+}
+.admin-checklist-form > .checklist-fields > h2 {
+  font-size: 23px;
+  margin: 0 0 8px;
+}
+.admin-checklist-form > .checklist-fields > .muted {
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.admin-checklist-form .checklist-actions > .button[type='submit'] {
+  background: var(--action);
+  color: white;
+}
+.login-layout {
+  grid-template-columns: 690fr 750fr;
+}
+.welcome-panel {
+  padding: 52px 58px;
+}
+.welcome-copy h1 {
+  font-size: 48px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -1.8px;
+}
+.welcome-copy > p {
+  font-size: 17px;
+  line-height: 1.7;
+}
+.login-content {
+  width: min(100%, 488px);
+}
+.login-content > h2 {
+  font-size: 34px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+.login-content form {
+  margin-top: 36px;
+}
+.login-content input {
+  height: 50px;
+}
+.login-content form > .button {
+  margin-top: 40px;
+}
+.login-content > .full {
+  margin-top: 16px;
+}
+.login-content .hint {
+  font-size: 12px;
+  margin-top: 24px;
+}
+@media (min-width: 651px) and (max-width: 1100px) {
+  .hero h2 {
+    max-width: 100%;
+    font-size: 26px;
+  }
+  .hero .button {
+    position: static;
+    margin-top: 16px;
+    min-width: 0;
+  }
+  .overview-stats {
+    gap: 12px;
+  }
+  .overview-stats .checklist-progress > p,
+  .overview-stat strong {
+    font-size: 20px;
+  }
+  .overview-lower {
+    grid-template-columns: 1fr;
+  }
+  .chat-layout {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 16px;
+  }
+  .document-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .reader-layout {
+    grid-template-columns: 1fr;
+  }
+  .reader-toc {
+    position: static;
+  }
+  .admin-document-list .document-card {
+    grid-template-columns: minmax(0, 1fr) 100px;
+  }
+  .admin-document-list .document-card .badge {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .admin-document-list .document-link {
+    grid-column: 2;
+    grid-row: 1/3;
+  }
+}
+@media (max-width: 650px) {
+  .workspace-header {
+    height: 56px;
+    padding: 16px 20px 0;
+    border: 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .workspace-header > span:first-child {
+    display: none;
+  }
+  .workspace-header > .badge {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+  }
+  .workspace-content {
+    padding: 14px 20px 110px;
+  }
+  .workspace h1 {
+    font-size: 29px;
+    line-height: 1.45;
+    letter-spacing: -0.8px;
+    margin: 0 0 14px;
+  }
+  .workspace h1 + .muted {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .workspace-content:has(.hero) > h1 + .muted {
+    display: none;
+  }
+  .workspace-content .reset-control {
+    display: block;
+    margin-top: 24px;
+  }
+  .mobile-menu {
+    padding: 20px;
+    height: 78px;
+    background: var(--canvas);
+  }
+  .mobile-menu summary {
+    height: 37px;
+    list-style: none;
+  }
+  .mobile-menu summary .brand {
+    padding: 0;
+  }
+  .mobile-menu summary > span {
+    font-size: 14px;
+    color: var(--action);
+  }
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-drawer[open],
+  .sources-dialog[open] {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 20px;
+    border: 0;
+    border-radius: 0;
+  }
+  .mobile-drawer .brand {
+    padding: 0;
+  }
+  .mobile-drawer > .sidebar-caption {
+    margin: 64px 0 22px;
+  }
+  .mobile-drawer > .role-picker-trigger {
+    flex-shrink: 0;
+  }
+  .mobile-drawer nav {
+    display: grid;
+    gap: 0;
+    margin-top: 36px;
+    padding: 0;
+  }
+  .mobile-drawer nav a {
+    min-height: 64px;
+    padding: 16px 4px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .mobile-drawer nav .nav-number {
+    font-size: 12px;
+  }
+  .drawer-footer {
+    margin-top: auto;
+    display: grid;
+    gap: 16px;
+    padding-top: 32px;
+  }
+  .drawer-footer .button {
+    width: 100%;
+  }
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: stretch;
+    min-height: 76px;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .mobile-bottom-nav a {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: 16px 4px;
+    font-size: 11px;
+    min-height: 60px;
+    color: var(--muted);
+  }
+  .mobile-bottom-nav [aria-current='page'] {
+    color: var(--action);
+    font-weight: 600;
+    background: var(--pale);
+  }
+  #overview-role {
+    position: static;
+    width: 240px;
+    max-width: 100%;
+    height: 44px;
+    margin: 12px 0 18px;
+    padding: 9px 12px;
+  }
+  #checklist-role {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  .hero {
+    margin-top: 0;
+    padding: 20px;
+    min-height: 210px;
+  }
+  .hero > .section-label,
+  .hero > p {
+    display: none;
+  }
+  .hero h2 {
+    font-size: 26px;
+    line-height: 1.4;
+    margin: 0;
+    letter-spacing: -0.8px;
+  }
+  .hero h2 span {
+    display: block;
+  }
+  .hero .button {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  .overview-stats {
+    display: block;
+    margin-top: 22px;
+  }
+  .overview-stats > .overview-stat {
+    display: none;
+  }
+  .overview-stats > .checklist-progress {
+    min-height: 136px;
+    padding: 20px;
+  }
+  .overview-stats .checklist-progress > p {
+    font-size: 15px;
+    margin: 12px 0;
+  }
+  .overview-stats .checklist-progress > strong {
+    display: block;
+    font-size: 13px;
+  }
+  .overview-stats progress {
+    display: block;
+    height: 7px;
+    margin-top: 8px;
+  }
+  .overview-stats small {
+    margin-top: 8px;
+    font-size: 11px;
+  }
+  .overview-lower {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 32px;
+  }
+  .overview-lower > * {
+    width: 100%;
+  }
+  .suggested-questions {
+    order: -1;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .suggested-questions h2 {
+    font-size: 20px;
+  }
+  .suggested-questions > a {
+    margin: 12px 0;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: white;
+    min-height: 52px;
+  }
+  .suggested-questions > a:last-child {
+    border: 1px solid var(--line);
+  }
+  .overview-lower .checklist-task {
+    padding: 20px;
+  }
+  .role-dialog {
+    max-height: 90dvh;
+    padding: 24px;
+  }
+  .chat-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+    padding-bottom: 84px;
+  }
+  .chat-controls {
+    padding-right: 90px;
+    display: block;
+  }
+  .chat-controls select {
+    width: 100%;
+    font-size: 11px;
+  }
+  .chat-controls > p,
+  .chat-controls > .scope-shortcut {
+    display: none;
+  }
+  .chat-thread {
+    min-height: 480px;
+    padding: 20px;
+  }
+  .chat-thread h2 {
+    font-size: 22px;
+  }
+  .chat-sources {
+    display: none;
+  }
+  .mobile-sources {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    min-height: 36px;
+  }
+  .chat-composer {
+    position: fixed;
+    bottom: 88px;
+    left: 20px;
+    right: 20px;
+    z-index: 9;
+    gap: 4px;
+    padding: 6px;
+    box-shadow: 0 3px 16px #29251f0a;
+  }
+  .chat-composer textarea {
+    font-size: 13px;
+    padding: 10px 6px;
+  }
+  .chat-composer > .button {
+    font-size: 11px;
+    padding: 9px 10px;
+    max-width: 112px;
+  }
+  .chat-layout > .chat-footnote {
+    font-size: 10px;
+  }
+  .sources-dialog .drawer-heading h2 {
+    margin: 0;
+    font-size: 29px;
+  }
+  .sources-dialog .source-card {
+    margin-top: 20px;
+  }
+  .native-library-filters {
+    margin: 24px 0 20px;
+    gap: 12px;
+  }
+  .native-library-filters > div:first-child {
+    flex: 1 1 180px;
+  }
+  .native-library-filters > div:nth-child(2) {
+    flex: 1 1 100%;
+  }
+  .native-library-filters .button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  .library-role-tabs {
+    display: none;
+  }
+  .document-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .library-card {
+    min-height: 144px;
+    padding: 16px 18px;
+  }
+  .library-card h2 {
+    font-size: 20px;
+    margin: 12px 0 6px;
+  }
+  .library-card p {
+    font-size: 12px;
+  }
+  .library-card > .document-link {
+    min-height: 32px;
+  }
+  .reader-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .reader-article {
+    padding: 20px;
+  }
+  .reader-article h1 {
+    font-size: 26px;
+  }
+  .reader-toc {
+    position: static;
+    order: -1;
+  }
+  .reader-toc nav {
+    display: none;
+  }
+  .reader-toc h2 {
+    display: none;
+  }
+  .reader-toc .button {
+    margin: 0;
+  }
+  .reader-toc {
+    padding: 12px 16px;
+  }
+  .markdown-content p,
+  .markdown-content li {
+    font-size: 14px;
+  }
+  .progress-privacy {
+    font-size: 11px;
+    margin: 16px 0;
+  }
+  .workspace-content > .checklist-progress {
+    min-height: 136px;
+    padding: 20px;
+  }
+  .workspace-content > .checklist-progress p:first-child {
+    font-size: 20px;
+  }
+  .learner-task {
+    padding: 18px 14px 18px 52px;
+  }
+  .learner-task .checklist-completion {
+    left: 14px;
+  }
+  .learner-task h3 {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .learner-task .checklist-instructions {
+    font-size: 12px;
+  }
+  .learner-task .task-actions {
+    gap: 12px 16px;
+  }
+  .upload-card {
+    padding: 20px;
+    margin-top: 24px;
+    min-height: 0;
+  }
+  .upload-card > h2,
+  .upload-card > p,
+  .upload-trigger > span {
+    display: none;
+  }
+  .upload-trigger > .button {
+    width: 100%;
+  }
+  .upload-dialog {
+    padding: 24px;
+  }
+  .admin-document-list {
+    gap: 18px;
+    border: 0;
+    background: transparent;
+    overflow: visible;
+  }
+  .admin-document-list .document-card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    min-height: 102px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .admin-document-list .document-card .badge {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .admin-document-list .document-link {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .admin-checklist-form {
+    padding: 20px;
+    margin-top: 24px;
+  }
+  .admin-task > summary {
+    min-height: 66px;
+    font-size: 13px;
+    gap: 10px;
+  }
+  .admin-task-body {
+    padding: 0 0 20px;
+  }
+  .admin-checklist-form .checklist-actions {
+    gap: 12px;
+  }
+  .admin-checklist-form .checklist-actions > .button {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+  .login-layout {
+    display: block;
+  }
+  .welcome-panel {
+    padding: 28px 24px 0;
+    background: var(--canvas);
+  }
+  .welcome-copy,
+  .welcome-footer {
+    display: none;
+  }
+  .login-panel {
+    display: block;
+    padding: 0 24px 40px;
+  }
+  .login-content {
+    width: 100%;
+    max-width: none;
+  }
+  .login-content > .section-label {
+    display: block;
+    margin-top: 53px;
+    font-size: 11px;
+  }
+  .login-content > h2,
+  .login-content > .muted {
+    display: none;
+  }
+  .mobile-login-intro {
+    display: block;
+  }
+  .mobile-login-intro h1 {
+    font-size: 36px;
+    line-height: 1.45;
+    letter-spacing: -1.2px;
+    margin: 32px 0 14px;
+  }
+  .mobile-login-intro p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .login-content form {
+    margin-top: 42px;
+  }
+  .login-content label {
+    font-size: 12px;
+    margin: 22px 0 8px;
+  }
+  .login-content form > .button {
+    margin-top: 38px;
+  }
+  .login-content > .full {
+    margin-top: 16px;
+  }
+  .login-content > .hint {
+    font-size: 11px;
+    margin-top: 24px;
+  }
+  .admin-hint {
+    font-size: 11px;
+    margin-top: 72px;
+  }
+  .login-layout > dialog {
+    width: 100%;
+    max-width: 100%;
+    margin: auto 0 0;
+    border-radius: 20px 20px 0 0;
+    padding: 28px 24px;
+    max-height: 85dvh;
+  }
+}
+
+.mobile-heading-break {
+  display: none;
+}
+.overview-stats > .checklist-progress {
+  position: relative;
+  min-height: 140px;
+}
+.overview-stats .checklist-progress > strong {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  margin: 0;
+  font-size: 12px;
+}
+.overview-stats .checklist-progress > p {
+  font-size: 24px;
+  margin: 8px 0;
+}
+.overview-stats progress {
+  position: absolute;
+  left: 20px;
+  bottom: 22px;
+  width: calc(100% - 80px);
+  height: 5px;
+  margin: 0;
+}
+.overview-stats .checklist-progress > small {
+  margin: 0 0 8px;
+  font-size: 11px;
+}
+.chat-controls > .scope-shortcut {
+  border: 1px solid var(--line);
+  min-height: 36px;
+  cursor: pointer;
+}
+@media (max-width: 650px) {
+  .workspace-content {
+    padding-top: 20px;
+  }
+  .mobile-heading-break {
+    display: block;
+  }
+  .hero .button {
+    margin-top: 17px;
+  }
+  .overview-stats > .checklist-progress {
+    min-height: 136px;
+  }
+  .overview-stats .checklist-progress > p {
+    font-size: 24px;
+    margin: 12px 0;
+  }
+  .overview-stats .checklist-progress > small.progress-helper {
+    display: none;
+  }
+  .overview-stats .checklist-progress > strong {
+    bottom: 16px;
+  }
+}
+
+@media (min-width: 651px) {
+  .workspace-content:has(.learner-task) > #checklist-role {
+    position: absolute;
+    right: 40px;
+    top: 89px;
+    margin: 0;
+    min-height: 36px;
+    padding: 7px 12px;
+  }
+  .workspace-content:has(.learner-task) > .checklist-progress {
+    margin-top: 34px;
+  }
+}
+@media (max-width: 650px) {
+  .workspace-content:has(.learner-task) > h1 + .muted {
+    display: none;
+  }
+  .workspace-content:has(.learner-task) > #checklist-role {
+    margin-top: 12px;
+  }
+}
+
+.admin-document-list .document-card .document-status {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+  background: var(--pale);
+  color: var(--action);
+  padding: 5px 10px;
+}
+.admin-document-list .document-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+@media (max-width: 1100px) {
+  .admin-document-list .document-card .document-status {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+@media (max-width: 650px) {
+  .admin-document-list .document-card {
+    position: relative;
+  }
+  .admin-document-list .document-card .document-status {
+    grid-column: 1;
+    grid-row: 3;
+    font-size: 10px;
+  }
+}

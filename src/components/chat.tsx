@@ -2,6 +2,7 @@
 import { ActivityStorageNotice } from '@/components/activity-storage-notice';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
+import { ChatSources } from './chat-sources';
 import { ResetDemo } from '@/components/reset-demo';
 import {
   activityGeneration,
@@ -160,6 +161,13 @@ export function Chat() {
     return currentActivity.current;
   }
   const exchanges = conversations[scope] || [];
+  const sources = [
+    ...new Map(
+      (exchanges.at(-1)?.result.claims || [])
+        .flatMap((claim) => claim.citations)
+        .map((source) => [source.versionId + source.id, source]),
+    ).values(),
+  ];
   async function ask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!ready || busy) return;
@@ -225,7 +233,7 @@ export function Chat() {
     }
   }
   return (
-    <section className="card chat-card">
+    <section className="chat-layout">
       <dialog
         ref={suggestionDialog}
         aria-labelledby="replace-draft-title"
@@ -277,7 +285,7 @@ export function Chat() {
           </button>
         </div>
       </dialog>
-      <form onSubmit={ask}>
+      <div className="chat-controls">
         <label htmlFor="chat-scope">Search scope</label>
         <select
           id="chat-scope"
@@ -296,6 +304,76 @@ export function Chat() {
         <p className="muted">
           Current conversation: <strong>{scope}</strong>
         </p>
+        <button
+          type="button"
+          className="badge scope-shortcut"
+          disabled={!ready || busy}
+          aria-pressed={scope === 'All roles'}
+          onClick={() => {
+            setError('');
+            persist({ ...latestActivity(), scope: 'All roles' });
+          }}
+        >
+          All roles
+        </button>
+      </div>
+      <div className="chat-thread card">
+        {!exchanges.length && (
+          <div className="chat-welcome">
+            <span className="badge">FIRSTDAY</span>
+            <h2>A little help, on day one.</h2>
+            <p>
+              Ask about your tools, team guides or next steps. Every supported
+              answer links back to its sources.
+            </p>
+          </div>
+        )}
+
+        {busy ? (
+          <p role="status">
+            Searching your guides and checking the supporting evidence…
+          </p>
+        ) : null}
+        {error ? <p role="alert">{error}</p> : null}
+        {storageNotice ? <p role="status">{storageNotice}</p> : null}
+        {exchanges.map((exchange) => (
+          <section className="conversation-exchange" key={exchange.id}>
+            <p className="question-text">
+              <strong>You:</strong> {exchange.question}
+            </p>
+            <article aria-label="FirstDay answer" className="answer">
+              <span className="section-label">
+                FIRSTDAY · {scope.toUpperCase()}
+              </span>
+              {exchange.result.status === 'no_evidence' ? (
+                <>
+                  <h2>I could not find that in the guides.</h2>
+                  <p>{exchange.result.answer}</p>
+                </>
+              ) : (
+                exchange.result.claims.map((claim, index) => (
+                  <section key={index}>
+                    <p className="answer-text">{claim.text}</p>
+                    <div className="source-links">
+                      {claim.citations.map((source) => (
+                        <Link key={source.id} href={source.href}>
+                          View source: {source.title}
+                          {source.heading ? ' · ' + source.heading : ''}
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                ))
+              )}
+            </article>
+          </section>
+        ))}
+      </div>
+      <ChatSources
+        sources={sources}
+        noEvidence={exchanges.at(-1)?.result.status === 'no_evidence'}
+      />
+      <form className="chat-composer" onSubmit={ask}>
         <label htmlFor="question">Your question</label>
         <textarea
           id="question"
@@ -325,42 +403,6 @@ export function Chat() {
           {busy ? 'Finding guidance…' : 'Ask FirstDay'}
         </button>
       </form>
-      {busy ? (
-        <p role="status">
-          Searching your guides and checking the supporting evidence…
-        </p>
-      ) : null}
-      {error ? <p role="alert">{error}</p> : null}
-      {storageNotice ? <p role="status">{storageNotice}</p> : null}
-      {exchanges.map((exchange) => (
-        <section className="conversation-exchange" key={exchange.id}>
-          <p className="question-text">
-            <strong>You:</strong> {exchange.question}
-          </p>
-          <article aria-label="FirstDay answer" className="answer">
-            <span className="section-label">
-              FIRSTDAY · {scope.toUpperCase()}
-            </span>
-            {exchange.result.status === 'no_evidence' ? (
-              <p>{exchange.result.answer}</p>
-            ) : (
-              exchange.result.claims.map((claim, index) => (
-                <section key={index}>
-                  <p className="answer-text">{claim.text}</p>
-                  <div className="source-links">
-                    {claim.citations.map((source) => (
-                      <Link key={source.id} href={source.href}>
-                        View source: {source.title}
-                        {source.heading ? ' · ' + source.heading : ''}
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              ))
-            )}
-          </article>
-        </section>
-      ))}
       <p className="muted chat-footnote">
         When browser storage is available, demo conversations and unfinished
         question drafts stay in this browser, separately for each search scope.

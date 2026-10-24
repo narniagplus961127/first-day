@@ -1,6 +1,8 @@
 'use client';
 import { ActivityStorageNotice } from '@/components/activity-storage-notice';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { beginTaskQuestion } from '@/lib/demo/task-question';
 import { ResetDemo } from '@/components/reset-demo';
 import { subscribeDemoReset } from '@/lib/demo/activity';
 import { useEffect, useState } from 'react';
@@ -15,7 +17,19 @@ import {
   type OnboardingRole,
 } from '@/lib/demo/checklists';
 
-export function LearnerOverview() {
+export function LearnerOverview({ guideCount }: { guideCount?: number }) {
+  const router = useRouter();
+  useEffect(() => {
+    const sync = () => {
+      try {
+        setActivity(loadChecklistActivity());
+      } catch {
+        /* Existing storage notice explains the fallback. */
+      }
+    };
+    window.addEventListener('firstday-onboarding-role', sync);
+    return () => window.removeEventListener('firstday-onboarding-role', sync);
+  }, []);
   const [activity, setActivity] = useState<ChecklistActivity>(
     emptyChecklistActivity,
   );
@@ -97,7 +111,10 @@ export function LearnerOverview() {
   const checklistHref = '/checklist?role=' + encodeURIComponent(activity.role);
   return (
     <>
-      <h1>Your first day, a little clearer.</h1>
+      <h1>
+        Your first day,
+        <br className="mobile-heading-break" /> a little clearer.
+      </h1>
       <p className="muted">
         Welcome in. Here is your {activity.role} onboarding path.
       </p>
@@ -125,21 +142,20 @@ export function LearnerOverview() {
       </select>
       <section className="hero">
         <span className="section-label">YOUR NEXT CHAPTER</span>
-        <h2>Settle in. Then build something great.</h2>
+        <h2>
+          Settle in.<span> Then build something great.</span>
+        </h2>
         <p>A few small steps will help you feel right at home.</p>
-        <Link className="button" href={checklistHref}>
+        <Link className="button primary" href={checklistHref}>
           Continue onboarding →
         </Link>
       </section>
       <ActivityStorageNotice />
-      <div className="overview-actions">
-        <ResetDemo disabled={!ready} />
-      </div>
-      {notice ? (
+      {notice && (
         <p role="status" className="notice">
           {notice}
         </p>
-      ) : null}
+      )}
       {error ? (
         <div role="alert" className="notice">
           <p>{error}</p>
@@ -152,79 +168,118 @@ export function LearnerOverview() {
         </div>
       ) : !current ? (
         <p role="status">Loading your checklist…</p>
-      ) : current.tasks.length ? (
+      ) : (
         <>
-          <section
-            className="card checklist-progress"
-            aria-label="Checklist progress"
-          >
-            <span className="section-label">YOUR PROGRESS</span>
-            <p>
-              {count} of {current.tasks.length} tasks complete
-            </p>
-            <strong>{Math.round((count / current.tasks.length) * 100)}%</strong>
-            <progress
-              aria-label="Onboarding completion"
-              value={count}
-              max={current.tasks.length}
-            />
-          </section>
-          {next.length ? (
-            <section aria-label="Next steps" className="checklist-stage">
+          <div className="overview-stats">
+            <section
+              className="card checklist-progress"
+              aria-label="Checklist progress"
+            >
+              <span className="section-label">YOUR PROGRESS</span>
+              <p>
+                {count} of {current.tasks.length} tasks complete
+              </p>
+              {current.tasks.length > 0 && (
+                <>
+                  <strong>
+                    {current.tasks.length
+                      ? Math.round((count / current.tasks.length) * 100)
+                      : 0}
+                    %
+                  </strong>
+                  <progress
+                    aria-label="Onboarding completion"
+                    value={count}
+                    max={current.tasks.length}
+                  />
+                </>
+              )}
+              <small
+                className={current.tasks.length ? 'progress-helper' : undefined}
+              >
+                {current.tasks.length
+                  ? count === current.tasks.length
+                    ? 'All steps complete.'
+                    : 'A steady start. Keep going.'
+                  : 'Coming soon. This role’s checklist has not been prepared yet.'}
+              </small>
+            </section>
+            <Link href="/knowledge" className="card overview-stat">
+              <span className="section-label">YOUR KNOWLEDGE</span>
+              <strong>
+                {guideCount === undefined
+                  ? 'Team guides'
+                  : guideCount + ' guides'}
+              </strong>
+              <small>Everything you need, in one place.</small>
+            </Link>
+            <Link href="/chat" className="card overview-stat">
+              <span className="section-label">YOUR COMPANION</span>
+              <strong>Ask FirstDay</strong>
+              <small>No question is too small.</small>
+            </Link>
+          </div>
+          <div className="overview-lower">
+            <section
+              aria-label={next.length ? 'Next steps' : undefined}
+              className="checklist-stage"
+            >
               <h2>Pick up where you left off</h2>
               <p className="muted">Your role, your pace.</p>
-              {next.map((task) => (
-                <article className="card checklist-task" key={task.id}>
-                  <span className="section-label">UP NEXT · {task.stage}</span>
+              {next.length ? (
+                next.map((task) => (
+                  <article className="card checklist-task" key={task.id}>
+                    <span className="badge">UP NEXT · {task.stage}</span>
+                    <h3>
+                      <Link href={checklistHref + '#task-' + task.id}>
+                        {task.title}
+                      </Link>
+                    </h3>
+                    <p>Follow the guide and check it off when you are ready.</p>
+                  </article>
+                ))
+              ) : (
+                <section className="card">
                   <h3>
-                    <Link href={checklistHref + '#task-' + task.id}>
-                      {task.title}
-                    </Link>
+                    {current.tasks.length
+                      ? 'Well done. You have completed this checklist.'
+                      : 'Your next chapter is on its way.'}
                   </h3>
-                </article>
-              ))}
+                  <Link href="/knowledge">Explore guides</Link> or{' '}
+                  <Link href="/chat">Keep asking FirstDay</Link>.
+                </section>
+              )}
             </section>
-          ) : (
-            <section className="card checklist-progress">
-              <h2>Well done. You have completed this checklist.</h2>
-              <p>Keep exploring at your own pace.</p>
-              <p>
-                <Link href="/knowledge">Explore guides</Link> or{' '}
-                <Link href="/chat">Keep asking FirstDay</Link>.
-              </p>
-            </section>
-          )}
+            <aside className="card suggested-questions">
+              <h2>Wondering where to start?</h2>
+              {current.tasks
+                .filter((task) => task.suggestedQuestion)
+                .slice(0, 3)
+                .map((task) => (
+                  <Link
+                    key={task.id}
+                    href="/chat"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      let href = '/chat?taskIntent=unavailable';
+                      try {
+                        href = beginTaskQuestion(activity.role, task.id);
+                      } catch {
+                        /* Chat explains an unavailable handoff. */
+                      }
+                      router.push(href);
+                    }}
+                  >
+                    {task.suggestedQuestion} <span aria-hidden="true">→</span>
+                  </Link>
+                ))}
+              <Link href="/knowledge">Explore your guides →</Link>
+            </aside>
+          </div>
         </>
-      ) : (
-        <p className="notice">
-          Coming soon. This role’s checklist has not been prepared yet.
-        </p>
       )}
-      <div className="cards">
-        <section className="card">
-          <span className="section-label">YOUR KNOWLEDGE</span>
-          <h3>Team guides</h3>
-          <p>
-            Explore published guides across every role to help you get started.
-          </p>
-          <Link href="/knowledge">Browse knowledge →</Link>
-        </section>
-        <section className="card">
-          <span className="section-label">YOUR COMPANION</span>
-          <h3>A little guidance</h3>
-          <p>
-            Ask onboarding questions and inspect the sources behind each answer.
-          </p>
-          <Link href="/chat">Ask FirstDay →</Link>
-        </section>
-        <section className="card">
-          <span className="section-label">YOUR PACE</span>
-          <h3>Room to explore</h3>
-          <p>
-            Your progress stays in this browser, separate from other visitors.
-            Clearing browser data loses your progress.
-          </p>
-        </section>
+      <div className="overview-actions">
+        <ResetDemo disabled={!ready} />
       </div>
     </>
   );

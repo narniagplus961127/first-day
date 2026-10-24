@@ -102,10 +102,12 @@ export function LearnerChecklist({
   return (
     <>
       <span className="section-label">YOUR ONBOARDING PATH</span>
-      <h1>Your onboarding checklist.</h1>
+      <h1>
+        Small steps.
+        <br className="mobile-heading-break" /> A strong start.
+      </h1>
       <p className="muted">
-        Explore the onboarding steps for any role. Stages suggest a sequence,
-        not deadlines.
+        Your {initial.job_role.toLowerCase()} onboarding checklist.
       </p>
       <label htmlFor="checklist-role">Job role</label>
       <select
@@ -129,13 +131,7 @@ export function LearnerChecklist({
           <option key={role}>{role}</option>
         ))}
       </select>
-      <p className="muted">
-        When browser storage is available, your progress stays in this browser.
-        Other visitors using the demo account cannot see it. Clearing browser
-        data loses your progress. Use Reset demo to start again.
-      </p>
       <ActivityStorageNotice />
-      <ResetDemo disabled={!ready} />
       {notice ? (
         <p role="status" className="notice">
           {notice}
@@ -177,7 +173,7 @@ export function LearnerChecklist({
             <h2>{stage}</h2>
             {tasks.map((task) => (
               <article
-                className="card checklist-task"
+                className="card checklist-task learner-task"
                 key={task.id}
                 id={'task-' + task.id}
               >
@@ -258,13 +254,21 @@ export function LearnerChecklist({
                       }
                     }}
                   />
-                  {completed.has(task.id) ? 'Complete' : 'Mark complete'}
+                  <span className="sr-only">
+                    {completed.has(task.id) ? 'Complete' : 'Mark complete'}
+                  </span>
                 </label>
               </article>
             ))}
           </section>
         ) : null;
       })}
+      <p className="muted progress-privacy">
+        When browser storage is available, your progress stays in this browser.
+        Other visitors using the demo account cannot see it. Clearing browser
+        data loses your progress. Use Reset demo to start again.
+      </p>
+      <ResetDemo disabled={!ready} />
     </>
   );
 }

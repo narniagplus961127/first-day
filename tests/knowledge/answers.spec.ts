@@ -43,10 +43,23 @@ test('learner asks about setup and opens its exact evidence passage', async ({
   await expect(page.getByLabel('FirstDay answer').last()).toContainText(
     'npm run dev:firstday',
   );
-  await page
-    .getByRole('link', { name: /View source/ })
-    .first()
-    .click();
+  await expect(
+    page.getByRole('link', { name: /View source/ }).first(),
+  ).toBeVisible();
+  if (await page.getByRole('button', { name: 'Sources ↗' }).isVisible()) {
+    await page.getByRole('button', { name: 'Sources ↗' }).click();
+    await page
+      .getByRole('dialog', { name: 'Sources', exact: true })
+      .getByRole('link', { name: new RegExp(marker) })
+      .first()
+      .click();
+  } else {
+    await page
+      .getByRole('complementary', { name: 'Answer sources' })
+      .getByRole('link', { name: new RegExp(marker) })
+      .first()
+      .click();
+  }
   await expect(
     page.getByRole('heading', { name: marker, level: 1 }),
   ).toBeVisible();

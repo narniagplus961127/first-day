@@ -17,6 +17,27 @@ function historyIndex(): number | undefined {
     ? index
     : undefined;
 }
+function TaskDisclosure({
+  initiallyOpen,
+  label,
+  children,
+}: {
+  initiallyOpen: boolean;
+  label: string;
+  children: React.ReactNode;
+}) {
+  // Keep the initial attribute stable; the browser owns subsequent disclosure toggles.
+  const [initialOpen] = useState(initiallyOpen);
+  return (
+    <details
+      open={initialOpen || undefined}
+      className="card checklist-task admin-task"
+      aria-label={label}
+    >
+      {children}
+    </details>
+  );
+}
 export function ChecklistView({
   initial,
   guides = [],
@@ -27,7 +48,11 @@ export function ChecklistView({
   guides?: { id: string; title: string }[];
 }) {
   const router = useRouter();
-  const [tasks, setTasks] = useState<ChecklistTaskInput[]>(initial.tasks);
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  const [tasks, setTasks] = useState<
+    (ChecklistTaskInput & { draftKey?: string })[]
+  >(initial.tasks);
   const [revision, setRevision] = useState(initial.revision);
   const [dirty, setDirty] = useState(false);
   const [pending, setPending] = useState(false);
@@ -163,7 +188,10 @@ export function ChecklistView({
           : JSON.stringify({
               jobRole: initial.job_role,
               expectedRevision: revision,
-              tasks: tasks.map((task, position) => ({ ...task, position })),
+              tasks: tasks.map(({ draftKey, ...task }, position) => ({
+                ...task,
+                position,
+              })),
             }),
       });
       const result = await response.json();
@@ -229,15 +257,15 @@ export function ChecklistView({
   return (
     <>
       <span className="section-label">CHECKLIST MANAGEMENT</span>
-      <h1>Shape a good first day.</h1>
+      <h1>A clear path for every role.</h1>
       <p className="muted">
-        Define clear actions for each role, then save the complete checklist.
+        Create the small steps that help new joiners feel at home.
       </p>
       <label htmlFor="checklist-role">Job role</label>
       <select
         id="checklist-role"
         value={initial.job_role}
-        disabled={pending}
+        disabled={!ready || pending}
         onChange={(event) => {
           if (dirty && !window.confirm('Discard unsaved checklist changes?'))
             return;
@@ -288,140 +316,159 @@ export function ChecklistView({
         </p>
       ) : null}
       <form
+        className="admin-checklist-form"
         onSubmit={(event) => {
           event.preventDefault();
           void save();
         }}
       >
-        <fieldset disabled={pending || readOnly} className="checklist-fields">
+        <fieldset
+          disabled={!ready || pending || readOnly}
+          className="checklist-fields"
+        >
           <legend className="sr-only">Checklist tasks</legend>
+          <h2>{initial.job_role} / First week</h2>
+          <p className="muted">
+            {tasks.length} tasks · A clear path, one step at a time.
+          </p>
           {tasks.map((task, index) => (
-            <section
-              className="card checklist-task"
-              key={task.id || `new-${index}`}
-              aria-label={`Task ${index + 1}`}
+            <TaskDisclosure
+              initiallyOpen={tasks.length === 1 || Boolean(task.draftKey)}
+              key={task.id || task.draftKey}
+              label={`Task ${index + 1}`}
             >
-              <h2>Task {index + 1}</h2>
-              <label htmlFor={`task-title-${index}`}>Task title</label>
-              <input
-                id={`task-title-${index}`}
-                required
-                maxLength={120}
-                value={task.title}
-                onChange={(event) => edit(index, { title: event.target.value })}
-              />
-              <label htmlFor={`task-stage-${index}`}>Stage</label>
-              <select
-                id={`task-stage-${index}`}
-                value={task.stage}
-                onChange={(event) =>
-                  moveStage(
-                    index,
-                    event.target.value as (typeof STAGES)[number],
-                  )
-                }
-              >
-                {STAGES.map((stage) => (
-                  <option key={stage}>{stage}</option>
-                ))}
-              </select>
-              <label htmlFor={`task-instructions-${index}`}>Instructions</label>
-              <textarea
-                id={`task-instructions-${index}`}
-                maxLength={2000}
-                rows={3}
-                value={task.instructions}
-                onChange={(event) =>
-                  edit(index, { instructions: event.target.value })
-                }
-              />
-              <label htmlFor={`task-question-${index}`}>
-                Suggested question
-              </label>
-              <textarea
-                id={`task-question-${index}`}
-                maxLength={1000}
-                rows={3}
-                value={task.suggestedQuestion || ''}
-                onChange={(event) =>
-                  edit(index, {
-                    suggestedQuestion: event.target.value || null,
-                  })
-                }
-              />
-              <p className="muted">
-                Optional. Learners review and submit this question themselves.
-              </p>
-              <label htmlFor={`task-guide-${index}`}>Guide</label>
-              <select
-                id={`task-guide-${index}`}
-                value={task.guideId || ''}
-                onChange={(event) =>
-                  edit(index, { guideId: event.target.value || null })
-                }
-              >
-                <option value="">No guide</option>
-                {task.guideId &&
-                !guides.some((guide) => guide.id === task.guideId) ? (
-                  <option value={task.guideId}>
-                    Guide unavailable — remove or choose another
-                  </option>
-                ) : null}
-                {guides.map((guide) => (
-                  <option key={guide.id} value={guide.id}>
-                    {guide.title}
-                  </option>
-                ))}
-              </select>
-              <p className="muted">
-                Only published guides for this role can be attached.
-              </p>
-              <div
-                className="checklist-order-actions"
-                role="group"
-                aria-label={`Order task ${index + 1}`}
-              >
+              <summary tabIndex={ready ? 0 : -1} aria-disabled={!ready}>
+                <span>{task.title || 'New task'}</span>
+                <span>
+                  Edit <span className="sr-only">task {index + 1}</span>
+                </span>
+              </summary>
+              <div className="admin-task-body">
+                <label htmlFor={`task-title-${index}`}>Task title</label>
+                <input
+                  id={`task-title-${index}`}
+                  required
+                  maxLength={120}
+                  value={task.title}
+                  onChange={(event) =>
+                    edit(index, { title: event.target.value })
+                  }
+                />
+                <label htmlFor={`task-stage-${index}`}>Stage</label>
+                <select
+                  id={`task-stage-${index}`}
+                  value={task.stage}
+                  onChange={(event) =>
+                    moveStage(
+                      index,
+                      event.target.value as (typeof STAGES)[number],
+                    )
+                  }
+                >
+                  {STAGES.map((stage) => (
+                    <option key={stage}>{stage}</option>
+                  ))}
+                </select>
+                <label htmlFor={`task-instructions-${index}`}>
+                  Instructions
+                </label>
+                <textarea
+                  id={`task-instructions-${index}`}
+                  maxLength={2000}
+                  rows={3}
+                  value={task.instructions}
+                  onChange={(event) =>
+                    edit(index, { instructions: event.target.value })
+                  }
+                />
+                <label htmlFor={`task-question-${index}`}>
+                  Suggested question
+                </label>
+                <textarea
+                  id={`task-question-${index}`}
+                  maxLength={1000}
+                  rows={3}
+                  value={task.suggestedQuestion || ''}
+                  onChange={(event) =>
+                    edit(index, {
+                      suggestedQuestion: event.target.value || null,
+                    })
+                  }
+                />
+                <p className="muted">
+                  Optional. Learners review and submit this question themselves.
+                </p>
+                <label htmlFor={`task-guide-${index}`}>Guide</label>
+                <select
+                  id={`task-guide-${index}`}
+                  value={task.guideId || ''}
+                  onChange={(event) =>
+                    edit(index, { guideId: event.target.value || null })
+                  }
+                >
+                  <option value="">No guide</option>
+                  {task.guideId &&
+                  !guides.some((guide) => guide.id === task.guideId) ? (
+                    <option value={task.guideId}>
+                      Guide unavailable — remove or choose another
+                    </option>
+                  ) : null}
+                  {guides.map((guide) => (
+                    <option key={guide.id} value={guide.id}>
+                      {guide.title}
+                    </option>
+                  ))}
+                </select>
+                <p className="muted">
+                  Only published guides for this role can be attached.
+                </p>
+                <div
+                  className="checklist-order-actions"
+                  role="group"
+                  aria-label={`Order task ${index + 1}`}
+                >
+                  <button
+                    type="button"
+                    className="button secondary"
+                    aria-label={`Move task ${index + 1} up`}
+                    disabled={
+                      !tasks
+                        .slice(0, index)
+                        .some((entry) => entry.stage === task.stage)
+                    }
+                    onClick={() => reorder(index, -1)}
+                  >
+                    Move up
+                  </button>
+                  <button
+                    type="button"
+                    className="button secondary"
+                    aria-label={`Move task ${index + 1} down`}
+                    disabled={
+                      !tasks
+                        .slice(index + 1)
+                        .some((entry) => entry.stage === task.stage)
+                    }
+                    onClick={() => reorder(index, 1)}
+                  >
+                    Move down
+                  </button>
+                </div>
                 <button
                   type="button"
                   className="button secondary"
-                  aria-label={`Move task ${index + 1} up`}
-                  disabled={
-                    !tasks
-                      .slice(0, index)
-                      .some((entry) => entry.stage === task.stage)
-                  }
-                  onClick={() => reorder(index, -1)}
+                  onClick={() => {
+                    setTasks((previous) =>
+                      previous.filter((_, i) => i !== index),
+                    );
+                    setDirty(true);
+                    setMessage('');
+                  }}
                 >
-                  Move up
-                </button>
-                <button
-                  type="button"
-                  className="button secondary"
-                  aria-label={`Move task ${index + 1} down`}
-                  disabled={
-                    !tasks
-                      .slice(index + 1)
-                      .some((entry) => entry.stage === task.stage)
-                  }
-                  onClick={() => reorder(index, 1)}
-                >
-                  Move down
+                  Remove task {index + 1}
                 </button>
               </div>
-              <button
-                type="button"
-                className="button secondary"
-                onClick={() => {
-                  setTasks((previous) =>
-                    previous.filter((_, i) => i !== index),
-                  );
-                  setDirty(true);
-                  setMessage('');
-                }}
-              >
-                Remove task {index + 1}
-              </button>
-            </section>
+            </TaskDisclosure>
           ))}
           <div className="checklist-actions">
             <button
@@ -429,9 +476,15 @@ export function ChecklistView({
               className="button secondary"
               disabled={tasks.length >= 40}
               onClick={() => {
+                const id = crypto.randomUUID();
                 setTasks((previous) => [
                   ...previous,
-                  { title: '', stage: 'Before you start', instructions: '' },
+                  {
+                    draftKey: id,
+                    title: '',
+                    stage: 'Before you start',
+                    instructions: '',
+                  },
                 ]);
                 setDirty(true);
                 setMessage('');

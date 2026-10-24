@@ -7,10 +7,9 @@ export default async function ChatPage() {
   return (
     <WorkspaceShell user={user}>
       <span className="section-label">YOUR ONBOARDING COMPANION</span>
-      <h1>A little guidance, backed by your team.</h1>
+      <h1>A little guidance goes a long way.</h1>
       <p className="muted">
-        Ask about the published guides and explore the passages behind each
-        answer.
+        Ask a question. Get an answer grounded in your onboarding documents.
       </p>
       <Chat />
     </WorkspaceShell>

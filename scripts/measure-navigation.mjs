@@ -18,7 +18,7 @@ try {
     .waitFor();
   const routes = [
     ['/knowledge', 'Knowledge library', 'Find your next step.'],
-    ['/chat', 'Ask FirstDay', 'A little guidance, backed by your team.'],
+    ['/chat', 'Ask FirstDay', 'A little guidance goes a long way.'],
     ['/workspace', 'Overview', 'Your first day, a little clearer.'],
   ];
   for (let cycle = 0; cycle < 2; cycle++) {
