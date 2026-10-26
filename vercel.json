@@ -3,7 +3,11 @@
   "git": {
     "deploymentEnabled": true
   },
-  "regions": [
-    "sin1"
+  "regions": ["sin1"],
+  "crons": [
+    {
+      "path": "/api/cron/supabase",
+      "schedule": "17 1 * * *"
+    }
   ]
 }
